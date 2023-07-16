@@ -34,3 +34,5 @@ build/
 
 ### Environment ###
 src/main/resources/.env.properties
+
+.DS_Store
