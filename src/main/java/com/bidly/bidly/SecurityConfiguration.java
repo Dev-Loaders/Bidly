@@ -7,8 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration {
 
     @Bean
@@ -20,7 +20,7 @@ public class SecurityConfiguration {
                 )
                 .oauth2Login(withDefaults())
                 .cors(withDefaults())
-                .oauth2ResourceServer(it -> it.jwt(withDefaults()))
+//                .oauth2ResourceServer(it -> it.jwt(withDefaults()))
                 .build();
     }
 }
