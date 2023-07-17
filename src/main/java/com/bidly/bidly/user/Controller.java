@@ -1,12 +1,11 @@
 package com.bidly.bidly.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/")
-@CrossOrigin(origins = "bodly.vercel.app")
+@RequestMapping()
+@CrossOrigin(origins = "*")
 public class Controller {
 
     private final BidlyService service;
@@ -16,12 +15,17 @@ public class Controller {
         this.service = service;
     }
 
-    @GetMapping("hello")
+    @GetMapping()
+    public String returnHome() {
+        return "home";
+    }
+
+    @GetMapping("/api/hello")
     public String getHello() {
         return "hello";
     }
 
-    @GetMapping("user")
+    @GetMapping("/api/user")
     public BidlyUser getUser() {
         return service.getUser(1L);
     }
