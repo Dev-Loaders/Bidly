@@ -5,8 +5,8 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/")
-@CrossOrigin(origins = "bodly.vercel.app")
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
 public class Controller {
 
     private final BidlyService service;
@@ -21,7 +21,7 @@ public class Controller {
         return "hello";
     }
 
-    @GetMapping("user")
+    @GetMapping()
     public BidlyUser getUser() {
         return service.getUser(1L);
     }

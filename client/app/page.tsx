@@ -5,7 +5,7 @@ export default async function Home() {
   return (
     <main>
       <h1>Welcome to Bidly</h1>
-      <a href={`https://bidly-app.azurewebsites.net/login`} type="button">Create Account</a>
+      <a href={`https://bidly-app.azurewebsites.net/login`}>Create Account</a>
     </main>
   )
 }
