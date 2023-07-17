@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/")
-@CrossOrigin(origins = "bodly.vercel.app")
+@CrossOrigin(origins = "bidly.vercel.app")
 public class Controller {
 
     private final BidlyService service;
