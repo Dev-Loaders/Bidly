@@ -1,15 +1,25 @@
 package com.bidly.bidly;
 
+import com.bidly.bidly.user.BidlyService;
+import com.bidly.bidly.user.BidlyUser;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.ActiveProfiles;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application-test.properties")
+@ActiveProfiles("test")
 class BidlyApplicationTests {
 
+    @Autowired
+    BidlyService service;
+
     @Test
-    void contextLoads() {
+    void serviceTest() {
+        BidlyUser var = service.getUser(1L);
+        assertNotEquals(var, 1L);
+
     }
 
 }
