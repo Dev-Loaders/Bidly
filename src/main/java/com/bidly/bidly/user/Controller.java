@@ -5,7 +5,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
 public class Controller {
 
@@ -21,7 +21,7 @@ public class Controller {
         return "hello";
     }
 
-    @GetMapping("user")
+    @GetMapping()
     public BidlyUser getUser() {
         return service.getUser(1L);
     }
