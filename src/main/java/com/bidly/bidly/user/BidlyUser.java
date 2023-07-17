@@ -1,6 +1,9 @@
 package com.bidly.bidly.user;
 
+import com.bidly.bidly.job.Job;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "bidly_user")
@@ -15,6 +18,8 @@ public class BidlyUser {
     private String fullName;
     @Column(name = "email")
     private String email;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Job> jobs;
 
     public BidlyUser() {
 
