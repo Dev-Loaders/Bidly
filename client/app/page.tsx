@@ -25,7 +25,8 @@ export default async function Home() {
   return (
     <main>
       <div>{str}</div>
-      <div>{user}</div>
+      <div>{user.fullName}</div>
+      <div>{user.email}</div>
     </main>
   )
 }
