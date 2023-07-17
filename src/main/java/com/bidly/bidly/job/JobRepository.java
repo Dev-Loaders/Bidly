@@ -13,4 +13,8 @@ public class JobRepository {
     public JobRepository(JpaJobRepository repo) {
         this.repo = repo;
     }
+
+    public Iterable<Job> getAllJobs() {
+        return repo.findAll();
+    }
 }

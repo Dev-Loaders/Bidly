@@ -1,2 +1,4 @@
-package com.bidly.bidly.job;public class JobControllerTest {
+package com.bidly.bidly.job;
+
+public class JobControllerTest {
 }

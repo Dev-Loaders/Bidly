@@ -1,10 +1,11 @@
 package com.bidly.bidly.job;
 
-import com.bidly.bidly.user.BidlyUser;
-import com.bidly.bidly.user.BidlyUserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -17,6 +18,9 @@ public class JobService {
         this.jobRepo = jobRepo;
     }
 
-    public BidlyUser getAllJobs() {
+    public List<Job> getAllJobs() {
+        List jobs = new ArrayList<>();
+        jobRepo.getAllJobs().forEach(jobs::add);
+        return jobs;
     }
 }
