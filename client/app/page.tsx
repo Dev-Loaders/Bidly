@@ -1,21 +1,21 @@
 import Image from 'next/image'
 
 const getHello = async () => {
-  // const response = await fetch('http://localhost:8080/api/hello');
-  // if (!response.ok) {
-  //   throw new Error("Could not fetch");
-  // }
-  // const text = await response.text();
-  // return text;
+  const response = await fetch('https://bidly-app.azurewebsites.net/api/hello');
+  if (!response.ok) {
+    throw new Error("Could not fetch");
+  }
+  const text = await response.text();
+  return text;
 }
 
 const getUser = async () => {
-  // const response = await fetch('http://localhost:8080/api/user');
-  // if (!response.ok) {
-  //   throw new Error("Could not fetch");
-  // }
-  // const text = await response.text();
-  // return text;
+  const response = await fetch('https://bidly-app.azurewebsites.net/api/user');
+  if (!response.ok) {
+    throw new Error("Could not fetch");
+  }
+  const text = await response.text();
+  return text;
 }
 
 export default async function Home() {
@@ -24,8 +24,8 @@ export default async function Home() {
 
   return (
     <main>
-      {/* <div>{str}</div>
-      <div>{user}</div> */}
+      <div>{str}</div>
+      <div>{user}</div>
     </main>
   )
 }
