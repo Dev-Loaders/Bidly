@@ -20,12 +20,12 @@ public class Controller {
         return "home";
     }
 
-    @GetMapping("/hello")
+    @GetMapping("hello")
     public String getHello() {
         return "hello";
     }
 
-    @GetMapping("/user")
+    @GetMapping("user")
     public BidlyUser getUser() {
         return service.getUser(1L);
     }
