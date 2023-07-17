@@ -29,7 +29,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -62,7 +61,6 @@
 			<artifactId>azure-webapp-maven-plugin</artifactId>
 			<version>2.11.1</version>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<plugins>
@@ -96,7 +94,6 @@
 					</deployment>
 				</configuration>
 			</plugin>
-
 		</plugins>
 
 	</build>

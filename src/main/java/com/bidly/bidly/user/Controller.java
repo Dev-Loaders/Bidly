@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/api/")
 @CrossOrigin(origins = "*")
 public class Controller {
 
@@ -20,12 +20,12 @@ public class Controller {
         return "home";
     }
 
-    @GetMapping("/api/hello")
+    @GetMapping("/hello")
     public String getHello() {
         return "hello";
     }
 
-    @GetMapping("/api/user")
+    @GetMapping("/user")
     public BidlyUser getUser() {
         return service.getUser(1L);
     }
