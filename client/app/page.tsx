@@ -14,8 +14,8 @@ const getUser = async () => {
   if (!response.ok) {
     throw new Error("Could not fetch");
   }
-  const text = await response.text();
-  return text;
+  const json = await response.json();
+  return json;
 }
 
 export default async function Home() {
