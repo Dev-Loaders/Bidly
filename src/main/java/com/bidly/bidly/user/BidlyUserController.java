@@ -21,8 +21,10 @@ public class BidlyUserController {
         return "hello";
     }
 
-    @GetMapping()
-    public BidlyUser getUser() {
-        return service.getUser(1L);
+    @GetMapping(path = "{userId}")
+    public BidlyUser getUserByJwtId(@PathVariable String userId) {
+        return service.getUserByJwtId(Long.valueOf(userId));
     }
+
+
 }
