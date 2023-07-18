@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class BidlyUserTest {
 
     @Autowired
-    BidlyService service;
+    BidlyUserService service;
 
-    BidlyUser user = new BidlyUser(1L,"1", "Test Tester", "test@test.com");
+    BidlyUser user = new BidlyUser(1L , "1", "Test Tester", "test@test.com", null,null);
 
     @Test
     void serviceTest() {
