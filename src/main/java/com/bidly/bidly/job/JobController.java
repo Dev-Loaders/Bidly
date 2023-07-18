@@ -19,8 +19,13 @@ public class JobController {
         this.service = service;
     }
 
-    @GetMapping()
-    public List<Job> getUser() {
+    @GetMapping
+    public List<Job> getAllJobs() {
         return service.getAllJobs();
+    }
+
+    @GetMapping("/hello")
+    public String returnHello() {
+        return "service.getAllJobs()";
     }
 }
