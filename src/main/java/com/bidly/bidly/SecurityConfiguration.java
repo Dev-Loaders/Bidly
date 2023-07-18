@@ -16,12 +16,13 @@ public class SecurityConfiguration {
         return http.authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers("/api/hello").permitAll()
+                                .requestMatchers("/api/jobs").permitAll()
                                 .requestMatchers("/api/user").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .oauth2Login(withDefaults())
                 .cors(withDefaults())
-//                .oauth2ResourceServer(it -> it.jwt(withDefaults()))
                 .build();
     }
+
 }
