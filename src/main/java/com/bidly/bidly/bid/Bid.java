@@ -13,7 +13,7 @@ public class Bid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bid_id", nullable = false)
-    private Long id;
+    private Long bidId;
 
     @Column(name = "bid_amount", nullable = false)
     private int amount;
@@ -33,16 +33,21 @@ public class Bid {
     private Job job;
 
     @PrePersist
-    private void created() {
+    private void onCreate() {
         this.created = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        this.updated = LocalDateTime.now();
     }
 
     public Bid() {
 
     }
 
-    public Bid(Long id, int amount, LocalDateTime created, LocalDateTime updated, BidlyUser user, Job job) {
-        this.id = id;
+    public Bid(Long bidId, int amount, LocalDateTime created, LocalDateTime updated, BidlyUser user, Job job) {
+        this.bidId = bidId;
         this.amount = amount;
         this.created = created;
         this.updated = updated;
@@ -50,8 +55,8 @@ public class Bid {
         this.job = job;
     }
 
-    public Long getId() {
-        return id;
+    public Long getBidId() {
+        return bidId;
     }
 
     public int getAmount() {
