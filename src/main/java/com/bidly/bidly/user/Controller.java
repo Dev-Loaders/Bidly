@@ -16,7 +16,7 @@ public class Controller {
         this.service = service;
     }
 
-    @GetMapping("hello")
+    @GetMapping("/hello")
     public String getHello() {
         return "hello";
     }

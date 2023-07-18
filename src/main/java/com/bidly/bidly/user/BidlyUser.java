@@ -42,6 +42,9 @@ public class BidlyUser {
         this.bids = bids;
     }
 
+    public BidlyUser(String number, String testTester, String mail) {
+    }
+  
     public Long getUserId() {
         return userId;
     }
