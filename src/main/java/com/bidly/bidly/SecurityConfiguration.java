@@ -17,12 +17,11 @@ public class SecurityConfiguration {
                         auth
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/api/jobs").permitAll()
-                                .requestMatchers("/api/user").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/api/users").permitAll()
+                                .requestMatchers("/**").authenticated()
                 )
                 .oauth2Login(withDefaults())
                 .cors(withDefaults())
                 .build();
     }
-
 }
