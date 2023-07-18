@@ -1,12 +1,18 @@
 package com.bidly.bidly.job;
 
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -20,23 +26,19 @@ public class JobControllerTest {
 
     @Test
     public void testGetRequestToJobEndpoint() {
-        Long jobId = 1L;
-        String endpoint = "http://localhost:" + port + "/api/job/" + jobId;
-
+        String endpoint = "http://localhost:" + port + "/api/jobs";
         WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
-
-        ResponseSpec responseSpec = webClient.get()
+        Mono<List<Job>> response = webClient.get()
                 .accept(MediaType.APPLICATION_JSON)
-                .exchange();
+                        .retrieve()
+                .bodyToFlux(Job.class)
+                .collectList();
 
-        responseSpec.expectStatus().isOk();
+        List<Job> testJobs = response.block();
 
-        Job job = responseSpec.returnResult(Job.class).getResponseBody();
-
-        assertNotNull(job);
-        assertEquals(jobId, job.getId());
+        assertNotNull(testJobs);
+        assertEquals(2, testJobs.size());
+        assertEquals(1, testJobs.get(0).getId());
+        assertEquals(2, testJobs.get(1).getId());
     }
-}
-
-
 }
