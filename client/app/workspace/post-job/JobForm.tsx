@@ -2,9 +2,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-export const JobForm = (props: {
-    children: React.ReactNode
-  }) => {
+export const JobForm = () => {
     return (
       <>
         <Form className="p-5 rounded shadow" style={{backgroundColor: "#f8f9fa"}}>
