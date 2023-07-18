@@ -1,9 +1,11 @@
 package com.bidly.bidly.job;
 
+import com.bidly.bidly.bid.Bid;
 import com.bidly.bidly.user.BidlyUser;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "job")
@@ -12,33 +14,52 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "job_id", nullable = false)
-    private Long id;
+    private Long jobId;
+
     @Column(name = "title", nullable = false, length = 150)
     private String title;
+
     @Column(name = "description", nullable = false, length = 1000)
     private String description;
+
     @Column(name = "location", nullable = false, length = 50)
     private String location;
+
     @Column(name = "image_url", nullable = true)
     private String imageUrl;
+
     @Column(name = "materials")
     private boolean materials;
+
     @Column(name = "created")
     private LocalDateTime created;
+
     @Column(name = "updated")
     private LocalDateTime updated;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private BidlyUser user;
+
+    @OneToMany(mappedBy = "job")
+    private List<Bid> bids;
+
     @PrePersist
-    private void created() {
+    private void onCreate() {
         this.created = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        this.updated = LocalDateTime.now();
     }
 
     public Job() {
 
     }
 
-    public Job(Long id, String title, String description, String location, String imageUrl, boolean materials, LocalDateTime created, LocalDateTime updated) {
-        this.id = id;
+    public Job(Long jobId, String title, String description, String location, String imageUrl, boolean materials, LocalDateTime created, LocalDateTime updated, BidlyUser user, List<Bid> bids) {
+        this.jobId = jobId;
         this.title = title;
         this.description = description;
         this.location = location;
@@ -46,10 +67,12 @@ public class Job {
         this.materials = materials;
         this.created = created;
         this.updated = updated;
+        this.user = user;
+        this.bids = bids;
     }
 
-    public Long getId() {
-        return id;
+    public Long getJobId() {
+        return jobId;
     }
 
     public String getTitle() {
@@ -106,5 +129,21 @@ public class Job {
 
     public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
+    }
+
+    public BidlyUser getUser() {
+        return user;
+    }
+
+    public void setUser(BidlyUser user) {
+        this.user = user;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
     }
 }
