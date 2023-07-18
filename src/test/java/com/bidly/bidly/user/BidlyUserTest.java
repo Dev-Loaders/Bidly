@@ -18,6 +18,7 @@ class BidlyApplicationTests {
     @Test
     void serviceTest() {
         BidlyUser var = service.getUser(1L);
+        System.out.println(var);
         assertNotEquals(var, 1L);
 
     }

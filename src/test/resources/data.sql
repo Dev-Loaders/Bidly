@@ -1,0 +1,2 @@
+INSERT into bidly_user (jwt_id, full_name, email) values ('1', 'Test Tester', 'test@test.com') ON CONFLICT DO NOTHING;
+INSERT into job (title, description, location, image_url, materials) values ('test title', 'test description', 'stockholm', 'https://t3.gstatic.com/licensed-image?q=tbn:ANd9GcRyQm5KEbQq_UcD2ov-f3-HkPL49WielK_fvsCOh8EXmP-rsNP_KZnow56OTiOqVJl5', false)
