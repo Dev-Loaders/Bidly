@@ -32,6 +32,9 @@ public class BidlyUser {
         this.email = email;
     }
 
+    public BidlyUser(String number, String testTester, String mail) {
+    }
+
     public Long getId() {
         return id;
     }
