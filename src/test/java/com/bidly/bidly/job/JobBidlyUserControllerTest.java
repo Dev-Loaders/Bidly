@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class JobControllerTest {
+public class JobBidlyUserControllerTest {
 
     @LocalServerPort
     private int port;
@@ -38,7 +38,7 @@ public class JobControllerTest {
 
         assertNotNull(testJobs);
         assertEquals(2, testJobs.size());
-        assertEquals(1, testJobs.get(0).getId());
-        assertEquals(2, testJobs.get(1).getId());
+        assertEquals(1, testJobs.get(0).getJobId());
+        assertEquals(2, testJobs.get(1).getJobId());
     }
 }

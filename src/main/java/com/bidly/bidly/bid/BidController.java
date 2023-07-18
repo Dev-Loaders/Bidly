@@ -1,6 +1,5 @@
 package com.bidly.bidly.bid;
 
-import com.bidly.bidly.user.BidlyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,7 @@ public class BidController {
     private final BidService service;
 
     @Autowired
-    public BidController(BidlyService service) {
+    public BidController(BidService service) {
         this.service = service;
     }
 

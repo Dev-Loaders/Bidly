@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class BidlyService {
+public class BidlyUserService {
 
     private final BidlyUserRepository userRepo;
 
     @Autowired
-    public BidlyService(BidlyUserRepository userRepo) {
+    public BidlyUserService(BidlyUserRepository userRepo) {
         this.userRepo = userRepo;
     }
 

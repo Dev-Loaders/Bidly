@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
-public class Controller {
+public class BidlyUserController {
 
-    private final BidlyService service;
+    private final BidlyUserService service;
 
     @Autowired
-    public Controller(BidlyService service) {
+    public BidlyUserController(BidlyUserService service) {
         this.service = service;
     }
 
