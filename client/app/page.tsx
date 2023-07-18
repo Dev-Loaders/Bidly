@@ -1,6 +1,6 @@
-import Image from 'next/image'
+import React from 'react';
 
-export default async function Home() {
+export default function Home() {
 
   return (
     <main>
