@@ -15,15 +15,18 @@ public class SecurityConfiguration {
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/**").permitAll()
-//                                .requestMatchers("/").permitAll()
-//                                .requestMatchers("/api/jobs").permitAll()
-//                                .requestMatchers("/api/users").permitAll()
-//                                .requestMatchers("/**").authenticated()
+                                .requestMatchers("/api/users/**/jobs").authenticated()
+
                 )
-                .oauth2Login(withDefaults())
                 .cors(withDefaults())
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(customAuthenticationSuccessHandler())
+                )
                 .csrf().disable()
                 .build();
+    }
+
+    public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 }
