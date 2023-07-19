@@ -1,8 +1,12 @@
 package com.bidly.bidly.user;
 
+import com.bidly.bidly.job.Job;
+import com.bidly.bidly.job.JobRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -21,8 +25,16 @@ public class BidlyUserController {
         return "hello";
     }
 
-    @GetMapping()
-    public BidlyUser getUser() {
-        return service.getUser(1L);
+    @GetMapping(path = "{userSubject}/jobs")
+    public List<Job> getUserByJwtId(@PathVariable String userSubject) {
+        return service.getUserByJwtId(userSubject).getJobs();
     }
+
+    @PostMapping("/{userSubject}/jobs")
+    public ResponseEntity<Job> createJobPostForUser(@PathVariable String userSubject,
+                                                    //  @AuthenticationPrincipal OidcUser oidcUser,
+                                                    @RequestBody JobRequest job) {
+        return service.addJobPostToUser(userSubject, job);
+    }
+
 }

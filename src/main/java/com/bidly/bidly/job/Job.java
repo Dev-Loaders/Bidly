@@ -1,7 +1,6 @@
 package com.bidly.bidly.job;
 
 import com.bidly.bidly.bid.Bid;
-import com.bidly.bidly.user.BidlyUser;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -13,16 +12,16 @@ public class Job {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "job_id", nullable = false)
+    @Column(name = "job_id")
     private Long jobId;
 
-    @Column(name = "title", nullable = false, length = 150)
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "description", nullable = false, length = 1000)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "location", nullable = false, length = 50)
+    @Column(name = "location")
     private String location;
 
     @Column(name = "image_url", nullable = true)
@@ -36,10 +35,6 @@ public class Job {
 
     @Column(name = "updated")
     private LocalDateTime updated;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private BidlyUser user;
 
     @OneToMany(mappedBy = "job")
     private List<Bid> bids;
@@ -55,20 +50,27 @@ public class Job {
     }
 
     public Job() {
-
     }
 
-    public Job(Long jobId, String title, String description, String location, String imageUrl, boolean materials, LocalDateTime created, LocalDateTime updated, BidlyUser user, List<Bid> bids) {
+    public Job(Long jobId, String title, String description, String location, String imageUrl, boolean materials, LocalDateTime created, LocalDateTime updated
+            , List<Bid> bids
+    ) {
         this.jobId = jobId;
         this.title = title;
         this.description = description;
         this.location = location;
         this.imageUrl = imageUrl;
         this.materials = materials;
-        this.created = created;
-        this.updated = updated;
-        this.user = user;
         this.bids = bids;
+    }
+
+    public Job(String title, String description, String location, String imageUrl, boolean materials
+    ) {
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.imageUrl = imageUrl;
+        this.materials = materials;
     }
 
     public Long getJobId() {
@@ -129,14 +131,6 @@ public class Job {
 
     public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
-    }
-
-    public BidlyUser getUser() {
-        return user;
-    }
-
-    public void setUser(BidlyUser user) {
-        this.user = user;
     }
 
     public List<Bid> getBids() {
