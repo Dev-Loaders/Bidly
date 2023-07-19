@@ -1,5 +1,6 @@
 package com.bidly.bidly.user;
 
+//import com.bidly.bidly.bid.Bid;
 import com.bidly.bidly.bid.Bid;
 import com.bidly.bidly.job.Job;
 import jakarta.persistence.*;
@@ -23,7 +24,8 @@ public class BidlyUser {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "user")
     private List<Job> jobs;
 
     @OneToMany(mappedBy = "user")
@@ -33,16 +35,24 @@ public class BidlyUser {
 
     }
 
-    public BidlyUser(Long userId, String jwtId, String fullName, String email, List<Job> jobs, List<Bid> bids) {
-        this.userId = userId;
+//    public BidlyUser(Long userId, String jwtId, String fullName, String email, List<Job> jobs
+////            , List<Bid> bids
+//    ) {
+//        this.userId = userId;
+//        this.jwtId = jwtId;
+//        this.fullName = fullName;
+//        this.email = email;
+//        this.jobs = jobs;
+////        this.bids = bids;
+//    }
+
+    public BidlyUser(String jwtId, String fullName, String email, List<Job> jobs, List<Bid> bids
+    ) {
         this.jwtId = jwtId;
         this.fullName = fullName;
         this.email = email;
         this.jobs = jobs;
         this.bids = bids;
-    }
-
-    public BidlyUser(String number, String testTester, String mail) {
     }
   
     public Long getUserId() {
@@ -87,5 +97,9 @@ public class BidlyUser {
 
     public void setBids(List<Bid> bids) {
         this.bids = bids;
+    }
+
+    public void addJobs(Job job) {
+        jobs.add(job);
     }
 }
