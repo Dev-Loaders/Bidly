@@ -26,11 +26,16 @@ public class BidlyUserController {
     }
 
     @GetMapping(path = "{userSubject}/jobs")
-    public List<Job> getUserByJwtId(@PathVariable String userSubject) {
+    public List<Job> getUserJobsByJwtId(@PathVariable String userSubject) {
         return service.getUserByJwtId(userSubject).getJobs();
     }
 
-    @PostMapping("/{userSubject}/jobs")
+    @GetMapping(path = "{userSubject}")
+    public BidlyUser getUserByJwtId(@PathVariable String userSubject) {
+        return service.getUserByJwtId(userSubject);
+    }
+
+    @PostMapping(path = "{userSubject}/jobs")
     public ResponseEntity<Job> createJobPostForUser(@PathVariable String userSubject,
                                                     //  @AuthenticationPrincipal OidcUser oidcUser,
                                                     @RequestBody JobRequest job) {
