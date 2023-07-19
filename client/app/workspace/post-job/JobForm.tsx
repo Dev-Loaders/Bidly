@@ -15,7 +15,7 @@
   }
 
   export const JobForm = () => {
-    const token = sessionStorage.getItem("token");
+    // const token = sessionStorage.getItem("token");
     
     const url = "https://bidly-app.azurewebsites.net/"
 
