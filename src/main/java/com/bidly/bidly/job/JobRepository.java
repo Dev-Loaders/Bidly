@@ -1,6 +1,5 @@
 package com.bidly.bidly.job;
 
-import com.bidly.bidly.user.JpaBidlyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +15,12 @@ public class JobRepository {
 
     public Iterable<Job> getAllJobs() {
         return repo.findAll();
+    }
+
+    public Job createJob(String userSubject, JobRequest jobPost) {
+        Job job = new Job(jobPost.title(), jobPost.description(),  jobPost.location(), jobPost.image_url(), jobPost.materials());
+        System.out.println(job);
+        repo.save(job);
+        return job;
     }
 }
