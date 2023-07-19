@@ -1,7 +1,6 @@
 package com.bidly.bidly.main;
 
 import com.bidly.bidly.user.BidlyUserService;
-import org.ietf.jgss.Oid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -11,18 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
-public class MainController {
+public class CreateUserController {
 
     private final BidlyUserService service;
 
     @Autowired
-    public MainController(BidlyUserService service) {
+    public CreateUserController(BidlyUserService service) {
         this.service = service;
     }
 
     @GetMapping
     public String createUserAccountIfItDoesNotExist(@AuthenticationPrincipal OidcUser oidcUser){
         if(service.getUserByJwtId(oidcUser.getSubject()) == null){
+            System.out.println(oidcUser.getSubject());
             service.createUser(oidcUser);
             return "new User Created";
         }
