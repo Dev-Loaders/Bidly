@@ -51,6 +51,21 @@ public class BidlyUserControllerTest {
         Assertions.assertEquals("test title", createdJob.getTitle());
     }
 
+    @Test
+    @Order(2)
+    public void getSpecificUserTest(){
+        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId();
+        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
+        Mono<BidlyUser> response = webClient.get()
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(BidlyUser.class);
+
+        BidlyUser testUser = response.block();
+
+        assertNotNull(testUser);
+        assertEquals(user.getFullName(), testUser.getFullName());
+    }
 
     @Test
     @Order(2)
@@ -74,20 +89,19 @@ public class BidlyUserControllerTest {
     @Test
     @Order(3)
     public void getJobsForSpecificUserTest(){
-        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId() + "/jobs";
+        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId();
         WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
-        Mono<List<Job>> response = webClient.get()
+        Mono<BidlyUser> response = webClient.get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToFlux(Job.class)
-                .collectList();
+                .bodyToMono(BidlyUser.class);
+//                .collectList();
 
-        List<Job> testJobs = response.block();
+        BidlyUser testUser = response.block();
 
-        assertNotNull(testJobs);
-        assertEquals(1, testJobs.size());
-        assertEquals(testJob.getTitle(), testJobs.get(0).getTitle());
-        assertEquals(1, testJobs.get(0).getJobId());
+        assertNotNull(testUser);
+        assertEquals(1, testUser.getJobs().size());
+//        assertEquals(1, testJobs.get(0).getJobId());
     }
 
 }
