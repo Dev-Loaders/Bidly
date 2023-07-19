@@ -65,14 +65,12 @@ public class Job {
     }
 
     public Job(String title, String description, String location, String imageUrl, boolean materials
-            , List<Bid> bids
     ) {
         this.title = title;
         this.description = description;
         this.location = location;
         this.imageUrl = imageUrl;
         this.materials = materials;
-        this.bids = bids;
     }
 
     public Long getJobId() {
