@@ -33,61 +33,61 @@ public class BidlyUserControllerTest {
             "https://t3.gstatic.com/licensed-image?q=tbn:ANd9GcRyQm5KEbQq_UcD2ov-f3-HkPL49WielK_fvsCOh8EXmP-rsNP_KZnow56OTiOqVJl5",
             true);
 
-//    @Test
-//    @Order(1)
-//    public void postNewJobToUserTest() {
-//        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId() + "/jobs";
-//        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
-//
-//        Mono<Job> postResponse = webClient.post()
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .bodyValue(testJob)
-//                .retrieve()
-//                .bodyToMono(Job.class);
-//
-//        Job createdJob = postResponse.block();
-//        Assertions.assertNotNull(createdJob);
-//        Assertions.assertNotNull(createdJob.getJobId());
-//        Assertions.assertEquals("test title", createdJob.getTitle());
-//    }
+    @Test
+    @Order(1)
+    public void postNewJobToUserTest() {
+        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId() + "/jobs";
+        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
+
+        Mono<Job> postResponse = webClient.post()
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(testJob)
+                .retrieve()
+                .bodyToMono(Job.class);
+
+        Job createdJob = postResponse.block();
+        Assertions.assertNotNull(createdJob);
+        Assertions.assertNotNull(createdJob.getJobId());
+        Assertions.assertEquals("test title", createdJob.getTitle());
+    }
 
 
-//    @Test
-//    @Order(2)
-//    public void getAllJobsTest(){
-//        String endpoint = "http://localhost:" + port + "/api/jobs";
-//        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
-//        Mono<List<Job>> response = webClient.get()
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToFlux(Job.class)
-//                .collectList();
-//
-//        List<Job> testJobs = response.block();
-//
-//        assertNotNull(testJobs);
-//        assertEquals(1, testJobs.size());
-//        assertEquals(testJob.getTitle(), testJobs.get(0).getTitle());
-//        assertEquals(1, testJobs.get(0).getJobId());
-//    }
-//
-//    @Test
-//    @Order(3)
-//    public void getJobsForSpecificUserTest(){
-//        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId() + "/jobs";
-//        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
-//        Mono<List<Job>> response = webClient.get()
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToFlux(Job.class)
-//                .collectList();
-//
-//        List<Job> testJobs = response.block();
-//
-//        assertNotNull(testJobs);
-//        assertEquals(1, testJobs.size());
-//        assertEquals(testJob.getTitle(), testJobs.get(0).getTitle());
-//        assertEquals(1, testJobs.get(0).getJobId());
-//    }
+    @Test
+    @Order(2)
+    public void getAllJobsTest(){
+        String endpoint = "http://localhost:" + port + "/api/jobs";
+        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
+        Mono<List<Job>> response = webClient.get()
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Job.class)
+                .collectList();
+
+        List<Job> testJobs = response.block();
+
+        assertNotNull(testJobs);
+        assertEquals(1, testJobs.size());
+        assertEquals(testJob.getTitle(), testJobs.get(0).getTitle());
+        assertEquals(1, testJobs.get(0).getJobId());
+    }
+
+    @Test
+    @Order(3)
+    public void getJobsForSpecificUserTest(){
+        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId() + "/jobs";
+        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
+        Mono<List<Job>> response = webClient.get()
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Job.class)
+                .collectList();
+
+        List<Job> testJobs = response.block();
+
+        assertNotNull(testJobs);
+        assertEquals(1, testJobs.size());
+        assertEquals(testJob.getTitle(), testJobs.get(0).getTitle());
+        assertEquals(1, testJobs.get(0).getJobId());
+    }
 
 }
