@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +14,9 @@ import java.io.IOException;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        String token = (String) authentication.getPrincipal();
+        OidcUser token = (OidcUser) authentication.getPrincipal();
         HttpSession session = request.getSession();
         session.setAttribute("token", token);
-        String redirectUrl = (String) session.getAttribute("redirectUrl");
-        response.sendRedirect(redirectUrl);
+        response.sendRedirect("https://bidly.vercel.app/workspace");
     }
 }
