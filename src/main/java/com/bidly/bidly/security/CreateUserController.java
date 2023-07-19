@@ -1,4 +1,4 @@
-package com.bidly.bidly.main;
+package com.bidly.bidly.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -42,7 +42,6 @@ public class CreateUserController {
             return "please Login first";
         }
 
-
         ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("google")
                 .clientId(googleClientId)
                 .clientSecret(googleClientSecret)
@@ -62,6 +61,7 @@ public class CreateUserController {
         JwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
                 .build();
         String tokenValue = oidcUser.getIdToken().getTokenValue();
+        System.out.println(tokenValue);
         Jwt jwtToken = jwtDecoder.decode(tokenValue);
 
         try {

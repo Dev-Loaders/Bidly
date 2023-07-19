@@ -1,4 +1,4 @@
-package com.bidly.bidly;
+package com.bidly.bidly.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

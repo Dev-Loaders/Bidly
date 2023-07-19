@@ -1,4 +1,4 @@
-package com.bidly.bidly;
+package com.bidly.bidly.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
