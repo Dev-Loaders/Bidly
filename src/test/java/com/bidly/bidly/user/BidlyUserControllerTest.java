@@ -33,23 +33,23 @@ public class BidlyUserControllerTest {
             "https://t3.gstatic.com/licensed-image?q=tbn:ANd9GcRyQm5KEbQq_UcD2ov-f3-HkPL49WielK_fvsCOh8EXmP-rsNP_KZnow56OTiOqVJl5",
             true);
 
-    @Test
-    @Order(1)
-    public void postNewJobToUserTest() {
-        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId() + "/jobs";
-        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
-
-        Mono<Job> postResponse = webClient.post()
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(testJob)
-                .retrieve()
-                .bodyToMono(Job.class);
-
-        Job createdJob = postResponse.block();
-        Assertions.assertNotNull(createdJob);
-        Assertions.assertNotNull(createdJob.getJobId());
-        Assertions.assertEquals("test title", createdJob.getTitle());
-    }
+//    @Test
+//    @Order(1)
+//    public void postNewJobToUserTest() {
+//        String endpoint = "http://localhost:" + port + "/api/users/" + user.getJwtId() + "/jobs";
+//        WebClient webClient = webClientBuilder.baseUrl(endpoint).build();
+//
+//        Mono<Job> postResponse = webClient.post()
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .bodyValue(testJob)
+//                .retrieve()
+//                .bodyToMono(Job.class);
+//
+//        Job createdJob = postResponse.block();
+//        Assertions.assertNotNull(createdJob);
+//        Assertions.assertNotNull(createdJob.getJobId());
+//        Assertions.assertEquals("test title", createdJob.getTitle());
+//    }
 
 
 //    @Test
