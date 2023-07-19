@@ -9,6 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,6 +36,11 @@ public class JobBidlyUserControllerTest {
                 .collectList();
 
         List<Job> testJobs = response.block();
+
+        Job[] jobs = new Job[]{
+                new Job(1L, "title", "description", "location", "image", true, null, null, null),
+                new Job(2L, "title new", "description 2", "location 2", "image 2", false, null, null, null)
+        };
 
         assertNotNull(testJobs);
         assertEquals(2, testJobs.size());
