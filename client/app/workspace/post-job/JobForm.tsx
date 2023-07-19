@@ -15,12 +15,9 @@
   }
 
   export const JobForm = () => {
+    const token = sessionStorage.getItem("token");
     
-    function parseJwt(token) {
-      var base64Payload = token.split('.')[1];
-      var payload = Buffer.from(base64Payload, 'base64');
-      return JSON.parse(payload.toString());
-    }
+    const url = "https://bidly-app.azurewebsites.net/"
 
     const [title, setTitle] = useState('');
     const [location, setLocation] = useState('');
