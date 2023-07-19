@@ -65,7 +65,7 @@
       axios.post('https://bidly-app.azurewebsites.net/api/users/jobs', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer ' + jwtToken 
+        // 'Authorization': 'Bearer ' + jwtToken 
       }
       })
         .then(response => {
