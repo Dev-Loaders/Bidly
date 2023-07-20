@@ -23,7 +23,9 @@ public class SecurityConfiguration {
         return http.authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/**").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/api/jobs").permitAll()
+//                                .requestMatchers("/api/users/{userSubject}/jobs").permitAll()
+//                                .anyRequest().authenticated()
 
                 )
                 .cors(withDefaults())
