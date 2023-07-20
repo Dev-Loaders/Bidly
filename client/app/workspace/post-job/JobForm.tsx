@@ -92,12 +92,8 @@ export const JobForm = () => {
           },
         }
       )
-      .then((response) => {
-        console.log(response);
-      })
       .catch((exception) => console.error(exception));
   };
-  // }
 
   return (
     <>
@@ -105,6 +101,7 @@ export const JobForm = () => {
         className="p-5 rounded shadow"
         style={{ backgroundColor: "#f8f9fa" }}
         method="post"
+        onSubmit={handleSubmit}
       >
         <h2 className="mb-3 text-center">Create a Job</h2>
         <hr />
@@ -163,7 +160,6 @@ export const JobForm = () => {
           variant="primary"
           type="submit"
           className="w-100"
-          onClick={handleSubmit}
         >
           Submit
         </Button>
