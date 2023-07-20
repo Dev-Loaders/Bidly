@@ -16,4 +16,8 @@ public class BidRepository {
     public Iterable<Bid> getAllBids() {
         return repo.findAll();
     }
+
+    public void save(Bid bid) {
+        repo.save(bid);
+    }
 }
