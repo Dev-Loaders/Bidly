@@ -140,4 +140,8 @@ public class Job {
     public void setBids(List<Bid> bids) {
         this.bids = bids;
     }
+
+    public void addBids(Bid bid) {
+        bids.add(bid);
+    }
 }
