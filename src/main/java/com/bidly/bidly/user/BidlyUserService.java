@@ -43,9 +43,9 @@ public class BidlyUserService {
 
     public ResponseEntity<Object> addJobPostToUser(String userSubject, OidcUser oidcUser, JobRequestDto jobPost, MultipartFile file) throws IOException {
 
-        if (!oidcUser.getSubject().equals(userSubject)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This action is forbidden.");
-        }
+//        if (!oidcUser.getSubject().equals(userSubject)) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This action is forbidden.");
+//        }
 
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String directory = "src/main/resources/static/job-images/";

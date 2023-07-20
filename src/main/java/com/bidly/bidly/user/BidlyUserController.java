@@ -37,11 +37,16 @@ public class BidlyUserController {
 
     @PostMapping("/{userSubject}/jobs")
     public ResponseEntity<?> createJobPostForUser(@PathVariable String userSubject,
-                                                    @AuthenticationPrincipal OidcUser oidcUser,
-                                                    @RequestParam("image") MultipartFile file,
-                                                    @RequestBody JobRequestDto job) {
+//                                                  @AuthenticationPrincipal OidcUser oidcUser,
+                                                  @RequestParam("image") MultipartFile file,
+                                                  @RequestParam("title") String title,
+                                                  @RequestParam("description") String description,
+                                                  @RequestParam("location") String location,
+                                                  @RequestParam("materials") String materialsStr) {
+        boolean materials = Boolean.parseBoolean(materialsStr);
+        JobRequestDto job = new JobRequestDto(title, description, location, "http-test", materials);
         try {
-            return service.addJobPostToUser(userSubject, oidcUser, job, file);
+            return service.addJobPostToUser("109019647377227797987", null , job, file);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }

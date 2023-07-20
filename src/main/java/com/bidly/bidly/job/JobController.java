@@ -1,6 +1,5 @@
 package com.bidly.bidly.job;
 
-import com.bidly.bidly.user.BidlyUser;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +11,9 @@ import java.util.List;
 @RequestMapping("/api/jobs")
 @CrossOrigin(origins = "*")
 public class JobController {
-
     private final JobService service;
 
-    JobController(JobService service) {
+    public JobController(JobService service) {
         this.service = service;
     }
 
