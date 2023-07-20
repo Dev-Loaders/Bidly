@@ -50,6 +50,12 @@ public class Bid {
         this.user = user;
     }
 
+    public Bid(BidlyUser bidlyUser, int amount) {
+        this.amount = amount;
+        this.user = bidlyUser;
+    }
+
+
     public Long getBidId() {
         return bidId;
     }
@@ -86,11 +92,4 @@ public class Bid {
         this.user = user;
     }
 
-//    public Job getJob() {
-//        return job;
-//    }
-//
-//    public void setJob(Job job) {
-//        this.job = job;
-//    }
 }
