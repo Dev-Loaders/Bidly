@@ -18,15 +18,11 @@ public class BidService {
 
     private final BidRepository bidRepo;
     private final JobRepository jobRepo;
-//    private final BidlyUserRepository bidlyUserRepo;
 
     @Autowired
-    public BidService(BidRepository bidRepo, JobRepository jobRepo
-//            , BidlyUserRepository bidlyUserRepo
-    ) {
+    public BidService(BidRepository bidRepo, JobRepository jobRepo) {
         this.bidRepo = bidRepo;
         this.jobRepo = jobRepo;
-//        this.bidlyUserRepo = bidlyUserRepo;
     }
 
     public List<Bid> getAllBids() {
@@ -37,7 +33,6 @@ public class BidService {
 
     public ResponseEntity<Bid> addBidToJob(String userSubject, String jobId, int amount) {
         Job job = jobRepo.getJobById(jobId);
-//        BidlyUser bidlyUser = bidlyUserRepo.getUserByJwtId(userSubject);
         Bid bid = new Bid(userSubject, amount);
         bidRepo.save(bid);
         job.addBids(bid);
