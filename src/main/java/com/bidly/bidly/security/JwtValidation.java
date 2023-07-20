@@ -23,7 +23,7 @@ public class JwtValidation {
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String googleClientSecret;
 
-    void validateJwt(OidcUser oidcUser) {
+    public void validateJwt(OidcUser oidcUser) {
         ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("google")
                 .clientId(googleClientId)
                 .clientSecret(googleClientSecret)
