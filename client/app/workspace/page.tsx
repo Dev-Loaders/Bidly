@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Card, ListGroup, Button } from "react-bootstrap";
+import { Container, Card, ListGroup, Button, Col, Row } from "react-bootstrap";
 import Link from "next/link";
 
 type Job = {
@@ -17,13 +17,11 @@ export default function Workspace() {
   const [allJobs, setAllJobs] = useState<Job[]>([]);
 
   const token = sessionStorage.getItem("token");
-  console.log(token)
 
   const getJobs = () => {
     axios
       .get("http://localhost:8080/api/jobs", {
         headers: {
-          "Content-Type": "application/json",
           Authorization: "Bearer ",
         },
       })
@@ -45,35 +43,36 @@ export default function Workspace() {
   };
 
   return (
-    <Container
-      className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "100vh" }}
-    >
-      {allJobs &&
-        allJobs.map((job) => (
-          <Card className="mb-4" key={job.jobId} style={{ width: "18rem" }}>
-            <Link
-              href={`/workspace/detail-view/${job.jobId}`}
-              onClick={() => handleClick(job)}
-            >
-              <Card.Img
-                variant="top"
-                src={`http://localhost:8080/${job.image}`}
-                alt="Job"
-              />
-              <Card.Body>
-                <Card.Title>{job.title}</Card.Title>
-                <Card.Text>{job.description}</Card.Text>
-              </Card.Body>
-              <ListGroup variant="flush">
-                <ListGroup.Item>Location: {job.location}</ListGroup.Item>
-                <ListGroup.Item>
-                  Materials: {job.materials ? "Provided" : "Not provided"}
-                </ListGroup.Item>
-              </ListGroup>
-            </Link>
-          </Card>
-        ))}
+    <Container style={{ minHeight: "100vh" }}>
+      <Row>
+        {allJobs &&
+          allJobs.map((job) => (
+            <Col sm={12} md={6} lg={4} xl={3} className="mb-4" key={job.jobId}>
+              <Card style={{ width: "100%" }} onClick={() => handleClick(job)}>
+                <Link
+                  href={`/workspace/detail-view/${job.jobId}`}
+                  target="_blank"
+                >
+                  <Card.Img
+                    variant="top"
+                    src={`http://localhost:8080/${job.image}`}
+                    alt="Job"
+                  />
+                  <Card.Body>
+                    <Card.Title>{job.title}</Card.Title>
+                    <Card.Text>{job.description}</Card.Text>
+                  </Card.Body>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>Location: {job.location}</ListGroup.Item>
+                    <ListGroup.Item>
+                      Materials: {job.materials ? "Provided" : "Not provided"}
+                    </ListGroup.Item>
+                  </ListGroup>
+                </Link>
+              </Card>
+            </Col>
+          ))}
+      </Row>
     </Container>
   );
 }
