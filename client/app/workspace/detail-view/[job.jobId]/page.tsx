@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function DetailView() {
-    const jobId = window.location.href.split("/")[4];
+    const jobId = window.location.href.split("/")[5];
     const token = sessionStorage.getItem("token");
 
     const [jobDetails, setJobDetails] = useState<Job | null>(null);
