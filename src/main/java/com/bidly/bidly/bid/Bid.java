@@ -24,9 +24,9 @@ public class Bid {
     @Column(name = "updated")
     private LocalDateTime updated;
 
-    @ManyToOne
+//    @ManyToOne
 //    @JoinColumn(name = "bidly_user_id_bid")
-    private BidlyUser user;
+    private String userId;
 
     @PrePersist
     private void onCreate() {
@@ -42,17 +42,17 @@ public class Bid {
 
     }
 
-    public Bid(Long bidId, int amount, LocalDateTime created, LocalDateTime updated, BidlyUser user) {
+    public Bid(Long bidId, int amount, LocalDateTime created, LocalDateTime updated, String userId) {
         this.bidId = bidId;
         this.amount = amount;
         this.created = created;
         this.updated = updated;
-        this.user = user;
+        this.userId = userId;
     }
 
-    public Bid(BidlyUser bidlyUser, int amount) {
+    public Bid(String userId, int amount) {
         this.amount = amount;
-        this.user = bidlyUser;
+        this.userId = userId;
     }
 
 
@@ -84,12 +84,12 @@ public class Bid {
         this.updated = updated;
     }
 
-    public BidlyUser getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(BidlyUser user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }
