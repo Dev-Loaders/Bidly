@@ -12,7 +12,7 @@ VALUES
 
 -- JOBS
 
-INSERT INTO job (title, description, location, image_url, materials, created, updated, user_id)
+INSERT INTO job (title, description, location, image_url, materials, created, updated)
 VALUES
     ('Job Title 1', 'Job Description 1', 'Location 1', 'http://example.com/image1.jpg', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
     ('Job Title 2', 'Job Description 2', 'Location 2', 'http://example.com/image2.jpg', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2),
