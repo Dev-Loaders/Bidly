@@ -17,8 +17,9 @@ public class JobRepository {
         return repo.findAll();
     }
 
-    public Job createJob(String userSubject, JobRequest jobPost) {
+    public Job createJob(JobRequestDto jobPost, String fileUrl) {
         Job job = new Job(jobPost.title(), jobPost.description(),  jobPost.location(), jobPost.image_url(), jobPost.materials());
+        job.setImageUrl(fileUrl);
         System.out.println(job);
         repo.save(job);
         return job;
