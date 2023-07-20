@@ -4,9 +4,9 @@ package com.bidly.bidly.job;
 
 
 //@JsonIgnoreProperties(ignoreUnknown = true)
-public record JobRequest(String title,
-                         String description,
-                         String location,
-                         String image_url,
-                         boolean materials){
+public record JobRequestDto(String title,
+                            String description,
+                            String location,
+                            String image_url,
+                            boolean materials){
 }
