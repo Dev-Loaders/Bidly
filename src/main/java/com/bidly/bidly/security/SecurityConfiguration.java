@@ -23,7 +23,7 @@ public class SecurityConfiguration {
         return http.authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/**").permitAll()
-                                .requestMatchers("/api/jobs").permitAll()
+//                                .requestMatchers("/api/jobs").permitAll()
 //                                .requestMatchers("/api/users/{userSubject}/jobs").permitAll()
 //                                .anyRequest().authenticated()
 
