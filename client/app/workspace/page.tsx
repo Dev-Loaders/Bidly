@@ -5,7 +5,7 @@ import { Container, Card, ListGroup, Button } from "react-bootstrap";
 import Link from "next/link";
 
 type Job = {
-  id: string;
+  jobId: string;
   title: string;
   location: string;
   image: string;
@@ -28,7 +28,6 @@ export default function Workspace() {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setAllJobs(response.data);
       })
       .catch((error) => {
@@ -41,7 +40,7 @@ export default function Workspace() {
   }, []);
 
   const handleClick = (job: Job) => {
-    const jobId = job.id;
+    const jobId = job.jobId;
     window.location.href = `/workspace/detail-view/${jobId}`;
   };
 
@@ -52,9 +51,9 @@ export default function Workspace() {
     >
       {allJobs &&
         allJobs.map((job) => (
-          <Card className="mb-4" key={job.id} style={{ width: "18rem" }}>
+          <Card className="mb-4" key={job.jobId} style={{ width: "18rem" }}>
             <Link
-              href={`/workspace/detail-view/${job.id}`}
+              href={`/workspace/detail-view/${job.jobId}`}
               onClick={() => handleClick(job)}
             >
               <Card.Img
