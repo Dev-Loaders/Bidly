@@ -36,7 +36,7 @@ public class Job {
     @Column(name = "updated")
     private LocalDateTime updated;
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany
     private List<Bid> bids;
 
     @PrePersist

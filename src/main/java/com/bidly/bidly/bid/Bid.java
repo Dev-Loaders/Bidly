@@ -25,12 +25,8 @@ public class Bid {
     private LocalDateTime updated;
 
     @ManyToOne
-    @JoinColumn(name = "bidly_id")
+//    @JoinColumn(name = "bidly_user_id_bid")
     private BidlyUser user;
-
-    @ManyToOne
-    @JoinColumn(name = "job_id")
-    private Job job;
 
     @PrePersist
     private void onCreate() {
@@ -46,13 +42,12 @@ public class Bid {
 
     }
 
-    public Bid(Long bidId, int amount, LocalDateTime created, LocalDateTime updated, BidlyUser user, Job job) {
+    public Bid(Long bidId, int amount, LocalDateTime created, LocalDateTime updated, BidlyUser user) {
         this.bidId = bidId;
         this.amount = amount;
         this.created = created;
         this.updated = updated;
         this.user = user;
-        this.job = job;
     }
 
     public Long getBidId() {
@@ -91,11 +86,11 @@ public class Bid {
         this.user = user;
     }
 
-    public Job getJob() {
-        return job;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
-    }
+//    public Job getJob() {
+//        return job;
+//    }
+//
+//    public void setJob(Job job) {
+//        this.job = job;
+//    }
 }

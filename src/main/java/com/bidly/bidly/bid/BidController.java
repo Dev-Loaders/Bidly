@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bids")
+@RequestMapping("/api/")
 @CrossOrigin(origins = "*")
 public class BidController {
 
@@ -24,4 +24,6 @@ public class BidController {
     public List<Bid> getBids() {
         return service.getAllBids();
     }
+
+
 }

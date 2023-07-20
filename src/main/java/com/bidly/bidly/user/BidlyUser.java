@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "bidly_user")
 public class BidlyUser {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -25,26 +26,13 @@ public class BidlyUser {
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "user")
     private List<Job> jobs;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bid> bids;
 
     public BidlyUser() {
-
     }
-
-//    public BidlyUser(Long userId, String jwtId, String fullName, String email, List<Job> jobs
-////            , List<Bid> bids
-//    ) {
-//        this.userId = userId;
-//        this.jwtId = jwtId;
-//        this.fullName = fullName;
-//        this.email = email;
-//        this.jobs = jobs;
-////        this.bids = bids;
-//    }
 
     public BidlyUser(String jwtId, String fullName, String email, List<Job> jobs, List<Bid> bids
     ) {
