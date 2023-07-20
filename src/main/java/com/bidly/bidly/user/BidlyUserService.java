@@ -41,25 +41,29 @@ public class BidlyUserService {
         userRepo.createUser(oidcUser);
     }
 
-    public ResponseEntity<Object> addJobPostToUser(String userSubject, OidcUser oidcUser, JobRequestDto jobPost, MultipartFile file) throws IOException {
+    public ResponseEntity<Job> addJobPostToUser(String userSubject, OidcUser oidcUser, JobRequestDto jobPost, MultipartFile file) throws IOException {
 
 //        if (!oidcUser.getSubject().equals(userSubject)) {
 //            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This action is forbidden.");
 //        }
 
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String directory = "src/main/resources/static/job-images/";
-        String filePath = Paths.get(directory, fileName).toString();
-        String fileUrl = "job-images/" + fileName;
+        String fileUrl = null;
+        if (file != null) {
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            String directory = "src/main/resources/static/job-images/";
+            String filePath = Paths.get(directory, fileName).toString();
+            fileUrl = "job-images/" + fileName;
 
-        try {
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
-            stream.write(file.getBytes());
-            stream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new IOException(e.getMessage());
+            try {
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
+                stream.write(file.getBytes());
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new IOException(e.getMessage());
+            }
         }
+
 
         Job job = jobRepo.createJob(jobPost, fileUrl);
         userRepo.updateUser(job, userSubject);
