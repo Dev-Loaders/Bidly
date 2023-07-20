@@ -4,6 +4,7 @@
   import { useState } from 'react';
   import axios from 'axios'
   import { useSession } from 'next-auth/react'
+  import jwtDecode from 'jwt-decode';
 
 
   type JobFormDataProps = {
@@ -15,9 +16,6 @@
   }
 
   export const JobForm = () => {
-    // const token = sessionStorage.getItem("token");
-    
-    const url = "https://bidly-app.azurewebsites.net/"
 
     const [title, setTitle] = useState('');
     const [location, setLocation] = useState('');
@@ -47,7 +45,8 @@
       setDescription(event.target.value);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
       postJob({title: title, location: location, image: image, materials: materials, description: description})
     }
 
@@ -62,17 +61,28 @@
       formData.append('materials', String(materials));
       formData.append('description', description);
 
-      axios.post('https://bidly-app.azurewebsites.net/api/users/jobs', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        // 'Authorization': 'Bearer ' + jwtToken 
-      }
-      })
-        .then(response => {
-        console.log(response);
-      })
-      .catch((exception) => console.error(exception));
-      }
+      console.log(formData)
+
+      const token = sessionStorage.getItem("token");
+      // if (token === null) {
+      //   console.error("No token found.");
+      // } else {
+        // const decodedToken = jwtDecode(token) as { sub: string };
+        // const userSubject = decodedToken.sub;
+
+        // axios.post('https://bidly-app.azurewebsites.net/api/users/' + userSubject + '/jobs', formData, {
+          axios.post('http://localhost:8080/api/users/' + '109019647377227797987' + '/jobs', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer ' 
+        }
+        })
+          .then(response => {
+          console.log(response);
+        })
+        .catch((exception) => console.error(exception));
+        }
+      // }
 
       return (
         <>
