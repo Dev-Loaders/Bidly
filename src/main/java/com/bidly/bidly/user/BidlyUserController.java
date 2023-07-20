@@ -31,7 +31,7 @@ public class BidlyUserController {
     }
 
     @GetMapping(path = "{userSubject}/jobs")
-    public List<Job> getUserByJwtId(@PathVariable String userSubject) {
+    public List<Job> getUserJobsByJwtId(@PathVariable String userSubject) {
         return service.getUserByJwtId(userSubject).getJobs();
     }
 
