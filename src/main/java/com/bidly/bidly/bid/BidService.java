@@ -6,6 +6,7 @@ import com.bidly.bidly.user.BidlyUser;
 import com.bidly.bidly.user.BidlyUserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,11 @@ public class BidService {
 
     private final BidRepository bidRepo;
     private final JobRepository jobRepo;
-    private final BidlyUserRepository bidlyUserRepo;
 
     @Autowired
-    public BidService(BidRepository bidRepo, JobRepository jobRepo, BidlyUserRepository bidlyUserRepo) {
+    public BidService(BidRepository bidRepo, JobRepository jobRepo) {
         this.bidRepo = bidRepo;
         this.jobRepo = jobRepo;
-        this.bidlyUserRepo = bidlyUserRepo;
     }
 
     public List<Bid> getAllBids() {
@@ -35,10 +34,19 @@ public class BidService {
 
     public ResponseEntity<Bid> addBidToJob(String userSubject, String jobId, int amount) {
         Job job = jobRepo.getJobById(jobId);
-        BidlyUser bidlyUser = bidlyUserRepo.getUserByJwtId(userSubject);
-        Bid bid = new Bid(bidlyUser, amount);
+        Bid bid = new Bid(userSubject, amount);
         bidRepo.save(bid);
         job.addBids(bid);
         return ResponseEntity.accepted().body(bid);
+    }
+
+    public ResponseEntity<List<Bid>> getBidByUserId(String userSubject) {
+        List<Bid> bids = bidRepo.getBidsByUserSubject(userSubject);
+
+        if (bids.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(bids, HttpStatus.OK);
+        }
     }
 }

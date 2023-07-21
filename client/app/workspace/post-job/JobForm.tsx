@@ -3,7 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/client";
 import jwtDecode from "jwt-decode";
 
 type JobFormDataProps = {
@@ -83,7 +84,7 @@ export const JobForm = () => {
     // axios.post('https://bidly-app.azurewebsites.net/api/users/' + userSubject + '/jobs', formData, {
     axios
       .post(
-        "http://localhost:8080/api/users/" + "109019647377227797987" + "/jobs",
+        "http://localhost:8080/api/users/" + "118080601002692292145" + "/jobs",
         formData,
         {
           headers: {
