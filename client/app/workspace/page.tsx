@@ -16,7 +16,7 @@ type Job = {
 export default function Workspace() {
   const [allJobs, setAllJobs] = useState<Job[]>([]);
 
-  const token = sessionStorage.getItem("token");
+  // const token = sessionStorage.getItem("token");
 
   const getJobs = () => {
     axios

@@ -2,6 +2,7 @@ package com.bidly.bidly.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.client.oidc.authentication.OidcIdTokenValidator;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtValidationException;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 @Component
 public class JwtValidation {
@@ -43,7 +45,6 @@ public class JwtValidation {
         JwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
                 .build();
         String tokenValue = oidcUser.getIdToken().getTokenValue();
-        System.out.println(tokenValue);
         Jwt jwtToken = jwtDecoder.decode(tokenValue);
 
         try {
@@ -53,6 +54,7 @@ public class JwtValidation {
             // Token validation succeeded
         } catch (JwtValidationException e) {
             // Token validation failed
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
         }
     }
 }
