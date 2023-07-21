@@ -41,8 +41,7 @@ public class BidService {
     }
 
     public ResponseEntity<List<Bid>> getBidByUserId(String userSubject) {
-        BidlyUser bidlyUser = bidlyUserRepo.getUserByJwtId(userSubject);
-        List<Bid> bids = bidRepo.getBidsByUser(bidlyUser);
+        List<Bid> bids = bidRepo.getBidsByUserSubject(userSubject);
 
         if (bids.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

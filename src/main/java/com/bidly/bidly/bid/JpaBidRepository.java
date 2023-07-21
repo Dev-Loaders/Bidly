@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface JpaBidRepository extends CrudRepository<Bid, Long> {
-    List<Bid> findByBidlyUser(BidlyUser bidlyUser);
+    List<Bid> findByUserId(String userSubject);
 }

@@ -24,7 +24,7 @@ public class BidRepository {
         repo.save(bid);
     }
 
-    public List<Bid> getBidsByUser(BidlyUser bidlyUser) {
-        return repo.findByBidlyUser(bidlyUser);
+    public List<Bid> getBidsByUserSubject(String userSubject) {
+        return repo.findByUserId(userSubject);
     }
 }
