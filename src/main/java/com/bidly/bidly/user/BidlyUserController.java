@@ -26,9 +26,9 @@ public class BidlyUserController {
         this.service = service;
     }
 
-    @GetMapping("/hello")
-    public String getHello() {
-        return "hello";
+    @GetMapping("/status")
+    public ResponseEntity getStatus() {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(path = "{userSubject}/jobs")
@@ -47,7 +47,7 @@ public class BidlyUserController {
         boolean materials = Boolean.parseBoolean(materialsStr);
         JobRequestDto job = new JobRequestDto(title, description, location, "http-test", materials);
         try {
-            return service.addJobPostToUser("109019647377227797987", null , job, file);
+            return service.addJobPostToUser(userSubject, null , job, file);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
