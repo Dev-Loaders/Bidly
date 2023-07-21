@@ -6,6 +6,7 @@ import com.bidly.bidly.user.BidlyUser;
 import com.bidly.bidly.user.BidlyUserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,16 @@ public class BidService {
         bidRepo.save(bid);
         job.addBids(bid);
         return ResponseEntity.accepted().body(bid);
+    }
+
+    public ResponseEntity<List<Bid>> getBidByUserId(String userSubject) {
+        BidlyUser bidlyUser = bidlyUserRepo.getUserByJwtId(userSubject);
+        List<Bid> bids = bidRepo.getBidsByUser(bidlyUser);
+
+        if (bids.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(bids, HttpStatus.OK);
+        }
     }
 }

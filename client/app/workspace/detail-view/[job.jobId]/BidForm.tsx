@@ -31,7 +31,7 @@ export default function BidForm({ jobId }: BidFormProps) {
     const token = sessionStorage.getItem("token");
 
     axios.post(
-        "http://localhost:8080/api/users/" + "109019647377227797987" + "/jobs/" + {jobId} + "/bids", formData,
+        "http://localhost:8080/api/users/" + "109019647377227797987" + "/jobs/" + "1" + "/bids", formData,
         {
           headers: {
             Authorization: "Bearer ",

@@ -28,9 +28,9 @@ public class BidlyUserController {
         this.service = service;
     }
 
-    @GetMapping("/hello")
-    public String getHello() {
-        return "hello";
+    @GetMapping("/status")
+    public ResponseEntity getStatus() {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(path = "{userSubject}/jobs")

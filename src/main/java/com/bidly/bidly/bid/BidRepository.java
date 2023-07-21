@@ -1,7 +1,10 @@
 package com.bidly.bidly.bid;
 
+import com.bidly.bidly.user.BidlyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class BidRepository {
@@ -19,5 +22,9 @@ public class BidRepository {
 
     public void save(Bid bid) {
         repo.save(bid);
+    }
+
+    public List<Bid> getBidsByUser(BidlyUser bidlyUser) {
+        return repo.findByBidlyUser(bidlyUser);
     }
 }

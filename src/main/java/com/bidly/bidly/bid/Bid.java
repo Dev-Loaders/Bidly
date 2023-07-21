@@ -28,6 +28,7 @@ public class Bid {
 //    @JoinColumn(name = "bidly_user_id_bid")
     private String userId;
 
+
     @PrePersist
     private void onCreate() {
         this.created = LocalDateTime.now();
@@ -54,7 +55,6 @@ public class Bid {
         this.amount = amount;
         this.userId = userId;
     }
-
 
     public Long getBidId() {
         return bidId;
@@ -91,5 +91,4 @@ public class Bid {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
 }
