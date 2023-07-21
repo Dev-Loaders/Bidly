@@ -30,5 +30,9 @@ public class BidController {
         return service.addBidToJob(userSubject, jobId, amount);
     }
 
+    @GetMapping("users/{userSubject}/bids")
+    public ResponseEntity<List<Bid>> getBidByUserId(@PathVariable String userSubject) {
+        return service.getBidByUserId(userSubject);
+    }
 
 }
