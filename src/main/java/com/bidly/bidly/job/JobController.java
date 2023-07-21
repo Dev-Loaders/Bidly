@@ -1,5 +1,6 @@
 package com.bidly.bidly.job;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,18 +16,13 @@ public class JobController {
     }
 
     @GetMapping
-    public List<Job> getAllJobs() {
-        return service.getAllJobs();
+    public ResponseEntity<List<Job>> getAllJobs() {
+        return ResponseEntity.ok(service.getAllJobs());
     }
 
     @GetMapping("/{jobId}")
-    public Job getJobById(@PathVariable String jobId) {
+    public ResponseEntity<Job> getJobById(@PathVariable String jobId) {
         System.out.println(jobId);
-        return service.getJobById(jobId);
-    }
-
-    @GetMapping("/hello")
-    public String returnHello() {
-        return "service.getAllJobs()";
+        return ResponseEntity.ok(service.getJobById(jobId));
     }
 }
