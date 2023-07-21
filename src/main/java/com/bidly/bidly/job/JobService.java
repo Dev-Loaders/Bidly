@@ -23,4 +23,8 @@ public class JobService {
         jobRepo.getAllJobs().forEach(jobs::add);
         return jobs;
     }
+
+    public Job getJobById(String jobId) {
+        return jobRepo.getJobById(jobId);
+    }
 }

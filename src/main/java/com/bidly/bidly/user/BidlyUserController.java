@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,9 +37,9 @@ public class BidlyUserController {
     }
 
     @PostMapping("/{userSubject}/jobs")
-    public ResponseEntity<?> createJobPostForUser(@PathVariable String userSubject,
+    public ResponseEntity<Job> createJobPostForUser(@PathVariable String userSubject,
 //                                                  @AuthenticationPrincipal OidcUser oidcUser,
-                                                  @RequestParam("image") MultipartFile file,
+                                                  @RequestParam(value = "image", required = false) MultipartFile file,
                                                   @RequestParam("title") String title,
                                                   @RequestParam("description") String description,
                                                   @RequestParam("location") String location,
@@ -48,7 +49,7 @@ public class BidlyUserController {
         try {
             return service.addJobPostToUser("109019647377227797987", null , job, file);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 

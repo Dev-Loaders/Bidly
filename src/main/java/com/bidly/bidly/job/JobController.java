@@ -1,9 +1,6 @@
 package com.bidly.bidly.job;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +17,12 @@ public class JobController {
     @GetMapping
     public List<Job> getAllJobs() {
         return service.getAllJobs();
+    }
+
+    @GetMapping("/{jobId}")
+    public Job getJobById(@PathVariable String jobId) {
+        System.out.println(jobId);
+        return service.getJobById(jobId);
     }
 
     @GetMapping("/hello")

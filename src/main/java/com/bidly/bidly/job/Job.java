@@ -36,7 +36,7 @@ public class Job {
     @Column(name = "updated")
     private LocalDateTime updated;
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany
     private List<Bid> bids;
 
     @PrePersist
@@ -139,5 +139,9 @@ public class Job {
 
     public void setBids(List<Bid> bids) {
         this.bids = bids;
+    }
+
+    public void addBids(Bid bid) {
+        bids.add(bid);
     }
 }

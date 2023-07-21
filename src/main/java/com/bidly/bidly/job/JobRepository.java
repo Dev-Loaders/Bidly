@@ -24,4 +24,9 @@ public class JobRepository {
         repo.save(job);
         return job;
     }
+
+    public Job getJobById(String jobId) {
+        Long jobIdLong = Long.parseLong(jobId);
+        return repo.findJobByJobId(jobIdLong);
+    }
 }
