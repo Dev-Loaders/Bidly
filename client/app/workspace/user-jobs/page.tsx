@@ -27,7 +27,6 @@ export default function UserJobs() {
       })
       .then((response) => {
         setUserJobs(response.data);
-        console.log(response.data)
       })
       .catch((error) => {
         console.error(error);

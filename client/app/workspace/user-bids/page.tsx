@@ -6,6 +6,7 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 type Bid = {
     bidId: string;
     amount: string;
+    jobTitle: string;
 }
 
 type Job = {
@@ -20,7 +21,6 @@ type Job = {
 
 export default function UserBids() {
     const [userBids, setUserBids] = useState<Bid[]>([]);
-    // const [jobDetails, setJobDetails] = useState<Job | null>(null);
 
 //   const token = sessionStorage.getItem("token");
 
@@ -33,31 +33,14 @@ export default function UserBids() {
       })
       .then((response) => {
         setUserBids(response.data);
-        console.log(response.data)
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
-  // const getJobDetails = () => {
-  //   axios
-  //   .get("http://localhost:8080/api/users/" + "109019647377227797987" + "/bids", {
-  //     headers: {
-  //       Authorization: "Bearer ",
-  //     },
-  //   })
-  //   .then((response) => {
-  //     setJobDetails(response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  // };
-
   useEffect(() => {
     getUserBids();
-    // getJobDxetails();
   }, []);
 
   return (

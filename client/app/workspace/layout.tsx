@@ -18,6 +18,7 @@ export default function WorkspaceLayout({
                         <Nav.Link href={`/workspace/post-job`}>Create Job</Nav.Link>
                         <Nav.Link href={`/workspace/user-jobs`}>Your Jobs</Nav.Link>
                         <Nav.Link href={`/workspace/user-bids`}>Your Bids</Nav.Link>
+                        <Nav.Link href={`http://localhost:8080/login?logout`}>Logout</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
