@@ -83,4 +83,12 @@ public class Bid {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 }
