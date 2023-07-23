@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,21 +33,20 @@ public class BidService {
         return bids;
     }
 
-    public ResponseEntity<Bid> addBidToJob(String userSubject, String jobId, int amount) {
+    public Bid addBidToJob(String userSubject, String jobId, int amount) {
         Job job = jobRepo.getJobById(jobId);
         Bid bid = new Bid(userSubject, amount, job.getTitle());
         bidRepo.save(bid);
         job.addBids(bid);
-        return ResponseEntity.accepted().body(bid);
+        return bid;
     }
 
-    public ResponseEntity<List<Bid>> getBidByUserId(String userSubject) {
+    public List<Bid> getBidByUserId(String userSubject) {
         List<Bid> bids = bidRepo.getBidsByUserSubject(userSubject);
 
         if (bids.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(bids, HttpStatus.OK);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There are no bids");
         }
+        return bids;
     }
 }
