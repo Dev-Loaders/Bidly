@@ -8,7 +8,7 @@ type Job = {
   jobId: string;
   title: string;
   location: string;
-  image: string;
+  imageUrl: string;
   materials: boolean;
   description: string;
 };
@@ -55,7 +55,7 @@ export default function Workspace() {
                 >
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:8080/${job.image}`}
+                    src={`http://localhost:8080/${job.imageUrl}`}
                     alt="Job"
                   />
                   <Card.Body>
@@ -64,11 +64,9 @@ export default function Workspace() {
                   </Card.Body>
                   <ListGroup variant="flush">
                     <ListGroup.Item>Location: {job.location}</ListGroup.Item>
-                    <ListGroup.Item>
-                      Materials: {job.materials ? "Provided" : "Not provided"}
-                    </ListGroup.Item>
                   </ListGroup>
                 </Link>
+                <Button>Bid</Button>
               </Card>
             </Col>
           ))}

@@ -8,8 +8,19 @@ type Bid = {
     amount: string;
 }
 
+type Job = {
+  title: string;
+  location: string;
+  imageUrl: string;
+  materials: boolean;
+  description: string;
+  jobId: string;
+  created: string;
+};
+
 export default function UserBids() {
     const [userBids, setUserBids] = useState<Bid[]>([]);
+    // const [jobDetails, setJobDetails] = useState<Job | null>(null);
 
 //   const token = sessionStorage.getItem("token");
 
@@ -29,8 +40,24 @@ export default function UserBids() {
       });
   };
 
+  // const getJobDetails = () => {
+  //   axios
+  //   .get("http://localhost:8080/api/users/" + "109019647377227797987" + "/bids", {
+  //     headers: {
+  //       Authorization: "Bearer ",
+  //     },
+  //   })
+  //   .then((response) => {
+  //     setJobDetails(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+  // };
+
   useEffect(() => {
     getUserBids();
+    // getJobDxetails();
   }, []);
 
   return (
@@ -42,6 +69,7 @@ export default function UserBids() {
             <Col sm={12} md={6} lg={4} xl={3} className="mb-4" key={bid.bidId}>
               <Card style={{ width: "100%" }}>
                   <Card.Body>
+                    <Card.Title>Job: {bids.job.title}</Card.Title>
                     <Card.Title>Bid: {bid.bidId}</Card.Title>
                     <Card.Text>Bid amount: {bid.amount}</Card.Text>
                   </Card.Body>

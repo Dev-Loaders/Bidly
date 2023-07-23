@@ -1,3 +1,7 @@
+"use client"
+import Link from "next/link"
+import { Nav, Navbar } from "react-bootstrap"
+
 export default function WorkspaceLayout({
     children,
 }: {
@@ -5,25 +9,21 @@ export default function WorkspaceLayout({
 }) {
     return (
         <>
-            <aside>
-                <ul>
-                    <li>
-                        <a href={`/workspace`}>get all jobs</a>
-                    </li>
-                    <li>
-                        <a href={`/workspace/post-job`}>post a job</a>
-                    </li>
-                    <li>
-                        <a href={`/workspace/user-jobs`}>get specific jobs use has created</a>
-                    </li>
-                    <li>
-                        <a href={`/workspace/user-bids`}>get specific jobs user has bid on</a>
-                    </li>
-                </ul>
-            </aside>
+            <Navbar bg="light" expand="lg">
+                <Navbar.Brand><Link href={`/workspace`}>Bidly</Link></Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href={`/workspace`}>Jobs</Nav.Link>
+                        <Nav.Link href={`/workspace/post-job`}>Create Job</Nav.Link>
+                        <Nav.Link href={`/workspace/user-jobs`}>Your Jobs</Nav.Link>
+                        <Nav.Link href={`/workspace/user-bids`}>Your Bids</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
             <main>
                 {children}
             </main>
-        </>
+            </>
     )
 }

@@ -8,7 +8,7 @@ type Job = {
     jobId: string;
     title: string;
     location: string;
-    image: string;
+    imageUrl: string;
     materials: boolean;
     description: string;
 };
@@ -53,7 +53,7 @@ export default function UserJobs() {
               <Card style={{ width: "100%" }}>
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:8080/${job.image}`}
+                    src={`http://localhost:8080/${job.imageUrl}`}
                     alt="Job"
                   />
                   <Card.Body>
