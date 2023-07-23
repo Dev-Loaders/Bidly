@@ -72,9 +72,7 @@ export const JobForm = () => {
     formData.append("materials", String(materials));
     formData.append("description", description);
 
-    console.log(formData);
-
-    const token = sessionStorage.getItem("token");
+    // const token = sessionStorage.getItem("token");
     // if (token === null) {
     //   console.error("No token found.");
     // } else {
