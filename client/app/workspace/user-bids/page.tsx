@@ -69,7 +69,7 @@ export default function UserBids() {
             <Col sm={12} md={6} lg={4} xl={3} className="mb-4" key={bid.bidId}>
               <Card style={{ width: "100%" }}>
                   <Card.Body>
-                    <Card.Title>Job: {bids.job.title}</Card.Title>
+                    <Card.Title>Job: {bid.jobTitle}</Card.Title>
                     <Card.Title>Bid: {bid.bidId}</Card.Title>
                     <Card.Text>Bid amount: {bid.amount}</Card.Text>
                   </Card.Body>
