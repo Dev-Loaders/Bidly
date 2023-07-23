@@ -34,7 +34,7 @@ export default function Home() {
           <Button variant="outline-primary">Sign Up</Button>
         </div>
       </header>
-
+      
       <Container>
         <Row>
           <Col xs={6} md={3} className="d-flex align-items-center mb-4 mt-4">
