@@ -2,14 +2,9 @@ package com.bidly.bidly.bid;
 
 import com.bidly.bidly.job.Job;
 import com.bidly.bidly.job.JobRepository;
-import com.bidly.bidly.user.BidlyUser;
-import com.bidly.bidly.user.BidlyUserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +23,7 @@ public class BidService {
     }
 
     public List<Bid> getAllBids() {
-        List bids = new ArrayList<Bid>();
+        List<Bid> bids = new ArrayList<>();
         bidRepo.getAllBids().forEach(bids::add);
         return bids;
     }
@@ -42,11 +37,7 @@ public class BidService {
     }
 
     public List<Bid> getBidByUserId(String userSubject) {
-        List<Bid> bids = bidRepo.getBidsByUserSubject(userSubject);
 
-        if (bids.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There are no bids");
-        }
-        return bids;
+        return bidRepo.getBidsByUserSubject(userSubject);
     }
 }
