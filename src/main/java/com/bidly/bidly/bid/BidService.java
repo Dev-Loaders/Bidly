@@ -34,7 +34,7 @@ public class BidService {
 
     public ResponseEntity<Bid> addBidToJob(String userSubject, String jobId, int amount) {
         Job job = jobRepo.getJobById(jobId);
-        Bid bid = new Bid(userSubject, amount);
+        Bid bid = new Bid(userSubject, amount, job.getTitle());
         bidRepo.save(bid);
         job.addBids(bid);
         return ResponseEntity.accepted().body(bid);
