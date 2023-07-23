@@ -7,10 +7,12 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -44,12 +46,26 @@ public class BidlyUserService {
         userRepo.createUser(oidcUser);
     }
 
-    public ResponseEntity<Job> addJobPostToUser(String userSubject, OidcUser oidcUser, JobRequestDto jobPost, MultipartFile file) throws IOException {
+    public ResponseEntity<Job> addJobPostToUser(String userSubject, MultipartFile file, String title, String description,
+                                                String location, String materialsStr) throws IOException {
 
 //        if (!oidcUser.getSubject().equals(userSubject)) {
 //            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This action is forbidden.");
 //        }
 
+        boolean materials = Boolean.parseBoolean(materialsStr);
+        String fileUrl = getFileUrl(file);
+        Job job = jobRepo.createJob(title, fileUrl, description, location, materials);
+        userRepo.updateUser(job, userSubject);
+        URI locationUri = ServletUriComponentsBuilder.fromCurrentServletMapping()
+                .path("/api/jobs/{id}")
+                .buildAndExpand(job.getJobId())
+                .toUri();
+        return ResponseEntity.created(locationUri).body(job);
+
+    }
+
+    private String getFileUrl(MultipartFile file) throws IOException {
         String fileUrl = null;
         if (file != null) {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
@@ -61,13 +77,6 @@ public class BidlyUserService {
             stream.write(file.getBytes());
             stream.close();
         }
-        Job job = jobRepo.createJob(jobPost, fileUrl);
-        userRepo.updateUser(job, userSubject);
-        URI locationUri = ServletUriComponentsBuilder.fromCurrentServletMapping()
-                .path("/api/jobs/{id}")
-                .buildAndExpand(job.getJobId())
-                .toUri();
-        return ResponseEntity.created(locationUri).body(job);
-
+        return fileUrl;
     }
 }
