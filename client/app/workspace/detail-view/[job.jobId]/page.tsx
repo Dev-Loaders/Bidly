@@ -12,10 +12,11 @@ type Job = {
   description: string;
   jobId: string;
   created: string;
-  bids: string[];
+  bids: Bid[];
 };
 
 type Bid = {
+  bidId: string;
   amount: string;
 };
 
@@ -24,7 +25,7 @@ export default function DetailView() {
   // const token = sessionStorage.getItem("token");
 
   const [jobDetails, setJobDetails] = useState<Job | null>(null);
-  // const [bidDetails, setBidDetails] = useState<Bid | null>(null);
+  const [newBid, setNewBid] = useState(0);
 
   useEffect(() => {
     axios
@@ -35,26 +36,11 @@ export default function DetailView() {
       })
       .then((response) => {
         setJobDetails(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [jobId]);
-
-  // useEffect(() => {
-  //   axios.get(`http://localhost:8080/api/jobs`, {
-  //     headers: {
-  //       Authorization: "Bearer ",
-  //     },
-  //   })
-  //   .then((response) => {
-  //     setBidDetails(response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  // }, []);
+  }, [jobId, newBid]);
 
   return (
     <>
@@ -82,14 +68,14 @@ export default function DetailView() {
             {jobDetails?.bids?.length &&
               jobDetails.bids.map((bid) => (
                 <div key={bid.bidId}>
-                  <strong>Bids:</strong> {bid.amount}
+                  <strong>Bids:</strong> {bid.amount} kr
                 </div>
               ))}
           </Card.Text>
         </Card.Body>
       </Card>
 
-      {jobDetails && <BidForm jobId={jobDetails.jobId} />}
+      {jobDetails && <BidForm jobId={jobDetails.jobId} setNewBid={setNewBid} />}
     </>
   );
 }

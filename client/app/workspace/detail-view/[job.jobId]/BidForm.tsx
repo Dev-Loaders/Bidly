@@ -10,7 +10,7 @@ interface BidFormProps {
     jobId: string;
 }
 
-export default function BidForm({ jobId }: BidFormProps) {
+export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid: React.Dispatch<React.SetStateAction<number>>; }) {
   const [amount, setAmount] = useState("");
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ export default function BidForm({ jobId }: BidFormProps) {
         }
       )
       .then((response) => {
-        console.log(response);
+        setNewBid((prevBid) => prevBid + 1);
       })
       .catch((exception) => console.error(exception));
   };
