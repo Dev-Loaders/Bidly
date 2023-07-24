@@ -14,8 +14,8 @@ VALUES
 
 INSERT INTO job (title, description, location, image_url, materials, created, updated)
 VALUES
-    ('Job Title 1', 'Job Description 1', 'Location 1', 'http://example.com/image1.jpg', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
-    ('Job Title 2', 'Job Description 2', 'Location 2', 'http://example.com/image2.jpg', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2),
-    ('Job Title 3', 'Job Description 3', 'Location 3', 'http://example.com/image3.jpg', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2),
-    ('Job Title 4', 'Job Description 4', 'Location 4', 'http://example.com/image4.jpg', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3),
-    ('Job Title 5', 'Job Description 5', 'Location 5', 'http://example.com/image5.jpg', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3);
+    ('Bathroom Renovation', 'Seeking a professional experienced in installation of showers, toilets, and sinks. The bathroom is approximately 3m x 3m. I have already purchased materials. The attached picture is what I would like the final project to look like.', 'Stockholm', 'job-images/reno-bathroom.jpg', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+--     ('Job Title 2', 'Job Description 2', 'Location 2', 'http://example.com/image2.jpg', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2),
+--     ('Job Title 3', 'Job Description 3', 'Location 3', 'http://example.com/image3.jpg', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2),
+--     ('Job Title 4', 'Job Description 4', 'Location 4', 'http://example.com/image4.jpg', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3),
+--     ('Job Title 5', 'Job Description 5', 'Location 5', 'http://example.com/image5.jpg', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3);

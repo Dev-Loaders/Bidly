@@ -2,7 +2,7 @@ import { JobForm } from "./JobForm";
 
 export default function PostJob() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-24">
+        <main>
             <JobForm></JobForm>
         </main>
     )
