@@ -1,9 +1,13 @@
 package com.bidly.bidly.bid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -19,20 +23,43 @@ public class BidController {
     }
 
     @GetMapping()
-    public List<Bid> getBids() {
-        return service.getAllBids();
+    public ResponseEntity<List<Bid>> getBids() {
+        List<Bid> bids = service.getAllBids();
+        if (bids == null || bids.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(bids);
     }
 
     @PostMapping("users/{userSubject}/jobs/{jobId}/bids")
     public ResponseEntity<Bid> addBidToJob(@PathVariable String userSubject,
                                            @PathVariable String jobId,
                                            @RequestParam("amount") int amount) {
-        return service.addBidToJob(userSubject, jobId, amount);
+        if (amount <= 0) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid bid amount");
+        }
+
+        Bid bid = service.addBidToJob(userSubject, jobId, amount);
+        if (bid == null) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(bid.getBidId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(bid);
     }
 
     @GetMapping("users/{userSubject}/bids")
     public ResponseEntity<List<Bid>> getBidByUserId(@PathVariable String userSubject) {
-        return service.getBidByUserId(userSubject);
+        List<Bid> bids = service.getBidByUserId(userSubject);
+        if (bids == null || bids.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(bids);
     }
 
 }

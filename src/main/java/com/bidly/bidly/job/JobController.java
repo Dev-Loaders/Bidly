@@ -17,12 +17,22 @@ public class JobController {
 
     @GetMapping
     public ResponseEntity<List<Job>> getAllJobs() {
-        return ResponseEntity.ok(service.getAllJobs());
+
+        List<Job> jobs = service.getAllJobs();
+        if (jobs == null || jobs.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(jobs);
     }
 
     @GetMapping("/{jobId}")
     public ResponseEntity<Job> getJobById(@PathVariable String jobId) {
-        System.out.println(jobId);
-        return ResponseEntity.ok(service.getJobById(jobId));
+
+        Job job = service.getJobById(jobId);
+        if (job == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(job);
     }
 }
