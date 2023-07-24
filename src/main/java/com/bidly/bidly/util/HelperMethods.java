@@ -14,7 +14,7 @@ public class HelperMethods {
     
     public static String getFileUrl(MultipartFile file) throws IOException {
         if (file != null) {
-            String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
             String directory = "src/main/resources/static/job-images/";
             String filePath = Paths.get(directory, fileName).toString();
             String fileUrl = "job-images/" + fileName;
@@ -24,7 +24,6 @@ public class HelperMethods {
             stream.close();
             return fileUrl;
         }
-        return null;
-        
+        return "example-image";
     }
 }
