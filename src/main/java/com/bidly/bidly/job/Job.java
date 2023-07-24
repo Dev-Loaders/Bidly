@@ -140,6 +140,8 @@ public class Job {
 
     public void setAcceptedBid(Bid acceptedBid) {
         this.acceptedBid = acceptedBid;
+        acceptedBid.setAccepted(true);
+        bids.clear();
     }
 
     public void setBids(List<Bid> bids) {
@@ -158,9 +160,4 @@ public class Job {
         bids.add(bid);
     }
 
-    public void addAcceptedBid(Bid bid) {
-        setAcceptedBid(bid);
-        acceptedBid.setAccepted(true);
-        bids.clear();
-    }
 }
