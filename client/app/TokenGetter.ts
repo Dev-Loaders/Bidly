@@ -3,16 +3,13 @@ import jwtDecode from "jwt-decode";
 
 type decodedToken = {
     sub: string;
-    iat: number;
-    exp: number;
-    iss: string;
 };
 
-type cookies = {
+type jwtCookie = {
     tokenCookie: decodedToken;
 };
 
-export const getUserSubjectFromCookie= (cookies : cookies) => {
+export const getUserSubjectFromCookie = (cookies : jwtCookie) => {
 
   if (cookies.tokenCookie === undefined) {
     window.location.href = "/";
