@@ -2,6 +2,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import React from "react";
+import CssBaseline from '@mui/material/CssBaseline';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
         <title>Bidly</title>
         <link
           rel="stylesheet"
@@ -28,7 +30,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <React.Fragment>
+        <CssBaseline />
+        <body className={inter.className}>{children}</body>
+      </React.Fragment>
     </html>
   )
 }

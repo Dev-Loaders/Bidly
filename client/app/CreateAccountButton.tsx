@@ -1,12 +1,13 @@
 "use client"
-import Button from 'react-bootstrap/Button';
+import Button from '@mui/material/Button';
+
 
 export const CreateAccountButton = (props: {
     children: React.ReactNode
   }) => {
     return (
       <>
-        <Button variant="primary">{props.children}</Button>{' '}
+        <Button variant="contained" color="primary">{props.children}</Button>{' '}
       </>
     );
 }
