@@ -1,5 +1,6 @@
 package com.bidly.bidly.bid;
 
+import com.bidly.bidly.job.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +61,13 @@ public class BidController {
                 .toUri();
 
         return ResponseEntity.created(location).body(bid);
+    }
+
+    @PutMapping("users/{userSubject}/jobs/{jobId}/bids/{bidId}")
+    public ResponseEntity<Bid> acceptBid(@PathVariable String userSubject,
+                                         @PathVariable String jobId,
+                                         @PathVariable String bidId) {
+
+        return ResponseEntity.accepted().body(service.acceptBid(jobId, bidId));
     }
 }
