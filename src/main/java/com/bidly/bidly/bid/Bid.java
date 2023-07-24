@@ -24,13 +24,11 @@ public class Bid {
     @Column(name = "updated")
     private LocalDateTime updated;
 
-    @ManyToOne
-    @JoinColumn(name = "bidly_id")
-    private BidlyUser user;
+    private String userId;
 
-    @ManyToOne
-    @JoinColumn(name = "job_id")
-    private Job job;
+    private String jobTitle;
+
+    private boolean accepted;
 
     @PrePersist
     private void onCreate() {
@@ -43,16 +41,12 @@ public class Bid {
     }
 
     public Bid() {
-
     }
 
-    public Bid(Long bidId, int amount, LocalDateTime created, LocalDateTime updated, BidlyUser user, Job job) {
-        this.bidId = bidId;
+    public Bid(String userId, int amount, String jobTitle) {
         this.amount = amount;
-        this.created = created;
-        this.updated = updated;
-        this.user = user;
-        this.job = job;
+        this.userId = userId;
+        this.jobTitle = jobTitle;
     }
 
     public Long getBidId() {
@@ -83,19 +77,28 @@ public class Bid {
         this.updated = updated;
     }
 
-    public BidlyUser getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(BidlyUser user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public Job getJob() {
-        return job;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    public void setJob(Job job) {
-        this.job = job;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+
 }

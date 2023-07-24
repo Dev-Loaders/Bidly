@@ -25,3 +25,19 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-img {
+  width: 30px;
+  height: 30px;
+}
+
+.img--bottom {
+  height: 100%;
+}

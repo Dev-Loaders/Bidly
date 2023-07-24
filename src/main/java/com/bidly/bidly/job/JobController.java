@@ -1,31 +1,67 @@
 package com.bidly.bidly.job;
 
-import com.bidly.bidly.user.BidlyUser;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
+import static com.bidly.bidly.util.HelperMethods.getFileUrl;
 
 @RestController
 @RequestMapping("/api/jobs")
 @CrossOrigin(origins = "*")
 public class JobController {
-
     private final JobService service;
 
-    JobController(JobService service) {
+    public JobController(JobService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Job> getAllJobs() {
-        return service.getAllJobs();
+    public ResponseEntity<List<Job>> getAllJobs() {
+
+        List<Job> jobs = service.getAllJobs();
+        if (jobs == null || jobs.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(jobs);
     }
 
-    @GetMapping("/hello")
-    public String returnHello() {
-        return "service.getAllJobs()";
+    @GetMapping("/{jobId}")
+    public ResponseEntity<Job> getJobById(@PathVariable String jobId) {
+
+        Job job = service.getJobById(jobId);
+        if (job == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(job);
     }
+
+    @PutMapping("/{jobId}")
+    public ResponseEntity<Job> updateJob(@PathVariable String jobId,
+                                         @RequestParam(value = "image", required = false) MultipartFile file,
+                                         @RequestParam("title") String title,
+                                         @RequestParam("description") String description,
+                                         @RequestParam("location") String location,
+                                         @RequestParam("materials") String materialsStr) {
+
+
+        try {
+            String fileUrl = getFileUrl(file);
+            Job updatedJob = new Job(title, description, location, fileUrl, Boolean.parseBoolean(materialsStr));
+            Job job = service.updateJob(jobId, updatedJob);
+            if (job == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(job);
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+
 }

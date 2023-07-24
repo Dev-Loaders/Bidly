@@ -37,3 +37,4 @@ src/main/resources/.env.properties
 
 .DS_Store
 node_modules
+src/main/resources/static/job-images
