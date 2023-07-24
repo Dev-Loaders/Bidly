@@ -31,6 +31,15 @@ public class BidController {
         return ResponseEntity.ok(bids);
     }
 
+    @GetMapping("users/{userSubject}/bids")
+    public ResponseEntity<List<Bid>> getBidByUserId(@PathVariable String userSubject) {
+        List<Bid> bids = service.getBidByUserId(userSubject);
+        if (bids == null || bids.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(bids);
+    }
+
     @PostMapping("users/{userSubject}/jobs/{jobId}/bids")
     public ResponseEntity<Bid> addBidToJob(@PathVariable String userSubject,
                                            @PathVariable String jobId,
@@ -52,14 +61,4 @@ public class BidController {
 
         return ResponseEntity.created(location).body(bid);
     }
-
-    @GetMapping("users/{userSubject}/bids")
-    public ResponseEntity<List<Bid>> getBidByUserId(@PathVariable String userSubject) {
-        List<Bid> bids = service.getBidByUserId(userSubject);
-        if (bids == null || bids.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return ResponseEntity.ok(bids);
-    }
-
 }
