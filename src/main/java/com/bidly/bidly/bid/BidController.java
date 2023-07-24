@@ -40,6 +40,15 @@ public class BidController {
         return ResponseEntity.ok(bids);
     }
 
+    @GetMapping("users/{userSubject}/bids/accepted")
+    public ResponseEntity<List<Bid>> getAcceptedBid(@PathVariable String userSubject) {
+        List<Bid> bids = service.getAcceptedBidByUserId(userSubject);
+        if (bids == null || bids.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(bids);
+    }
+
     @PostMapping("users/{userSubject}/jobs/{jobId}/bids")
     public ResponseEntity<Bid> addBidToJob(@PathVariable String userSubject,
                                            @PathVariable String jobId,

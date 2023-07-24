@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface JpaBidRepository extends CrudRepository<Bid, Long> {
     List<Bid> findByUserId(String userSubject);
+
+    List<Bid> findByUserIdAndAcceptedTrue(String userSubject);
 }

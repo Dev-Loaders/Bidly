@@ -36,7 +36,7 @@ public class Job {
     @Column(name = "updated")
     private LocalDateTime updated;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Bid> bids;
 
     @OneToOne

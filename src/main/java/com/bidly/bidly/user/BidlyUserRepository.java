@@ -8,6 +8,9 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 public class BidlyUserRepository {
     private final JpaBidlyUserRepository repo;
@@ -38,5 +41,17 @@ public class BidlyUserRepository {
                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
        user.addJobs(job);
        repo.save(user);
+    }
+
+
+    public List<Job> geCompletedJobsByUserId(String userSubject) {
+       List<Job> jobs =  repo.findByJwtIdEquals(userSubject)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"))
+               .getJobs();
+
+        return jobs.stream()
+                .filter(Job::isCompleted)
+                .collect(Collectors.toList());
+
     }
 }

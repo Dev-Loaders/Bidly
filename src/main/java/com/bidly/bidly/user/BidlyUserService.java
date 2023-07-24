@@ -5,12 +5,15 @@ import com.bidly.bidly.job.JobRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
+
 import static com.bidly.bidly.util.HelperMethods.getFileUrl;
 
 @Service
@@ -51,5 +54,9 @@ public class BidlyUserService {
                 .toUri();
         return Pair.of(locationUri, job);
 
+    }
+
+    public List<Job> getCompletedUserJobs(String userSubject) {
+        return userRepo.geCompletedJobsByUserId(userSubject);
     }
 }

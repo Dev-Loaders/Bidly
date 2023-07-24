@@ -32,4 +32,8 @@ public class BidRepository {
     public List<Bid> getBidsByUserSubject(String userSubject) {
         return repo.findByUserId(userSubject);
     }
+
+    public List<Bid> getAllAcceptedBidByUserId(String userSubject) {
+        return repo.findByUserIdAndAcceptedTrue(userSubject);
+    }
 }

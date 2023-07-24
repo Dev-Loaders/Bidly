@@ -37,7 +37,6 @@ public class JobController {
         if (job == null) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok(job);
     }
 
@@ -65,6 +64,4 @@ public class JobController {
     public ResponseEntity<Job> completeJob(@PathVariable String jobId){
         return ResponseEntity.accepted().body(service.completeJob(jobId));
     }
-
-
 }

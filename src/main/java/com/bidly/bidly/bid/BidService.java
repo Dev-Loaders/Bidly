@@ -47,4 +47,8 @@ public class BidService {
         job.setAcceptedBid(bid);
         return job.getAcceptedBid();
     }
+
+    public List<Bid> getAcceptedBidByUserId(String userSubject) {
+        return bidRepo.getAllAcceptedBidByUserId(userSubject);
+    }
 }
