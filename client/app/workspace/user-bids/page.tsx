@@ -46,21 +46,6 @@ export default function UserBids() {
       });
   };
 
-  // const getJobDetails = () => {
-  //   axios
-  //   .get("http://localhost:8080/api/users/" + "109019647377227797987" + "/bids", {
-  //     headers: {
-  //       Authorization: "Bearer ",
-  //     },
-  //   })
-  //   .then((response) => {
-  //     setJobDetails(response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  // };
-
   useEffect(() => {
     getUserBids();
     // getJobDxetails();
