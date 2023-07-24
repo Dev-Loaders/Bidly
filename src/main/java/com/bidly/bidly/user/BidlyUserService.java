@@ -5,6 +5,7 @@ import com.bidly.bidly.job.JobRequestDto;
 import com.bidly.bidly.job.JobRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -46,8 +47,8 @@ public class BidlyUserService {
         userRepo.createUser(oidcUser);
     }
 
-    public ResponseEntity<Job> addJobPostToUser(String userSubject, MultipartFile file, String title, String description,
-                                                String location, String materialsStr) throws IOException {
+    public Pair<URI, Job> addJobPostToUser(String userSubject, MultipartFile file, String title, String description,
+                                           String location, String materialsStr) throws IOException {
 
 //        if (!oidcUser.getSubject().equals(userSubject)) {
 //            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This action is forbidden.");
@@ -55,13 +56,13 @@ public class BidlyUserService {
 
         boolean materials = Boolean.parseBoolean(materialsStr);
         String fileUrl = getFileUrl(file);
-        Job job = jobRepo.createJob(title, fileUrl, description, location, materials);
+        Job job = jobRepo.createJob(fileUrl, title, description, location, materials);
         userRepo.updateUser(job, userSubject);
         URI locationUri = ServletUriComponentsBuilder.fromCurrentServletMapping()
                 .path("/api/jobs/{id}")
                 .buildAndExpand(job.getJobId())
                 .toUri();
-        return ResponseEntity.created(locationUri).body(job);
+        return Pair.of(locationUri, job);
 
     }
 
