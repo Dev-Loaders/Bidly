@@ -30,6 +30,8 @@ public class Bid {
 
     private boolean accepted;
 
+    private boolean completed;
+
     @PrePersist
     private void onCreate() {
         this.created = LocalDateTime.now();
@@ -99,6 +101,14 @@ public class Bid {
 
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
 }

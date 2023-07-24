@@ -154,6 +154,7 @@ public class Job {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+        acceptedBid.setCompleted(true);
     }
 
     public void addBids(Bid bid) {

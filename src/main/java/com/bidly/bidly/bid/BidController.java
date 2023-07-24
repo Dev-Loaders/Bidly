@@ -1,6 +1,5 @@
 package com.bidly.bidly.bid;
 
-import com.bidly.bidly.job.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

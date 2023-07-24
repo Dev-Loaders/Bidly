@@ -47,6 +47,16 @@ public class JobService {
         return jobRepo.updateJob(originalJob);
     }
 
+    public Job completeJob(String jobId) {
+        Job job = jobRepo.getJobById(jobId);
+        if (job == null) {
+            return null;
+        }
+        job.setCompleted(true);
+        return job;
+    }
+
+
     private <T> void updateIfExists(Supplier<T> getter, Consumer<T> setter) {
         T value = getter.get();
         System.out.println(value);

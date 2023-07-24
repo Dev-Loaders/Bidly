@@ -48,8 +48,6 @@ public class JobController {
                                          @RequestParam("description") String description,
                                          @RequestParam("location") String location,
                                          @RequestParam("materials") String materialsStr) {
-
-
         try {
             String fileUrl = getFileUrl(file);
             Job updatedJob = new Job(title, description, location, fileUrl, Boolean.parseBoolean(materialsStr));
@@ -57,10 +55,15 @@ public class JobController {
             if (job == null) {
                 return ResponseEntity.notFound().build();
             }
-            return ResponseEntity.ok(job);
+            return ResponseEntity.accepted().body(job);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
+    }
+
+    @PatchMapping("/{jobId}")
+    public ResponseEntity<Job> completeJob(@PathVariable String jobId){
+        return ResponseEntity.accepted().body(service.completeJob(jobId));
     }
 
 
