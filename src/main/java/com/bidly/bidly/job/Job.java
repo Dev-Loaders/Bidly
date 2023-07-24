@@ -39,6 +39,15 @@ public class Job {
     @OneToMany
     private List<Bid> bids;
 
+    @OneToOne
+    private Bid acceptedBid;
+
+    private boolean completed;
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
     @PrePersist
     private void onCreate() {
         this.created = LocalDateTime.now();
@@ -124,11 +133,34 @@ public class Job {
         return bids;
     }
 
+
+    public Bid getAcceptedBid() {
+        return acceptedBid;
+    }
+
+    public void setAcceptedBid(Bid acceptedBid) {
+        this.acceptedBid = acceptedBid;
+    }
+
     public void setBids(List<Bid> bids) {
         this.bids = bids;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     public void addBids(Bid bid) {
         bids.add(bid);
+    }
+
+    public void addAcceptedBid(Bid bid) {
+        setAcceptedBid(bid);
+        acceptedBid.setAccepted(true);
+        bids.clear();
     }
 }
