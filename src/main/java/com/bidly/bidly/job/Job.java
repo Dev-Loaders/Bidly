@@ -51,19 +51,6 @@ public class Job {
 
     public Job() {
     }
-
-    public Job(Long jobId, String title, String description, String location, String imageUrl, boolean materials, LocalDateTime created, LocalDateTime updated
-            , List<Bid> bids
-    ) {
-        this.jobId = jobId;
-        this.title = title;
-        this.description = description;
-        this.location = location;
-        this.imageUrl = imageUrl;
-        this.materials = materials;
-        this.bids = bids;
-    }
-
     public Job(String title, String description, String location, String imageUrl, boolean materials
     ) {
         this.title = title;
