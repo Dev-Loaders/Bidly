@@ -233,14 +233,14 @@ export default function Home() {
               Created by{" "}
               <Link
                 href={`https://www.linkedin.com/in/vwingardh/`}
-                style={{ fontWeight: "600" }}
+                style={{ fontWeight: "600", color: '#242424' }}
               >
                 Vanessa
               </Link>{" "}
               &{" "}
               <Link
                 href={`https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/`}
-                style={{ fontWeight: "600" }}
+                style={{ fontWeight: "600", color: '#242424' }}
               >
                 Ibrahim{" "}
               </Link>
