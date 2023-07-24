@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 type decodedToken = {
@@ -18,7 +17,7 @@ export const getUserSubjectFromCookie = (cookies : jwtCookie) => {
 
     const tokenValue = cookies.tokenCookie;
     console.log(tokenValue);
-    const decodedToken: decodedToken = jwtDecode(tokenValue);
+    const decodedToken = jwtDecode(tokenValue);
     console.log(decodedToken);
     console.log(decodedToken.sub);
     return decodedToken.sub;
