@@ -1,6 +1,8 @@
+import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 import axios from "axios";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useCookies } from "react-cookie";
 
 type BidFormDataProps = {
   amount: string;
@@ -12,6 +14,7 @@ interface BidFormProps {
 
 export default function BidForm({ jobId }: BidFormProps) {
   const [amount, setAmount] = useState("");
+  const [cookies] = useCookies();
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
@@ -28,13 +31,14 @@ export default function BidForm({ jobId }: BidFormProps) {
     const formData = new FormData();
 
     formData.append("amount", amount);
-    const token = sessionStorage.getItem("token");
+    const userSub = getUserSubjectFromCookie(cookies);
+    const jobId = window.location.pathname.split("/")[3];
 
     axios.post(
-        "http://localhost:8080/api/users/" + "109019647377227797987" + "/jobs/" + "1" + "/bids", formData,
+        "http://localhost:8080/api/users/" + userSub + "/jobs/" + jobId + "/bids", formData,
         {
           headers: {
-            Authorization: "Bearer ",
+            Authorization: "Bearer " + cookies.tokenCookie,
           },
         }
       )

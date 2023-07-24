@@ -1,7 +1,9 @@
 "use client"
+import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import { useCookies } from "react-cookie";
 
 type Bid = {
     bidId: string;
@@ -20,13 +22,16 @@ type Job = {
 
 export default function UserBids() {
     const [userBids, setUserBids] = useState<Bid[]>([]);
+    const [cookies] = useCookies();
+
+    const userSub = getUserSubjectFromCookie(cookies);
     // const [jobDetails, setJobDetails] = useState<Job | null>(null);
 
 //   const token = sessionStorage.getItem("token");
 
   const getUserBids = () => {
     axios
-      .get("http://localhost:8080/api/users/" + "109019647377227797987" + "/bids", {
+      .get("http://localhost:8080/api/users/" + userSub + "/bids", {
         headers: {
           Authorization: "Bearer ",
         },
