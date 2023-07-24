@@ -1,91 +1,255 @@
-"use client"
-import React from 'react';
-import { Navbar, Nav, Button, Container, Row, Col, Image, Card } from 'react-bootstrap';
-import Link from 'next/link';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './globals.css';
-
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  Box,
+} from "@mui/material";
+import "./globals.css";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
 export default function Home() {
-
   return (
-    <main>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/">Bidly</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/contact">Contact</Nav.Link>
-          </Nav>
-          <Nav>
-            <Nav.Link href="https://bidly-app.azurewebsites.net/login">
-              <Button variant="outline-primary">Login</Button>
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+    <>
+      <main>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" sx={{ backgroundColor: '#242424' }}>
+            <Toolbar>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Montserrat' }}>
+                Bidly
+              </Typography>
+              <Button color="inherit">Login</Button>
+            </Toolbar>
+          </AppBar>
+        </Box>
 
-      <header className="position-relative">
-        <Image src="/bidly-images/kitchen.jpg" alt="Bright kitchen with modern design" fluid />
-        <div className="centered">
-          <h1>Bidly</h1>
-          <h2>Compare prices and select the best offer for your projects</h2>
-          <Button variant="outline-primary">Sign Up</Button>
-        </div>
-      </header>
+        <header className="header" style={{ marginBlockEnd: '10%' }}>
+          <img
+            className="header__img"
+            src="/bidly-images/white.jpg"
+            alt="Bright kitchen with modern design"
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              color: "#242424",
+            }}
+          >
+            <Typography variant="h1" style={{ fontSize: '45px', fontFamily: 'Montserrat' }}>
+              Bidly
+            </Typography>
+            <Typography
+              variant="h2"
+              style={{ fontSize: '35px', marginBlockEnd: '10%' }}
+            >
+              Compare prices and select the best bid for your projects
+            </Typography>
+            <Button
+              variant="outlined"
+              color="inherit"
+              style={{ marginBlockEnd: '10%' }}
+            >
+              Sign Up
+            </Button>
+          </div>
+        </header>
 
-      <Container>
-        <Row>
-          <Col xs={6} md={3} className="d-flex align-items-center mb-4 mt-4">
-            <Card>
-              <Image className="icon-img" src="/bidly-images/hammer.svg" alt="Hammer icon" />
-              <Card.Body>
-                <h5>Qualified trade workers</h5>
-                <p>Get quotes from qualified trade workers in your area.</p>
-              </Card.Body>
-            </Card>
-          </Col>
+        <Container maxWidth="sm" style={{ marginBlockEnd: '10%' }}>
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={6} lg={6}>
+              <Card
+                className="card"
+                style={{ border: 'none', boxShadow: 'none' }}
+              >
+                <CardContent>
+                  <Box display="flex" alignItems="center">
+                    <Image
+                      className="icon-img"
+                      src="/bidly-images/bids.svg"
+                      alt="Bid icon"
+                      width="40"
+                      height="40"
+                    />
+                    <Typography
+                      variant="h5"
+                      style={{ marginLeft: '10px', fontSize: '20px' }}
+                    >
+                      Multiple Bids
+                    </Typography>
+                  </Box>
+                  <Typography style={{ marginLeft: '50px' }}>
+                    Choose the best bid for your project
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
 
-          <Col xs={6} md={3} className="d-flex align-items-center">
-            <Card>
-              <Image className="icon-img" src="/bidly-images/calendar-day.svg" alt="Calendar icon" />
-              <Card.Body>
-                <h5>Simple and convenient</h5>
-                <p>Get quotes and compare prices in just a few clicks.</p>
-              </Card.Body>
-            </Card>
-          </Col>
+            <Grid item xs={6} md={6} lg={6}>
+              <Card
+                className="card"
+                style={{ border: 'none', boxShadow: 'none' }}
+              >
+                <CardContent>
+                  <Box display="flex" alignItems="center">
+                    <Image
+                      className="icon-img"
+                      src="/bidly-images/qualified.svg"
+                      alt="Qualified icon"
+                      width="40"
+                      height="40"
+                    />
+                    <Typography
+                      variant="h5"
+                      style={{ marginLeft: "10px", fontSize: "20px" }}
+                    >
+                      Qualified Workers
+                    </Typography>
+                  </Box>
+                  <Typography style={{ marginLeft: "50px" }}>
+                    Licensed and qualified trade workers
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
 
-          <Col xs={6} md={3} className="d-flex align-items-center mb-4">
-            <Card>
-              <Image className="icon-img" src="/bidly-images/hand-thumbs-up.svg" alt="Thumbs up icon" />
-              <Card.Body>
-                <h5>Protected projects</h5>
-                <p>Your projects are protected by our secure bidding platform.</p>
-              </Card.Body>
-            </Card>
-          </Col>
+            <Grid item xs={6} md={6} lg={6}>
+              <Card
+                className="card"
+                style={{ border: "none", boxShadow: "none" }}
+              >
+                <CardContent>
+                  <Box display="flex" alignItems="center">
+                    <Image
+                      className="icon-img"
+                      src="/bidly-images/ease.svg"
+                      alt="Ease of use icon"
+                      width="40"
+                      height="40"
+                    />
+                    <Typography
+                      variant="h5"
+                      style={{ marginLeft: "10px", fontSize: "20px" }}
+                    >
+                      Ease of use
+                    </Typography>
+                  </Box>
+                  <Typography style={{ marginLeft: "50px" }}>
+                    Post project, review bids, project started
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
 
-          <Col xs={6} md={3} className="d-flex align-items-center mb-4">
-            <Card>
-              <Image className="icon-img" src="/bidly-images/tag.svg" alt="Price icon" />
-              <Card.Body>
-                <h5>Compare prices</h5>
-                <p>Get quotes from multiple trade workers and compare prices.</p>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-
-      {/* <Image className="img--bottom" src="/bidly-images/bathroom.jpg" alt="Bright bathroom with modern design" fluid /> */}
-
-      <footer className="footer mt-auto py-3 bg-light">
-        <Container>
-          <span className="text-muted">© 2023 Bidly</span>
+            <Grid item xs={6} md={6} lg={6}>
+              <Card
+                className="card"
+                style={{ border: "none", boxShadow: "none" }}
+              >
+                <CardContent>
+                  <Box display="flex" alignItems="center">
+                    <Image
+                      className="icon-img"
+                      src="/bidly-images/reviews.svg"
+                      alt="Review icon"
+                      width="40"
+                      height="40"
+                    />
+                    <Typography
+                      variant="h5"
+                      style={{ marginLeft: "10px", fontSize: "20px" }}
+                    >
+                      Review Ratings
+                    </Typography>
+                  </Box>
+                  <Typography style={{ marginLeft: "50px" }}>
+                    Make informed decisions before you hire
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </Container>
-      </footer>
-    </main>
+
+        <Box
+          style={{
+            padding: "6%",
+            paddingTop: "10%",
+            paddingBottom: "10%",
+            backgroundColor: '#f0f0f0'
+          }}
+        >
+          <Typography
+            variant="h3"
+            style={{
+              fontSize: "32px",
+              fontWeight: "400",
+              marginBlockEnd: "4%",
+              color: '#555'
+            }}
+          >
+            Publishing to Bidly
+          </Typography>
+          <Typography variant="h5" style={{ fontSize: "16px", color: "#242424" }}>
+            What does it cost to publish a project? Publishing to Bidly is free
+            of charge. We have a commission fee that is 10% for completed
+            projects. For projects with no bids, you will not be charged.
+          </Typography>
+        </Box>
+
+        <Box style={{ marginBlockEnd: "6%" }}>
+        <img
+            className="box__img"
+            src="/bidly-images/kitchen.jpg"
+            alt="Bright kitchen with modern design"
+          />
+        </Box>
+
+        <footer>
+          <Container maxWidth="lg">
+            <Typography variant="h6" align="center" gutterBottom style={{ fontWeight: "600", fontFamily: 'Montserrat' }}>
+              Bidly
+            </Typography>
+            <Typography variant="body2" color="textSecondary" align="center" style={{ marginBottom: '2%' }}>
+              Created by{" "}
+              <Link
+                href={`https://www.linkedin.com/in/vwingardh/`}
+                style={{ fontWeight: "600" }}
+              >
+                Vanessa
+              </Link>{" "}
+              &{" "}
+              <Link
+                href={`https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/`}
+                style={{ fontWeight: "600" }}
+              >
+                Ibrahim{" "}
+              </Link>
+              {new Date().getFullYear()}
+              {"."}
+            </Typography>
+          </Container>
+        </footer>
+      </main>
+    </>
   );
 }
