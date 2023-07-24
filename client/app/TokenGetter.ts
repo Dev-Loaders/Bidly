@@ -17,7 +17,7 @@ export const getUserSubjectFromCookie = (cookies : jwtCookie) => {
 
     const tokenValue = cookies.tokenCookie;
     console.log(tokenValue);
-    const decodedToken = jwtDecode(tokenValue);
+    const decodedToken: decodedToken = jwtDecode(tokenValue);
     console.log(decodedToken);
     console.log(decodedToken.sub);
     return decodedToken.sub;

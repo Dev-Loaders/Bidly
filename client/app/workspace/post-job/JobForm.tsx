@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 // import { useSession } from "next-auth/react";
 // import { useSession } from "next-auth/client";
 // import jwtDecode from "jwt-decode";
@@ -21,6 +23,7 @@ export const JobForm = () => {
   const [image, setImage] = useState<File | null>(null);
   const [materials, setMaterials] = useState(false);
   const [description, setDescription] = useState("");
+  const [cookies] = useCookies();
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -74,17 +77,13 @@ export const JobForm = () => {
 
     console.log(formData);
 
-    const token = sessionStorage.getItem("token");
-    // if (token === null) {
-    //   console.error("No token found.");
-    // } else {
-    // const decodedToken = jwtDecode(token) as { sub: string };
-    // const userSubject = decodedToken.sub;
-
-    // axios.post('https://bidly-app.azurewebsites.net/api/users/' + userSubject + '/jobs', formData, {
+    const userSub = getUserSubjectFromCookie(cookies);
+    console.log(userSub);
+    
+    
     axios
       .post(
-        "http://localhost:8080/api/users/" + "109019647377227797987" + "/jobs",
+        "http://localhost:8080/api/users/" + userSub + "/jobs",
         formData,
         {
           headers: {
