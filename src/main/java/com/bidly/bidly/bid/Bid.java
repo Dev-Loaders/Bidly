@@ -28,6 +28,8 @@ public class Bid {
 
     private String jobTitle;
 
+    private boolean accepted;
+
     @PrePersist
     private void onCreate() {
         this.created = LocalDateTime.now();
@@ -39,7 +41,6 @@ public class Bid {
     }
 
     public Bid() {
-
     }
 
     public Bid(String userId, int amount, String jobTitle) {
@@ -91,4 +92,13 @@ public class Bid {
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+
 }
