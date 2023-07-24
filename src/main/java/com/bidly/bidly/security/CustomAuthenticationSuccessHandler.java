@@ -1,6 +1,7 @@
 package com.bidly.bidly.security;
 
 import com.bidly.bidly.user.BidlyUserService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -32,10 +33,22 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         OidcUser token = (OidcUser) authentication.getPrincipal();
 //        validation.validateJwt(token);
-        HttpSession session = request.getSession();
-        session.setAttribute("token", token);
-        System.out.println("this is it " + session.getAttribute("token"));
-        createUserAccountIfItDoesNotExist((OidcUser) session.getAttribute("token"));
+
+
+        Cookie tokenCookie = new Cookie("tokenCookie", token.getIdToken().getTokenValue());
+        tokenCookie.setMaxAge(60);
+        tokenCookie.setPath("/");
+        tokenCookie.setHttpOnly(false);
+        tokenCookie.setSecure(true);
+        response.addCookie(tokenCookie);
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println(cookie.getName() + " = " + cookie.getValue());
+            }
+        }
+        createUserAccountIfItDoesNotExist(token);
         response.sendRedirect("http://localhost:3000/workspace");
     }
 
