@@ -12,11 +12,12 @@ type Job = {
   description: string;
   jobId: string;
   created: string;
-  bids: string[];
+  bids: Bid[];
 };
 
 type Bid = {
   amount: string;
+  bidId: string;
 };
 
 export default function DetailView() {

@@ -8,6 +8,7 @@ import { useCookies } from "react-cookie";
 type Bid = {
     bidId: string;
     amount: string;
+    jobTitle: string;
 }
 
 type Job = {

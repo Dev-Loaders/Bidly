@@ -5,7 +5,7 @@ type decodedToken = {
 };
 
 type jwtCookie = {
-    tokenCookie: decodedToken;
+    [x: string]: any;
 };
 
 export const getUserSubjectFromCookie = (cookies : jwtCookie) => {
