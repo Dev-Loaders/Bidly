@@ -30,7 +30,7 @@ public class Bid {
 
     private boolean accepted;
 
-    private boolean completed;
+//    private boolean completed;
 
     @PrePersist
     private void onCreate() {
@@ -103,12 +103,12 @@ public class Bid {
         this.accepted = accepted;
     }
 
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
+//    public boolean isCompleted() {
+//        return completed;
+//    }
+//
+//    public void setCompleted(boolean completed) {
+//        this.completed = completed;
+//    }
 
 }

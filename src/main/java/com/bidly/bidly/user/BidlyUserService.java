@@ -56,7 +56,7 @@ public class BidlyUserService {
 
     }
 
-    public List<Job> getCompletedUserJobs(String userSubject) {
-        return userRepo.geCompletedJobsByUserId(userSubject);
-    }
+//    public List<Job> getCompletedUserJobs(String userSubject) {
+//        return userRepo.geCompletedJobsByUserId(userSubject);
+//    }
 }

@@ -39,10 +39,10 @@ public class Job {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Bid> bids;
 
-    @OneToOne
-    private Bid acceptedBid;
+//    @OneToOne
+//    private Bid acceptedBid;
 
-    private boolean completed;
+//    private boolean completed;
 
     public void setJobId(Long jobId) {
         this.jobId = jobId;
@@ -134,28 +134,28 @@ public class Job {
     }
 
 
-    public Bid getAcceptedBid() {
-        return acceptedBid;
-    }
-
-    public void setAcceptedBid(Bid acceptedBid) {
-        this.acceptedBid = acceptedBid;
-        acceptedBid.setAccepted(true);
-        bids.clear();
-    }
+//    public Bid getAcceptedBid() {
+//        return acceptedBid;
+//    }
+//
+//    public void setAcceptedBid(Bid acceptedBid) {
+//        this.acceptedBid = acceptedBid;
+//        acceptedBid.setAccepted(true);
+//        bids.clear();
+//    }
 
     public void setBids(List<Bid> bids) {
         this.bids = bids;
     }
 
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-        acceptedBid.setCompleted(true);
-    }
+//    public boolean isCompleted() {
+//        return completed;
+//    }
+//
+//    public void setCompleted(boolean completed) {
+//        this.completed = completed;
+//        acceptedBid.setCompleted(true);
+//    }
 
     public void addBids(Bid bid) {
         bids.add(bid);
