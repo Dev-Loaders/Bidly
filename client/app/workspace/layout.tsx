@@ -36,7 +36,7 @@ export default function WorkspaceLayout({
             <Nav.Link href={`/workspace/user-bids`}>
               Your Bids
             </Nav.Link>
-            <Nav.Link href={`http://localhost:8080/login?logout`}>
+            <Nav.Link href={`https://bidly.azurewebsites.net/login?logout`}>
               Logout
             </Nav.Link>
           </Nav>

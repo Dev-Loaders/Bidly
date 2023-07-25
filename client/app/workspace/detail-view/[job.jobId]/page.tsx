@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BidForm from "./BidForm";
 import Card from "react-bootstrap/Card";
+import { useCookies } from "react-cookie";
+
+declare var window: any;
 
 type Job = {
   title: string;
@@ -21,18 +24,17 @@ type Bid = {
 };
 
 export default function DetailView() {
-  const jobId = window.location.href.split("/")[5];
-  console.log(jobId);
-  // const token = sessionStorage.getItem("token");
+  const [cookies] = useCookies();
+  const jobId = window.location.pathname.split("/")[3];
 
   const [jobDetails, setJobDetails] = useState<Job | null>(null);
   const [newBid, setNewBid] = useState(0);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/jobs/${jobId}`, {
+      .get(`https://bidly.azurewebsites.net/api/jobs/${jobId}`, {
         headers: {
-          Authorization: "Bearer ",
+          Authorization: "Bearer " + cookies.token,
         },
       })
       .then((response) => {
@@ -50,7 +52,7 @@ export default function DetailView() {
           <Card.Title>{jobDetails?.title}</Card.Title>
           <Card.Img
             variant="top"
-            src={`http://localhost:8080/${jobDetails?.imageUrl}`}
+            src={`https://bidly.azurewebsites.net/${jobDetails?.imageUrl}`}
           />
           <Card.Text>
             <strong>Location:</strong> {jobDetails?.location}

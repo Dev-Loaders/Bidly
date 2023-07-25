@@ -24,7 +24,7 @@ export default function UserJobs() {
 
   const getUserJobs = () => {
     axios
-      .get("http://localhost:8080/api/users/" + userSubject + "/jobs", {
+      .get("https://bidly.azurewebsites.net/api/users/" + userSubject + "/jobs", {
         headers: {
           Authorization: "Bearer " + cookies.token,
         },
@@ -51,7 +51,7 @@ export default function UserJobs() {
               <Card style={{ width: "100%" }}>
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:8080/${job.imageUrl}`}
+                    src={`https://bidly.azurewebsites.net/${job.imageUrl}`}
                     alt="Job"
                   />
                   <Card.Body>

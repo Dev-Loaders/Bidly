@@ -89,7 +89,7 @@ export const JobForm = () => {
    
     axios
       .post(
-        "http://localhost:8080/api/users/" + userSubject + "/jobs",
+        "https://bidly.azurewebsites.net/api/users/" + userSubject + "/jobs",
         formData,
         {
           headers: {

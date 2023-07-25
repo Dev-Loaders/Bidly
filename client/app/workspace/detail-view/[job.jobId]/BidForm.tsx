@@ -18,6 +18,8 @@ export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid
   const [amount, setAmount] = useState("");
   const [cookies] = useCookies();
 
+  console.log(cookies.token);
+
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
   };
@@ -40,7 +42,7 @@ export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid
     const jobId = window.location.pathname.split("/")[3];
 
     axios.post(
-        "http://localhost:8080/api/users/" + userSubject + "/jobs/" + jobId + "/bids", formData,
+        "https://bidly.azurewebsites.net/api/users/" + userSubject + "/jobs/" + jobId + "/bids", formData,
         {
           headers: {
             Authorization: "Bearer " + cookies.token,
