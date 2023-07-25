@@ -11,7 +11,9 @@ export default function Workspace() {
 
   const [cookies, setCookie] = useCookies(['token']);
   const setTokenAsCookie = (token: any) => {
+    if (token) {
     setCookie('token', token, { path: '/', expires: new Date(Date.now() + 3600000)});
+    }
   };
   setTokenAsCookie(token);
   console.log(cookies.token);

@@ -22,10 +22,10 @@ public class SecurityConfiguration {
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/**").permitAll()
+//                                .requestMatchers("/**").permitAll()
 //                                .requestMatchers("/api/jobs").permitAll()
 //                                .requestMatchers("/api/users/{userSubject}/jobs").permitAll()
-//                                .anyRequest().authenticated()
+                                .anyRequest().authenticated()
 
                 )
                 .cors(withDefaults())
