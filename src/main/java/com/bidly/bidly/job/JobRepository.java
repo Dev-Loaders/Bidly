@@ -30,4 +30,9 @@ public class JobRepository {
         Long jobIdLong = Long.parseLong(jobId);
         return repo.findJobByJobId(jobIdLong);
     }
+
+    public Job updateJob(Job job){
+        repo.save(job);
+        return job;
+    }
 }

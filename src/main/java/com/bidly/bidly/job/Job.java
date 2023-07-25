@@ -36,8 +36,17 @@ public class Job {
     @Column(name = "updated")
     private LocalDateTime updated;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Bid> bids;
+
+    @OneToOne
+    private Bid acceptedBid;
+
+    private boolean completed;
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
 
     @PrePersist
     private void onCreate() {
@@ -51,19 +60,6 @@ public class Job {
 
     public Job() {
     }
-
-    public Job(Long jobId, String title, String description, String location, String imageUrl, boolean materials, LocalDateTime created, LocalDateTime updated
-            , List<Bid> bids
-    ) {
-        this.jobId = jobId;
-        this.title = title;
-        this.description = description;
-        this.location = location;
-        this.imageUrl = imageUrl;
-        this.materials = materials;
-        this.bids = bids;
-    }
-
     public Job(String title, String description, String location, String imageUrl, boolean materials
     ) {
         this.title = title;
@@ -137,11 +133,32 @@ public class Job {
         return bids;
     }
 
+
+    public Bid getAcceptedBid() {
+        return acceptedBid;
+    }
+
+    public void setAcceptedBid(Bid acceptedBid) {
+        this.acceptedBid = acceptedBid;
+        acceptedBid.setAccepted(true);
+        bids.clear();
+    }
+
     public void setBids(List<Bid> bids) {
         this.bids = bids;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+        acceptedBid.setCompleted(true);
     }
 
     public void addBids(Bid bid) {
         bids.add(bid);
     }
+
 }

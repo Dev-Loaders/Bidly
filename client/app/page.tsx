@@ -39,7 +39,7 @@ export default function Home() {
             </Toolbar>
           </AppBar>
         </Box>
-
+        
         <header className="header" style={{ marginBlockEnd: '10%' }}>
           <img
             className="header__img"
@@ -148,6 +148,7 @@ export default function Home() {
                     />
                     <Typography
                       variant="h5"
+
                       style={{ marginLeft: "10px", fontSize: "20px" }}
                     >
                       Ease of use

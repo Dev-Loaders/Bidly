@@ -1,8 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Card, ListGroup, Button, Col, Row } from "react-bootstrap";
 import Link from "next/link";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from "@mui/material";
 
 type Job = {
   jobId: string;
@@ -15,8 +23,6 @@ type Job = {
 
 export default function Workspace() {
   const [allJobs, setAllJobs] = useState<Job[]>([]);
-
-  // const token = sessionStorage.getItem("token");
 
   const getJobs = () => {
     axios
@@ -43,34 +49,89 @@ export default function Workspace() {
   };
 
   return (
-    <Container style={{ minHeight: "100vh" }}>
-      <Row>
-        {allJobs &&
-          allJobs.map((job) => (
-            <Col sm={12} md={6} lg={4} xl={3} className="mb-4" key={job.jobId}>
-              <Card style={{ width: "100%" }} onClick={() => handleClick(job)}>
-                <Link
-                  href={`/workspace/detail-view/${job.jobId}`}
-                  target="_blank"
+    <>
+      <Box
+        style={{
+          padding: "6%",
+          paddingTop: "8%",
+          paddingBottom: "8%",
+          backgroundColor: "#f0f0f0",
+        }}
+      >
+        <Typography
+          variant="h3"
+          style={{
+            fontSize: "32px",
+            fontWeight: "400",
+            marginBlockEnd: "4%",
+            color: "#555",
+          }}
+        >
+          Projects on Bidly
+        </Typography>
+        <Typography variant="h5" style={{ fontSize: "16px", color: "#242424" }}>
+          Each project listed here is a chance to showcase your expertise, help
+          your neighbors, and grow your business all at once. Explore the posts
+          below, find the ones that align with your skills and interests, and
+          start bidding!
+        </Typography>
+      </Box>
+
+      <Box
+        minHeight="100vh"
+        style={{ marginLeft: "4%", marginRight: "4%", marginBlockStart: "4%", marginBlockEnd: "4%" }}
+      >
+        <Grid container spacing={2}>
+          {allJobs &&
+            allJobs.map((job) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={job.jobId}>
+                <Card
+                  style={{ width: "100%" }}
+                  onClick={() => handleClick(job)}
                 >
-                  <Card.Img
-                    variant="top"
-                    src={`http://localhost:8080/${job.imageUrl}`}
-                    alt="Job"
-                  />
-                  <Card.Body>
-                    <Card.Title>{job.title}</Card.Title>
-                    <Card.Text>{job.description}</Card.Text>
-                  </Card.Body>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item>Location: {job.location}</ListGroup.Item>
-                  </ListGroup>
-                </Link>
-                <Button>Bid</Button>
-              </Card>
-            </Col>
-          ))}
-      </Row>
-    </Container>
+                  <Link
+                    href={`/workspace/detail-view/${job.jobId}`}
+                    target="_blank"
+                    style={{ color: "#242424", textDecoration: "none" }}
+                  >
+                    {" "}
+                    <CardMedia
+                      component="img"
+                      alt="Job"
+                      height="300"
+                      image={`http://localhost:8080/${job.imageUrl}`}
+                    />
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        {job.title.charAt(0).toUpperCase() + job.title.slice(1)}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {job.description.charAt(0).toUpperCase() +
+                          job.description.slice(1, 50)}
+                        {job.description.length > 100 ? "..." : ""}
+                      </Typography>
+                    </CardContent>
+                  </Link>
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      flexGrow: 1,
+                    }}
+                  >
+                    <Button
+                      variant="outlined"
+                      color="inherit"
+                      style={{ marginBottom: "4%", padding: "6px 50px" }}
+                    >
+                      Bid
+                    </Button>
+                  </Box>
+                </Card>
+              </Grid>
+            ))}
+        </Grid>
+      </Box>
+    </>
   );
 }

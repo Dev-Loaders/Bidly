@@ -1,30 +1,48 @@
-"use client"
-import Link from "next/link"
-import { Nav, Navbar } from "react-bootstrap"
+"use client";
+import Link from "next/link";
+import { Nav, Navbar } from "react-bootstrap";
+import "../globals.css";
 
 export default function WorkspaceLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
-    return (
-        <>
-            <Navbar bg="light" expand="lg">
-                <Navbar.Brand><Link href={`/workspace`}>Bidly</Link></Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href={`/workspace`}>Jobs</Nav.Link>
-                        <Nav.Link href={`/workspace/post-job`}>Create Job</Nav.Link>
-                        <Nav.Link href={`/workspace/user-jobs`}>Your Jobs</Nav.Link>
-                        <Nav.Link href={`/workspace/user-bids`}>Your Bids</Nav.Link>
-                        <Nav.Link href={`http://localhost:8080/login?logout`}>Logout</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            <main>
-                {children}
-            </main>
-            </>
-    )
+
+  return (
+    <>
+      <Navbar expand="lg" style={{ backgroundColor: "#fff" }}>
+        <Navbar.Brand>
+          <Link
+            href={`/workspace`}
+            style={{
+              color: '#242424',
+              textDecoration: "none",
+              fontFamily: "Montserrat",
+              marginLeft: "30px",
+            }}
+          >
+            Bidly
+          </Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ marginRight: '30px' }} />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto" style={{ color: 'red', marginLeft: '30px' }}>
+            <Nav.Link href={`/workspace`}>All Projects</Nav.Link>
+            <Nav.Link href={`/workspace/post-job`}>Publish Project</Nav.Link>
+            <Nav.Link href={`/workspace/user-jobs`}>
+              Your Projects
+            </Nav.Link>
+            <Nav.Link href={`/workspace/user-bids`}>
+              Your Bids
+            </Nav.Link>
+            <Nav.Link href={`http://localhost:8080/login?logout`}>
+              Logout
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <main>{children}</main>
+    </>
+  );
 }

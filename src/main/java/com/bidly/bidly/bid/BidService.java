@@ -40,4 +40,15 @@ public class BidService {
 
         return bidRepo.getBidsByUserSubject(userSubject);
     }
+
+    public Bid acceptBid(String jobId, String bidId) {
+        Job job = jobRepo.getJobById(jobId);
+        Bid bid = bidRepo.getBidByBidId(bidId);
+        job.setAcceptedBid(bid);
+        return job.getAcceptedBid();
+    }
+
+    public List<Bid> getAcceptedBidByUserId(String userSubject) {
+        return bidRepo.getAllAcceptedBidByUserId(userSubject);
+    }
 }

@@ -31,6 +31,24 @@ public class BidController {
         return ResponseEntity.ok(bids);
     }
 
+    @GetMapping("users/{userSubject}/bids")
+    public ResponseEntity<List<Bid>> getBidByUserId(@PathVariable String userSubject) {
+        List<Bid> bids = service.getBidByUserId(userSubject);
+        if (bids == null || bids.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(bids);
+    }
+
+    @GetMapping("users/{userSubject}/bids/accepted")
+    public ResponseEntity<List<Bid>> getAcceptedBid(@PathVariable String userSubject) {
+        List<Bid> bids = service.getAcceptedBidByUserId(userSubject);
+        if (bids == null || bids.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(bids);
+    }
+
     @PostMapping("users/{userSubject}/jobs/{jobId}/bids")
     public ResponseEntity<Bid> addBidToJob(@PathVariable String userSubject,
                                            @PathVariable String jobId,
@@ -53,13 +71,11 @@ public class BidController {
         return ResponseEntity.created(location).body(bid);
     }
 
-    @GetMapping("users/{userSubject}/bids")
-    public ResponseEntity<List<Bid>> getBidByUserId(@PathVariable String userSubject) {
-        List<Bid> bids = service.getBidByUserId(userSubject);
-        if (bids == null || bids.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return ResponseEntity.ok(bids);
-    }
+    @PutMapping("users/{userSubject}/jobs/{jobId}/bids/{bidId}")
+    public ResponseEntity<Bid> acceptBid(@PathVariable String userSubject,
+                                         @PathVariable String jobId,
+                                         @PathVariable String bidId) {
 
+        return ResponseEntity.accepted().body(service.acceptBid(jobId, bidId));
+    }
 }

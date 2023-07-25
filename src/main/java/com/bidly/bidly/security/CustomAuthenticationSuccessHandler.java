@@ -4,12 +4,9 @@ import com.bidly.bidly.user.BidlyUserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -31,16 +28,24 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+
         OidcUser token = (OidcUser) authentication.getPrincipal();
 //        validation.validateJwt(token);
 
+        Cookie tokenCookie = addTokenToCookie(request, response, token);
+        response.addCookie(tokenCookie);
 
+        createUserAccountIfItDoesNotExist(token);
+        response.sendRedirect("http://localhost:3000/workspace");
+    }
+
+    private Cookie addTokenToCookie(HttpServletRequest request, HttpServletResponse response, OidcUser token) {
         Cookie tokenCookie = new Cookie("tokenCookie", token.getIdToken().getTokenValue());
-        tokenCookie.setMaxAge(60);
+        tokenCookie.setMaxAge(600);
         tokenCookie.setPath("/");
         tokenCookie.setHttpOnly(false);
         tokenCookie.setSecure(true);
-        response.addCookie(tokenCookie);
+        System.out.println(tokenCookie.getName());
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -48,8 +53,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 System.out.println(cookie.getName() + " = " + cookie.getValue());
             }
         }
-        createUserAccountIfItDoesNotExist(token);
-        response.sendRedirect("http://localhost:3000/workspace");
+        return tokenCookie;
     }
 
     private void createUserAccountIfItDoesNotExist(@AuthenticationPrincipal OidcUser oidcUser){

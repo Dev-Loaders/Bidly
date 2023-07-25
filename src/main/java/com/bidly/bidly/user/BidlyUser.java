@@ -34,13 +34,12 @@ public class BidlyUser {
     public BidlyUser() {
     }
 
-    public BidlyUser(String jwtId, String fullName, String email, List<Job> jobs, List<Bid> bids
-    ) {
+    public BidlyUser(String jwtId, String fullName, String email) {
         this.jwtId = jwtId;
         this.fullName = fullName;
         this.email = email;
-        this.jobs = jobs;
-        this.bids = bids;
+//        this.jobs = jobs;
+//        this.bids = bids;
     }
   
     public Long getUserId() {

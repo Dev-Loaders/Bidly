@@ -1,11 +1,21 @@
 "use client";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from "axios";
-// import { useSession } from "next-auth/react";
-// import { useSession } from "next-auth/client";
-// import jwtDecode from "jwt-decode";
+import {
+  Box,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Input,
+  InputLabel,
+  TextField,
+} from "@mui/material";
+import { Form } from "react-bootstrap";
+import { useCookies } from "react-cookie";
+import { getUserSubjectFromCookie } from "@/app/TokenGetter";
+
 
 type JobFormDataProps = {
   title: string;
@@ -21,6 +31,7 @@ export const JobForm = () => {
   const [image, setImage] = useState<File | null>(null);
   const [materials, setMaterials] = useState(false);
   const [description, setDescription] = useState("");
+  const [cookies] = useCookies();
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -71,18 +82,15 @@ export const JobForm = () => {
     formData.append("location", location);
     formData.append("materials", String(materials));
     formData.append("description", description);
+    
+    console.log(formData);
 
-    // const token = sessionStorage.getItem("token");
-    // if (token === null) {
-    //   console.error("No token found.");
-    // } else {
-    // const decodedToken = jwtDecode(token) as { sub: string };
-    // const userSubject = decodedToken.sub;
-
-    // axios.post('https://bidly-app.azurewebsites.net/api/users/' + userSubject + '/jobs', formData, {
+    const userSub = getUserSubjectFromCookie(cookies);
+    console.log(userSub);
+   
     axios
       .post(
-        "http://localhost:8080/api/users/" + "109019647377227797987" + "/jobs",
+        "http://localhost:8080/api/users/" + userSub + "/jobs",
         formData,
         {
           headers: {
@@ -96,73 +104,90 @@ export const JobForm = () => {
 
   return (
     <>
-      <Form
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "100%" },
+        }}
+        autoComplete="off"
         className="p-5 rounded shadow"
         style={{ backgroundColor: "#f8f9fa" }}
         method="post"
         onSubmit={handleSubmit}
       >
-        <h2 className="mb-3 text-center">Create a Job</h2>
+        <h2 className="mb-3 text-center">Publish a Project</h2>
         <hr />
-        <Form.Group className="mb-4">
-          <Form.Label htmlFor="title">Title</Form.Label>
-          <Form.Control
-            onChange={handleTitle}
-            type="text"
-            name="title"
-            placeholder="Enter a Job Title"
-            required
-          />
-        </Form.Group>
 
-        <Form.Group className="mb-4">
-          <Form.Label htmlFor="location">Location</Form.Label>
-          <Form.Control
-            onChange={handleLocation}
-            type="text"
-            name="location"
-            placeholder="Enter Location"
-            required
-          />
-        </Form.Group>
+        <TextField
+          id="outlined-basic"
+          label="Title"
+          variant="outlined"
+          onChange={handleTitle}
+          required
+        />
 
-        <Form.Group className="mb-4">
-          <Form.Label htmlFor="image">Upload image</Form.Label>
-          <Form.Control onChange={handleImage} name="image" type="file" />
-        </Form.Group>
+        <TextField
+          id="outlined-basic"
+          label="Location"
+          variant="outlined"
+          onChange={handleLocation}
+          style={{ marginBottom: "4%" }}
+          required
+        />
 
-        <Form.Group className="mb-4">
-          <Form.Check
-            inline
-            label="Materials Provided"
-            name="materials"
-            type="checkbox"
-            id="inline-checkbox-1"
-            onChange={handleMaterials}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-4">
-          <Form.Label htmlFor="description">Description</Form.Label>
-          <Form.Control
-            onChange={handleDescription}
-            type="text"
-            name="description"
-            as="textarea"
-            rows={3}
-            placeholder="Enter a Description of the Job"
-            required
-          />
-        </Form.Group>
-
-        <Button
-          variant="primary"
-          type="submit"
-          className="w-100"
+        <FormControl
+          component="fieldset"
+          className="mb-4"
+          fullWidth
+          style={{ marginLeft: "2%" }}
         >
-          Submit
-        </Button>
-      </Form>
+          <FormLabel component="legend">Upload image</FormLabel>
+          <input
+            accept="image/*"
+            id="contained-button-file"
+            type="file"
+            onChange={handleImage}
+          />
+        </FormControl>
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={materials}
+              onChange={handleMaterials}
+              name="materials"
+            />
+          }
+          label="Check if you have materials"
+          style={{ width: "100%", marginBottom: "4%", marginLeft: "1px" }}
+        />
+
+        <TextField
+          id="outlined-multiline-static"
+          label="Description"
+          multiline
+          rows={4}
+          variant="outlined"
+          onChange={handleDescription}
+          style={{ marginBottom: "4%" }}
+          required
+        />
+
+        <Box display="flex" justifyContent="center" marginBottom={2}>
+          <Button
+            variant="outlined"
+            color="inherit"
+            type="submit"
+            style={{
+              border: "1px solid #242424",
+              marginBottom: "4%",
+              padding: "6px 50px",
+            }}
+          >
+            Submit
+          </Button>
+        </Box>
+      </Box>
     </>
   );
 };

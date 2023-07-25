@@ -22,6 +22,7 @@ type Bid = {
 
 export default function DetailView() {
   const jobId = window.location.href.split("/")[5];
+  console.log(jobId);
   // const token = sessionStorage.getItem("token");
 
   const [jobDetails, setJobDetails] = useState<Job | null>(null);

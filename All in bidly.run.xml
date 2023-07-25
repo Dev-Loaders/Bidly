@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All in bidly" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="bidly" />
+    <option name="PACKAGE_NAME" value="" />
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="package" />
+    <envs>
+      <env name="DATABASE-USER" value="ibrahim" />
+      <env name="PASSWORD" value="s3'.Q=Y9fza]Yp}" />
+      <env name="URL" value="jdbc:postgresql://bidly.postgres.database.azure.com:5432/postgres" />
+      <env name="GOOGLE-CLIENT-ID" value="960237304309-3j61uu4offi5vm2qormp29g7e850t7t5.apps.googleusercontent.com" />
+      <env name="GOOGLE-CLIENT-SECRET" value="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" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -24,7 +24,16 @@ public class BidRepository {
         repo.save(bid);
     }
 
+    public Bid getBidByBidId(String bidId){
+        long longBidId = Long.parseLong(bidId);
+        return repo.findById(longBidId).orElse(null);
+    }
+
     public List<Bid> getBidsByUserSubject(String userSubject) {
         return repo.findByUserId(userSubject);
+    }
+
+    public List<Bid> getAllAcceptedBidByUserId(String userSubject) {
+        return repo.findByUserIdAndAcceptedTrue(userSubject);
     }
 }
