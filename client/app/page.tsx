@@ -39,7 +39,7 @@ export default function Home() {
             </Toolbar>
           </AppBar>
         </Box>
-
+        
         <header className="header" style={{ marginBlockEnd: '10%' }}>
           <img
             className="header__img"

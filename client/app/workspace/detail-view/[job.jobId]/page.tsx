@@ -18,10 +18,12 @@ type Job = {
 type Bid = {
   bidId: string;
   amount: string;
+  bidId: string;
 };
 
 export default function DetailView() {
   const jobId = window.location.href.split("/")[5];
+  console.log(jobId);
   // const token = sessionStorage.getItem("token");
 
   const [jobDetails, setJobDetails] = useState<Job | null>(null);

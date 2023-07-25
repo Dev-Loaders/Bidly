@@ -1,8 +1,13 @@
 "use client"
+import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
+import { Card, Col, Container, ListGroup, Row } from "react-bootstrap";
+import { useCookies } from "react-cookie";
+
 
 type Job = {
     jobId: string;
@@ -15,12 +20,13 @@ type Job = {
 
 export default function UserJobs() {
   const [userJobs, setUserJobs] = useState<Job[]>([]);
+  const [cookies] = useCookies();
 
-//   const token = sessionStorage.getItem("token");
+  const userSub = getUserSubjectFromCookie(cookies);
 
   const getUserJobs = () => {
     axios
-      .get("http://localhost:8080/api/users/" + "109019647377227797987" + "/jobs", {
+      .get("http://localhost:8080/api/users/" + userSub + "/jobs", {
         headers: {
           Authorization: "Bearer ",
         },
