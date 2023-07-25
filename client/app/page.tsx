@@ -41,7 +41,7 @@ export default function Home() {
         </Box>
         
         <header className="header" style={{ marginBlockEnd: '10%' }}>
-          <img
+          <Image
             className="header__img"
             src="/bidly-images/white.jpg"
             alt="Bright kitchen with modern design"
