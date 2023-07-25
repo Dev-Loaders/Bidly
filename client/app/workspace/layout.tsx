@@ -35,12 +35,6 @@ export default function WorkspaceLayout({
             <Nav.Link href={`/workspace/user-bids`}>
               Your Bids
             </Nav.Link>
-            <Nav.Link href={`/workspace/accepted-bids`}>
-              Accepted Bids
-            </Nav.Link>
-            <Nav.Link href={`/workspace/completed-jobs`}>
-              Completed Projects
-            </Nav.Link>
             <Nav.Link href={`http://localhost:8080/login?logout`}>
               Logout
             </Nav.Link>
