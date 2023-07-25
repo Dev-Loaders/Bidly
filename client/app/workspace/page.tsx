@@ -50,26 +50,24 @@ export default function Workspace() {
 
   return (
     <>
-      <Box
-        style={{
-          padding: "6%",
-          paddingTop: "8%",
-          paddingBottom: "8%",
-          backgroundColor: "#f0f0f0",
-        }}
-      >
+      <Box className="info-box">
         <Typography
+          className="info-box__title"
           variant="h3"
           style={{
             fontSize: "32px",
             fontWeight: "400",
-            marginBlockEnd: "4%",
+            marginBlockEnd: "2%",
             color: "#555",
           }}
         >
           Projects on Bidly
         </Typography>
-        <Typography variant="h5" style={{ fontSize: "16px", color: "#242424" }}>
+        <Typography
+          className="info-box__content"
+          variant="h5"
+          style={{ fontSize: "16px", color: "#242424" }}
+        >
           Each project listed here is a chance to showcase your expertise, help
           your neighbors, and grow your business all at once. Explore the posts
           below, find the ones that align with your skills and interests, and
@@ -79,7 +77,12 @@ export default function Workspace() {
 
       <Box
         minHeight="100vh"
-        style={{ marginLeft: "4%", marginRight: "4%", marginBlockStart: "4%", marginBlockEnd: "4%" }}
+        style={{
+          marginLeft: "4%",
+          marginRight: "4%",
+          marginBlockStart: "4%",
+          marginBlockEnd: "4%",
+        }}
       >
         <Grid container spacing={2}>
           {allJobs &&
