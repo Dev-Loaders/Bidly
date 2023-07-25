@@ -18,7 +18,6 @@ public class CustomBearerTokenFilter extends OncePerRequestFilter {
     @Autowired
     JwtValidation validation;
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
