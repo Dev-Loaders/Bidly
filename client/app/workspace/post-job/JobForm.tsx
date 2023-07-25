@@ -12,11 +12,9 @@ import {
   InputLabel,
   TextField,
 } from "@mui/material";
-import { Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
-import { useSearchParams } from 'next/navigation';
-import jwtDecode from "jwt-decode";
+
 
 
 
@@ -35,14 +33,6 @@ export const JobForm = () => {
   const [materials, setMaterials] = useState(false);
   const [description, setDescription] = useState("");
   const [cookies] = useCookies();
-
-  // const searchParams = useSearchParams();
-  // const token = searchParams.get('token');
-
-  // const decodedToken = jwtDecode(token);
-  // const userSubject = decodedToken.sub;
-  // console.log(userSubject)
-
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -77,6 +67,8 @@ export const JobForm = () => {
     });
   };
 
+  const userSubject = getUserSubjectFromCookie(cookies);
+
   const postJob = ({
     title,
     location,
@@ -97,12 +89,12 @@ export const JobForm = () => {
    
     axios
       .post(
-        "http://localhost:8080/api/users/" + "userSubject" + "/jobs",
+        "http://localhost:8080/api/users/" + userSubject + "/jobs",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + token,
+            Authorization: "Bearer " + cookies.token,
           },
         }
       )

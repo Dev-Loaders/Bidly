@@ -20,13 +20,13 @@ export default function UserJobs() {
   const [userJobs, setUserJobs] = useState<Job[]>([]);
   const [cookies] = useCookies();
 
-  const userSub = getUserSubjectFromCookie(cookies);
+  const userSubject = getUserSubjectFromCookie(cookies);
 
   const getUserJobs = () => {
     axios
-      .get("http://localhost:8080/api/users/" + userSub + "/jobs", {
+      .get("http://localhost:8080/api/users/" + userSubject + "/jobs", {
         headers: {
-          Authorization: "Bearer ",
+          Authorization: "Bearer " + cookies.token,
         },
       })
       .then((response) => {
@@ -40,11 +40,6 @@ export default function UserJobs() {
   useEffect(() => {
     getUserJobs();
   }, []);
-
-  const handleClick = (job: Job) => {
-    const jobId = job.jobId;
-    window.location.href = `/workspace/detail-view/${jobId}`;
-  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">

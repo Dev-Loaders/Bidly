@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 
+declare var window: any;
+
 type BidFormDataProps = {
   amount: string;
 };
@@ -27,18 +29,21 @@ export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid
     });
   };
 
+  const userSubject = getUserSubjectFromCookie(cookies);
+  console.log(userSubject);
+  console.log(cookies.token);
+
   const postJob = ({ amount }: BidFormDataProps) => {
     const formData = new FormData();
 
     formData.append("amount", amount);
-    const userSub = getUserSubjectFromCookie(cookies);
     const jobId = window.location.pathname.split("/")[3];
 
     axios.post(
-        "http://localhost:8080/api/users/" + userSub + "/jobs/" + jobId + "/bids", formData,
+        "http://localhost:8080/api/users/" + userSubject + "/jobs/" + jobId + "/bids", formData,
         {
           headers: {
-            Authorization: "Bearer " + cookies.tokenCookie,
+            Authorization: "Bearer " + cookies.token,
           },
         }
       )
