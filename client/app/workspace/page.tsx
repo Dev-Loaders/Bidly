@@ -10,16 +10,12 @@ export default function Workspace() {
   const token = searchParams.get('token');
 
   const [cookies, setCookie] = useCookies(['token']);
-
-  const setNewToken = (token: any) => {
-    console.log(token);
-    console.log(cookies);
-    setCookie('token', token, {
-      path: '/',
-    });
+  const setTokenAsCookie = (token: any) => {
+    setCookie('token', token, { path: '/'});
   };
+  setTokenAsCookie(token);
+  console.log(cookies.token);
 
-  setNewToken(token);
   
   return (
     <>
