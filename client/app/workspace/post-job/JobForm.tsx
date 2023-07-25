@@ -82,14 +82,12 @@ export const JobForm = () => {
     formData.append("location", location);
     formData.append("materials", String(materials));
     formData.append("description", description);
-
     
     console.log(formData);
 
     const userSub = getUserSubjectFromCookie(cookies);
     console.log(userSub);
    
-    
     axios
       .post(
         "http://localhost:8080/api/users/" + userSub + "/jobs",

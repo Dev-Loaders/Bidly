@@ -8,6 +8,7 @@ export default function WorkspaceLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <>
       <Navbar expand="lg" style={{ backgroundColor: "#fff" }}>

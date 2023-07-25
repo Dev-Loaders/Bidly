@@ -148,6 +148,7 @@ export default function Home() {
                     />
                     <Typography
                       variant="h5"
+
                       style={{ marginLeft: "10px", fontSize: "20px" }}
                     >
                       Ease of use
