@@ -32,7 +32,7 @@ export default function DefaultWorkspace({ token }: Token) {
 
   const getJobs = () => {
     axios
-      .get("http://localhost:8080/api/jobs", {
+      .get("https://bidly.azurewebsites.net/api/jobs", {
         headers: {
           Authorization: "Bearer " + token,
         },
