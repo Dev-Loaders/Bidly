@@ -3,8 +3,6 @@ import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 
@@ -71,7 +69,6 @@ export default function UserJobs() {
                       Materials: {job.materials ? "Provided" : "Not provided"}
                     </ListGroup.Item>
                   </ListGroup>
-                  <Link href={`/workspace/user-jobs/project-bids`}>See All Bids</Link>
               </Card>
             </Col>
           ))}

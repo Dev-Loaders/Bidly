@@ -18,7 +18,6 @@ type Job = {
 type Bid = {
   bidId: string;
   amount: string;
-  bidId: string;
 };
 
 export default function DetailView() {
