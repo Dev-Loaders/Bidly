@@ -60,8 +60,8 @@ public class JobController {
         }
     }
 
-    @PatchMapping("/{jobId}")
-    public ResponseEntity<Job> completeJob(@PathVariable String jobId){
-        return ResponseEntity.accepted().body(service.completeJob(jobId));
-    }
+//    @PatchMapping("/{jobId}")
+//    public ResponseEntity<Job> completeJob(@PathVariable String jobId){
+//        return ResponseEntity.accepted().body(service.completeJob(jobId));
+//    }
 }

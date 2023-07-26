@@ -1,20 +1,28 @@
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+import React from "react";
+import Alert from "@mui/material/Alert";
+
+declare var window: any;
 
 type BidFormDataProps = {
   amount: string;
 };
 
 interface BidFormProps {
-    jobId: string;
+  jobId: string;
 }
 
-export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid: React.Dispatch<React.SetStateAction<number>>; }) {
+export default function BidForm({
+  jobId,
+  setNewBid,
+}: BidFormProps & { setNewBid: React.Dispatch<React.SetStateAction<number>> }) {
   const [amount, setAmount] = useState("");
   const [cookies] = useCookies();
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
@@ -25,20 +33,28 @@ export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid
     postJob({
       amount: amount,
     });
+    setShowAlert(true);
   };
+
+  const userSubject = getUserSubjectFromCookie(cookies);
 
   const postJob = ({ amount }: BidFormDataProps) => {
     const formData = new FormData();
 
     formData.append("amount", amount);
-    const userSub = getUserSubjectFromCookie(cookies);
     const jobId = window.location.pathname.split("/")[3];
 
-    axios.post(
-        "http://localhost:8080/api/users/" + userSub + "/jobs/" + jobId + "/bids", formData,
+    axios
+      .post(
+        "http://localhost:8080/api/users/" +
+          userSubject +
+          "/jobs/" +
+          jobId +
+          "/bids",
+        formData,
         {
           headers: {
-            Authorization: "Bearer " + cookies.tokenCookie,
+            Authorization: "Bearer " + cookies.token,
           },
         }
       )
@@ -50,33 +66,47 @@ export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid
 
   return (
     <>
-      <Form
-        className="p-5 rounded shadow"
-        style={{ backgroundColor: "#f8f9fa" }}
-        method="post"
-        onSubmit={handleSubmit}
-      >
-        <h2 className="mb-3 text-center">Bid on Job</h2>
-        <hr />
-        <Form.Group className="mb-4">
-          <Form.Label htmlFor="amount">Bid Amount</Form.Label>
-          <Form.Control
-            onChange={handleAmount}
-            type="text"
-            name="amount"
-            placeholder="Enter an amount"
-            required
-          />
-        </Form.Group>
+      <Container maxWidth="sm">
+        <Box mt={4} mb={2} p={4} boxShadow={3} bgcolor="#fff">
+          <Typography variant="h5" gutterBottom align="center">
+            Bid on Project
+          </Typography>
 
-        <Button
-          variant="primary"
-          type="submit"
-          className="w-100"
-        >
-          Submit
-        </Button>
-      </Form>
+          <Box
+            my={1}
+            style={{ width: "100%", borderBottom: "1px solid #ddd" }}
+          />
+          <form method="post" onSubmit={handleSubmit}>
+            {" "}
+            <Box my={3}>
+              <TextField
+                id="amount"
+                name="amount"
+                label="Bid Amount"
+                variant="outlined"
+                fullWidth
+                required
+                onChange={handleAmount}
+              />
+            </Box>
+            <Button
+              variant="outlined"
+              color="inherit"
+              style={{ marginBottom: "4%", padding: "6px 50px" }}
+              type="submit"
+              fullWidth
+            >
+              Submit Bid
+            </Button>
+          </form>
+
+          {showAlert && (
+            <Alert onClose={() => setShowAlert(false)}>
+              Bid posted successfully!
+            </Alert>
+          )}
+        </Box>
+      </Container>
     </>
   );
 }

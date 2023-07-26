@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useCookies } from "react-cookie";
 import {
   Box,
   Button,
@@ -9,8 +8,11 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Link,
   Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 type Job = {
   jobId: string;
@@ -22,7 +24,20 @@ type Job = {
 };
 
 export default function Workspace() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const [allJobs, setAllJobs] = useState<Job[]>([]);
+
+  const [cookies, setCookie] = useCookies(["token"]);
+  const setTokenAsCookie = (token: any) => {
+    if (token) {
+      setCookie("token", token, {
+        path: "/",
+        expires: new Date(Date.now() + 3600000),
+      });
+    }
+  };
+  setTokenAsCookie(token);
 
   const getJobs = () => {
     axios
@@ -50,26 +65,24 @@ export default function Workspace() {
 
   return (
     <>
-      <Box
-        style={{
-          padding: "6%",
-          paddingTop: "8%",
-          paddingBottom: "8%",
-          backgroundColor: "#f0f0f0",
-        }}
-      >
+      <Box className="info-box">
         <Typography
+          className="info-box__title"
           variant="h3"
           style={{
             fontSize: "32px",
             fontWeight: "400",
-            marginBlockEnd: "4%",
+            marginBlockEnd: "2%",
             color: "#555",
           }}
         >
           Projects on Bidly
         </Typography>
-        <Typography variant="h5" style={{ fontSize: "16px", color: "#242424" }}>
+        <Typography
+          className="info-box__content"
+          variant="h5"
+          style={{ fontSize: "16px", color: "#242424" }}
+        >
           Each project listed here is a chance to showcase your expertise, help
           your neighbors, and grow your business all at once. Explore the posts
           below, find the ones that align with your skills and interests, and
@@ -79,7 +92,12 @@ export default function Workspace() {
 
       <Box
         minHeight="100vh"
-        style={{ marginLeft: "4%", marginRight: "4%", marginBlockStart: "4%", marginBlockEnd: "4%" }}
+        style={{
+          marginLeft: "4%",
+          marginRight: "4%",
+          marginBlockStart: "4%",
+          marginBlockEnd: "4%",
+        }}
       >
         <Grid container spacing={2}>
           {allJobs &&
@@ -98,7 +116,11 @@ export default function Workspace() {
                     <CardMedia
                       component="img"
                       alt="Job"
-                      height="300"
+                      style={{
+                        width: "100%",
+                        height: "300px",
+                        objectFit: "cover",
+                      }}
                       image={`http://localhost:8080/${job.imageUrl}`}
                     />
                     <CardContent>
@@ -107,7 +129,7 @@ export default function Workspace() {
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {job.description.charAt(0).toUpperCase() +
-                          job.description.slice(1, 50)}
+                          job.description.slice(1, 40)}
                         {job.description.length > 100 ? "..." : ""}
                       </Typography>
                     </CardContent>

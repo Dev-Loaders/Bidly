@@ -1,6 +1,6 @@
 "use client";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -8,14 +8,13 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
-  Input,
-  InputLabel,
   TextField,
+  Typography,
 } from "@mui/material";
-import { Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
-
+import { SyntheticEvent } from "react";
+import Alert from "@mui/material/Alert";
 
 type JobFormDataProps = {
   title: string;
@@ -32,6 +31,8 @@ export const JobForm = () => {
   const [materials, setMaterials] = useState(false);
   const [description, setDescription] = useState("");
   const [cookies] = useCookies();
+  const [open, setOpen] = React.useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -55,6 +56,11 @@ export const JobForm = () => {
     setDescription(event.target.value);
   };
 
+  const handleSubmitWithAlert = (event: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(event);
+    setShowAlert(true);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     postJob({
@@ -64,7 +70,10 @@ export const JobForm = () => {
       materials: materials,
       description: description,
     });
+    setOpen(true);
   };
+
+  const userSubject = getUserSubjectFromCookie(cookies);
 
   const postJob = ({
     title,
@@ -82,42 +91,64 @@ export const JobForm = () => {
     formData.append("location", location);
     formData.append("materials", String(materials));
     formData.append("description", description);
-    
-    console.log(formData);
 
     const userSub = getUserSubjectFromCookie(cookies);
-    console.log(userSub);
-   
+
     axios
-      .post(
-        "http://localhost:8080/api/users/" + userSub + "/jobs",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: "Bearer ",
-          },
-        }
-      )
+      .post("http://localhost:8080/api/users/" + userSub + "/jobs", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // Authorization: "Bearer " + cookies.token,
+        },
+      })
       .catch((exception) => console.error(exception));
+  };
+
+  const handleAlertClose = (event: SyntheticEvent<Element, Event>) => {
+    setOpen(false);
   };
 
   return (
     <>
+      <Box className="info-box">
+        <Typography
+          className="info-box__title"
+          variant="h3"
+          style={{
+            fontSize: "32px",
+            fontWeight: "400",
+            marginBlockEnd: "2%",
+            color: "#555",
+          }}
+        >
+          Publish to Bidly
+        </Typography>
+        <Typography
+          className="info-box__content"
+          variant="h5"
+          style={{ fontSize: "16px", color: "#242424" }}
+        >
+          Ready to transform your vision into reality? You are in the right
+          place. Posting your project on Bidly is the first step towards making
+          your project come to life.
+        </Typography>
+      </Box>
+
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1, width: "100%" },
+          "& .MuiTextField-root": { m: 1, width: "100%", maxWidth: "800px" },
+          maxWidth: { xs: "100%", md: "800px" },
+          margin: "auto",
+          marginBottom: { md: "2em" },
+          p: { xs: 2, md: 5 },
         }}
         autoComplete="off"
-        className="p-5 rounded shadow"
-        style={{ backgroundColor: "#f8f9fa" }}
+        className="rounded shadow"
+        style={{ backgroundColor: "#fff", marginBlockStart: "2%" }}
         method="post"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmitWithAlert}
       >
-        <h2 className="mb-3 text-center">Publish a Project</h2>
-        <hr />
-
         <TextField
           id="outlined-basic"
           label="Title"
@@ -173,7 +204,7 @@ export const JobForm = () => {
           required
         />
 
-        <Box display="flex" justifyContent="center" marginBottom={2}>
+        <Box display="flex" justifyContent="center" marginBottom={2} mt={2}>
           <Button
             variant="outlined"
             color="inherit"
@@ -187,6 +218,11 @@ export const JobForm = () => {
             Submit
           </Button>
         </Box>
+        {showAlert && (
+          <Alert onClose={() => setShowAlert(false)}>
+            Project published successfully!
+          </Alert>
+        )}
       </Box>
     </>
   );

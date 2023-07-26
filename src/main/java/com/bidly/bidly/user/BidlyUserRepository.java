@@ -44,14 +44,14 @@ public class BidlyUserRepository {
     }
 
 
-    public List<Job> geCompletedJobsByUserId(String userSubject) {
-       List<Job> jobs =  repo.findByJwtIdEquals(userSubject)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"))
-               .getJobs();
-
-        return jobs.stream()
-                .filter(Job::isCompleted)
-                .collect(Collectors.toList());
-
-    }
+//    public List<Job> geCompletedJobsByUserId(String userSubject) {
+//       List<Job> jobs =  repo.findByJwtIdEquals(userSubject)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"))
+//               .getJobs();
+//
+//        return jobs.stream()
+//                .filter(Job::isCompleted)
+//                .collect(Collectors.toList());
+//
+//    }
 }

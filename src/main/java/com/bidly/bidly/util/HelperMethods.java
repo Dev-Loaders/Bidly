@@ -24,6 +24,6 @@ public class HelperMethods {
             stream.close();
             return fileUrl;
         }
-        return "job-images/default.png";
+        return null;
     }
 }

@@ -30,9 +30,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-
+        String token = authentication.getPrincipal().toString();
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
+
         String tokenValue = oidcUser.getIdToken().getTokenValue();
+//        validation.validateJwt(oidcUser);
         String redirectUrl = "http://localhost:3000/workspace?token=" + URLEncoder.encode(tokenValue, StandardCharsets.UTF_8);
         createUserAccountIfItDoesNotExist(oidcUser);
         response.sendRedirect(redirectUrl);
