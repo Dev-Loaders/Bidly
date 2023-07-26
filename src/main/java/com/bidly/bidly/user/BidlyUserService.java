@@ -1,20 +1,18 @@
 package com.bidly.bidly.user;
 
+import com.bidly.bidly.azure.AzureBlobService;
 import com.bidly.bidly.job.Job;
 import com.bidly.bidly.job.JobRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
-
-import static com.bidly.bidly.util.HelperMethods.getFileUrl;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -22,11 +20,13 @@ public class BidlyUserService {
 
     private final BidlyUserRepository userRepo;
     private final JobRepository jobRepo;
+    private final AzureBlobService azureBlobService;
 
     @Autowired
-    public BidlyUserService(BidlyUserRepository userRepo, JobRepository jobRepo) {
+    public BidlyUserService(BidlyUserRepository userRepo, JobRepository jobRepo, AzureBlobService azureBlobService) {
         this.userRepo = userRepo;
         this.jobRepo = jobRepo;
+        this.azureBlobService = azureBlobService;
     }
 
     public BidlyUser getUserByJwtId(String userSubject) {
@@ -45,8 +45,8 @@ public class BidlyUserService {
 //        }
 
         boolean materials = Boolean.parseBoolean(materialsStr);
-        String fileUrl = getFileUrl(file);
-        Job job = jobRepo.createJob(fileUrl, title, description, location, materials);
+        String azureFileUrl = azureBlobService.uploadMultipartFileToBlob(file, file.getOriginalFilename() + UUID.randomUUID());
+        Job job = jobRepo.createJob(azureFileUrl, title, description, location, materials);
         userRepo.updateUser(job, userSubject);
         URI locationUri = ServletUriComponentsBuilder.fromCurrentServletMapping()
                 .path("/api/jobs/{id}")
