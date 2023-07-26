@@ -19,7 +19,6 @@ import java.nio.charset.StandardCharsets;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final JwtValidation validation;
-
     private final BidlyUserService userService;
 
     @Autowired
@@ -30,11 +29,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        String token = authentication.getPrincipal().toString();
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 
         String tokenValue = oidcUser.getIdToken().getTokenValue();
-//        validation.validateJwt(oidcUser);
+        validation.validateJwt(oidcUser);
         String redirectUrl = "http://localhost:3000/workspace?token=" + URLEncoder.encode(tokenValue, StandardCharsets.UTF_8);
         createUserAccountIfItDoesNotExist(oidcUser);
         response.sendRedirect(redirectUrl);
