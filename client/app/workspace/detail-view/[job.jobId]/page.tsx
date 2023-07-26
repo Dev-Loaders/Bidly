@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BidForm from "./BidForm";
+
 import {
   Box,
   Card,
@@ -11,6 +12,12 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+
+import Card from "react-bootstrap/Card";
+import { useCookies } from "react-cookie";
+
+declare var window: any;
+
 
 type Job = {
   title: string;
@@ -29,15 +36,17 @@ type Bid = {
 };
 
 export default function DetailView() {
-  const jobId = window.location.href.split("/")[5];
+  const [cookies] = useCookies();
+  const jobId = window.location.pathname.split("/")[3];
+
   const [jobDetails, setJobDetails] = useState<Job | null>(null);
   const [newBid, setNewBid] = useState<number>(0);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/jobs/${jobId}`, {
+      .get(`https://bidly.azurewebsites.net/api/jobs/${jobId}`, {
         headers: {
-          Authorization: "Bearer ",
+          Authorization: "Bearer " + cookies.token,
         },
       })
       .then((response) => {

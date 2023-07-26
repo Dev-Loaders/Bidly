@@ -12,9 +12,9 @@ import {
   InputLabel,
   TextField,
 } from "@mui/material";
-import { Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
+
 
 type JobFormDataProps = {
   title: string;
@@ -65,6 +65,8 @@ export const JobForm = () => {
     });
   };
 
+  const userSubject = getUserSubjectFromCookie(cookies);
+
   const postJob = ({
     title,
     location,
@@ -82,16 +84,13 @@ export const JobForm = () => {
     formData.append("materials", String(materials));
     formData.append("description", description);
 
-    console.log(formData);
-
     const userSub = getUserSubjectFromCookie(cookies);
-    console.log(userSub);
 
     axios
       .post("http://localhost:8080/api/users/" + userSub + "/jobs", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: "Bearer ",
+          Authorization: "Bearer " + cookies.token,
         },
       })
       .catch((exception) => console.error(exception));

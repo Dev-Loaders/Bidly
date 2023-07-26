@@ -34,7 +34,7 @@ export default function Home() {
             </Toolbar>
           </AppBar>
         </Box>
-
+        
         <img
           className="header__img"
           src="/bidly-images/white.jpg"

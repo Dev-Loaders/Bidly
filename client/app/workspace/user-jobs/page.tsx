@@ -20,13 +20,13 @@ export default function UserJobs() {
   const [userJobs, setUserJobs] = useState<Job[]>([]);
   const [cookies] = useCookies();
 
-  const userSub = getUserSubjectFromCookie(cookies);
+  const userSubject = getUserSubjectFromCookie(cookies);
 
   const getUserJobs = () => {
     axios
-      .get("http://localhost:8080/api/users/" + userSub + "/jobs", {
+      .get("https://bidly.azurewebsites.net/api/users/" + userSubject + "/jobs", {
         headers: {
-          Authorization: "Bearer ",
+          Authorization: "Bearer " + cookies.token,
         },
       })
       .then((response) => {
@@ -41,11 +41,6 @@ export default function UserJobs() {
     getUserJobs();
   }, []);
 
-  const handleClick = (job: Job) => {
-    const jobId = job.jobId;
-    window.location.href = `/workspace/detail-view/${jobId}`;
-  };
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <Container style={{ minHeight: "100vh" }}>
@@ -56,7 +51,7 @@ export default function UserJobs() {
               <Card style={{ width: "100%" }}>
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:8080/${job.imageUrl}`}
+                    src={`https://bidly.azurewebsites.net/${job.imageUrl}`}
                     alt="Job"
                   />
                   <Card.Body>

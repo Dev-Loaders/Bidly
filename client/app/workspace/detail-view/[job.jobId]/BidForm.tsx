@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 
+declare var window: any;
+
 type BidFormDataProps = {
   amount: string;
 };
@@ -20,6 +22,8 @@ export default function BidForm({
   const [amount, setAmount] = useState("");
   const [cookies] = useCookies();
 
+  console.log(cookies.token);
+
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
   };
@@ -31,11 +35,14 @@ export default function BidForm({
     });
   };
 
+  const userSubject = getUserSubjectFromCookie(cookies);
+  console.log(userSubject);
+  console.log(cookies.token);
+
   const postJob = ({ amount }: BidFormDataProps) => {
     const formData = new FormData();
 
     formData.append("amount", amount);
-    const userSub = getUserSubjectFromCookie(cookies);
     const jobId = window.location.pathname.split("/")[3];
 
     axios
@@ -48,7 +55,7 @@ export default function BidForm({
         formData,
         {
           headers: {
-            Authorization: "Bearer " + cookies.tokenCookie,
+            Authorization: "Bearer " + cookies.token,
           },
         }
       )

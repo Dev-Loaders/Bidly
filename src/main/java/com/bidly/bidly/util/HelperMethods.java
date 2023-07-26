@@ -22,8 +22,8 @@ public class HelperMethods {
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
             stream.write(file.getBytes());
             stream.close();
-            return fileUrl;
+            return null;
         }
-        return "job-images/default.png";
+        return null;
     }
 }

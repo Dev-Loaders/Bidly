@@ -9,16 +9,12 @@ type jwtCookie = {
 };
 
 export const getUserSubjectFromCookie = (cookies : jwtCookie) => {
-
-  if (cookies.tokenCookie === undefined) {
-    window.location.href = "/";
-    return;
+  const tokenValue = cookies.token;
+  if (!tokenValue){
+     return null;
   }
 
-    const tokenValue = cookies.tokenCookie;
-    console.log(tokenValue);
-    const decodedToken: decodedToken = jwtDecode(tokenValue);
-    console.log(decodedToken);
-    console.log(decodedToken.sub);
-    return decodedToken.sub;
+  console.log(tokenValue);
+  const decodedToken: decodedToken = jwtDecode(tokenValue);
+  return decodedToken.sub;
 };

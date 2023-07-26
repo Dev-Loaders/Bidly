@@ -1,44 +1,81 @@
-"use client"
-import { useSearchParams } from 'next/navigation';
-import DefaultWorkspace from "./DefaultWorkspace";
-import { useCookies } from "react-cookie";
+"use client";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Link from "next/link";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { TokenSyntaxKind } from "typescript";
+import jwtDecode from "jwt-decode";
 
+type Job = {
+  jobId: string;
+  title: string;
+  location: string;
+  imageUrl: string;
+  materials: boolean;
+  description: string;
+};
 
-export default function Workspace() {
-  
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+type Token = {
+    token: string | null;
+}
 
-  const [cookies, setCookie] = useCookies(['token']);
-  const setTokenAsCookie = (token: any) => {
-    if (token) {
-    setCookie('token', token, { path: '/', expires: new Date(Date.now() + 3600000)});
-    }
+export default function DefaultWorkspace({ token }: Token) {
+  const [allJobs, setAllJobs] = useState<Job[]>([]);
+
+  const getJobs = () => {
+    axios
+      .get("https://bidly.azurewebsites.net/api/jobs", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        setAllJobs(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
-  setTokenAsCookie(token);
-  console.log(cookies.token);
 
-  
+  useEffect(() => {
+    getJobs();
+  }, []);
+
+  const handleClick = (job: Job) => {
+    const jobId = job.jobId;
+    window.location.href = `/workspace/detail-view/${jobId}`;
+  };
+
   return (
     <>
-      <Box className="info-box">
+      <Box
+        style={{
+          padding: "6%",
+          paddingTop: "8%",
+          paddingBottom: "8%",
+          backgroundColor: "#f0f0f0",
+        }}
+      >
         <Typography
-          className="info-box__title"
           variant="h3"
           style={{
             fontSize: "32px",
             fontWeight: "400",
-            marginBlockEnd: "2%",
+            marginBlockEnd: "4%",
             color: "#555",
           }}
         >
           Projects on Bidly
         </Typography>
-        <Typography
-          className="info-box__content"
-          variant="h5"
-          style={{ fontSize: "16px", color: "#242424" }}
-        >
+        <Typography variant="h5" style={{ fontSize: "16px", color: "#242424" }}>
           Each project listed here is a chance to showcase your expertise, help
           your neighbors, and grow your business all at once. Explore the posts
           below, find the ones that align with your skills and interests, and
@@ -48,12 +85,7 @@ export default function Workspace() {
 
       <Box
         minHeight="100vh"
-        style={{
-          marginLeft: "4%",
-          marginRight: "4%",
-          marginBlockStart: "4%",
-          marginBlockEnd: "4%",
-        }}
+        style={{ marginLeft: "4%", marginRight: "4%", marginBlockStart: "4%", marginBlockEnd: "4%" }}
       >
         <Grid container spacing={2}>
           {allJobs &&
