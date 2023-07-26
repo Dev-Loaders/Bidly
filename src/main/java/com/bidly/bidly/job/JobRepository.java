@@ -21,7 +21,6 @@ public class JobRepository {
     public Job createJob(String fileUrl, String title, String description,
                          String location, boolean materials) {
         Job job = new Job(title, description,  location, fileUrl, materials);
-        System.out.println(job);
         repo.save(job);
         return job;
     }
