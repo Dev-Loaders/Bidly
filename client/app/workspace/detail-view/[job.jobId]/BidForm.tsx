@@ -3,10 +3,10 @@ import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import Snackbar from "@material-ui/core/snackbar";
-import MuiAlert, { AlertProps } from "@material-ui/lab/alert";
+// import Snackbar from "@material-ui/core/Snackbar";
+// import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import React from "react";
-import { SnackbarCloseReason } from "@material-ui/core";
+// import { SnackbarCloseReason } from "@material-ui/core";
 import { SyntheticEvent } from "react";
 
 declare var window: any;
@@ -19,9 +19,9 @@ interface BidFormProps {
   jobId: string;
 }
 
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+// function Alert(props: AlertProps) {
+//   return <MuiAlert elevation={6} variant="filled" {...props} />;
+// }
 
 export default function BidForm({
   jobId,
@@ -31,15 +31,15 @@ export default function BidForm({
   const [cookies] = useCookies();
   const [open, setOpen] = React.useState(false);
 
-  const handleClose = (
-    event: SyntheticEvent<Element, Event>,
-    reason: SnackbarCloseReason
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
+  // const handleClose = (
+  //   event: SyntheticEvent<Element, Event>,
+  //   reason: SnackbarCloseReason
+  // ) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
@@ -120,11 +120,11 @@ export default function BidForm({
             </Button>
           </form>
 
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleAlertClose} severity="success">
               Your Bid was successfully added!
             </Alert>
-          </Snackbar>
+          </Snackbar> */}
         </Box>
       </Container>
     </>

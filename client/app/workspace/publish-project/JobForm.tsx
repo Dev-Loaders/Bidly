@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
-import Snackbar from "@material-ui/core/snackbar";
+// import Snackbar from "@material-ui/core/Snackbar";
 import React from "react";
-import MuiAlert, { AlertProps } from "@material-ui/lab/alert";
-import { SnackbarCloseReason } from "@material-ui/core";
+// import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+// import { SnackbarCloseReason } from "@material-ui/core";
 import { SyntheticEvent } from "react";
 
 
@@ -28,9 +28,9 @@ type JobFormDataProps = {
   description: string;
 };
 
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+// function Alert(props: AlertProps) {
+//   return <MuiAlert elevation={6} variant="filled" {...props} />;
+// }
 
 export const JobForm = () => {
   const [title, setTitle] = useState("");
@@ -41,15 +41,15 @@ export const JobForm = () => {
   const [cookies] = useCookies();
   const [open, setOpen] = React.useState(false);
 
-  const handleClose = (
-    event: SyntheticEvent<Element, Event>,
-    reason: SnackbarCloseReason
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
+  // const handleClose = (
+  //   event: SyntheticEvent<Element, Event>,
+  //   reason: SnackbarCloseReason
+  // ) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -230,11 +230,11 @@ export const JobForm = () => {
           </Button>
         </Box>
 
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleAlertClose} severity="success">
             Your Project was posted successfully!
           </Alert>
-        </Snackbar>
+        </Snackbar> */}
       </Box>
     </>
   );
