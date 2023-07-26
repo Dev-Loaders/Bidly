@@ -72,7 +72,7 @@ export default function UserBids() {
         <Typography
           className="info-box__content"
           variant="h5"
-          style={{ fontSize: "16px", color: "#242424" }}
+          style={{ fontSize: "16px", color: "#242424", margin: '0 auto' }}
         >
           Welcome to your personal bidding page, where we have gathered all the
           projects you have placed bids on. This is your hub to track the

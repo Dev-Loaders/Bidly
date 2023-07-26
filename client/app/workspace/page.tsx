@@ -81,7 +81,7 @@ export default function Workspace() {
         <Typography
           className="info-box__content"
           variant="h5"
-          style={{ fontSize: "16px", color: "#242424" }}
+          style={{ fontSize: "16px", color: "#242424", margin: '0 auto' }}
         >
           Each project listed here is a chance to showcase your expertise, help
           your neighbors, and grow your business all at once. Explore the posts

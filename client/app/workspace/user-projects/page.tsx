@@ -65,7 +65,7 @@ export default function UserJobs() {
         <Typography
           className="info-box__content"
           variant="h5"
-          style={{ fontSize: "16px", color: "#242424" }}
+          style={{ fontSize: "16px", color: "#242424", margin: '0 auto' }}
         >
           Welcome to your project dashboard on Bidly. This is where you can see
           all the projects you have posted and keep track of their progress.
