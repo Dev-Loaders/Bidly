@@ -1,6 +1,6 @@
 "use client";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -13,12 +13,8 @@ import {
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
-// import Snackbar from "@material-ui/core/Snackbar";
-import React from "react";
-// import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-// import { SnackbarCloseReason } from "@material-ui/core";
 import { SyntheticEvent } from "react";
-
+import { Alert } from "react-bootstrap";
 
 type JobFormDataProps = {
   title: string;
@@ -28,10 +24,6 @@ type JobFormDataProps = {
   description: string;
 };
 
-// function Alert(props: AlertProps) {
-//   return <MuiAlert elevation={6} variant="filled" {...props} />;
-// }
-
 export const JobForm = () => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -40,16 +32,7 @@ export const JobForm = () => {
   const [description, setDescription] = useState("");
   const [cookies] = useCookies();
   const [open, setOpen] = React.useState(false);
-
-  // const handleClose = (
-  //   event: SyntheticEvent<Element, Event>,
-  //   reason: SnackbarCloseReason
-  // ) => {
-  //   if (reason === "clickaway") {
-  //     return;
-  //   }
-  //   setOpen(false);
-  // };
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -71,6 +54,11 @@ export const JobForm = () => {
 
   const handleDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(event.target.value);
+  };
+
+  const handleSubmitWithAlert = (event: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(event);
+    setShowAlert(true);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -145,6 +133,13 @@ export const JobForm = () => {
           your project come to life.
         </Typography>
       </Box>
+
+      {showAlert && (
+            <Alert onClose={() => setShowAlert(false)}>
+              Project published successfully!
+            </Alert>
+          )}
+
       <Box
         component="form"
         sx={{
@@ -158,7 +153,7 @@ export const JobForm = () => {
         className="rounded shadow"
         style={{ backgroundColor: "#fff", marginBlockStart: "2%" }}
         method="post"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmitWithAlert}
       >
         <TextField
           id="outlined-basic"
@@ -229,12 +224,6 @@ export const JobForm = () => {
             Submit
           </Button>
         </Box>
-
-        {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleAlertClose} severity="success">
-            Your Project was posted successfully!
-          </Alert>
-        </Snackbar> */}
       </Box>
     </>
   );
