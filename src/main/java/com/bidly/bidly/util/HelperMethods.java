@@ -22,7 +22,7 @@ public class HelperMethods {
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
             stream.write(file.getBytes());
             stream.close();
-            return null;
+            return fileUrl;
         }
         return null;
     }
