@@ -89,6 +89,11 @@ export default function BidForm({
                 onChange={handleAmount}
               />
             </Box>
+            {showAlert && (
+              <Alert onClose={() => setShowAlert(false)} style={{ marginBottom: '3%' }}>
+                Bid posted successfully!
+              </Alert>
+            )}
             <Button
               variant="outlined"
               color="inherit"
@@ -99,12 +104,6 @@ export default function BidForm({
               Submit Bid
             </Button>
           </form>
-
-          {showAlert && (
-            <Alert onClose={() => setShowAlert(false)}>
-              Bid posted successfully!
-            </Alert>
-          )}
         </Box>
       </Container>
     </>

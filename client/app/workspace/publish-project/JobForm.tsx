@@ -95,12 +95,16 @@ export const JobForm = () => {
     const userSubject = getUserSubjectFromCookie(cookies);
 
     axios
-      .post("https:bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + cookies.token,
-        },
-      })
+      .post(
+        "https:bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + cookies.token,
+          },
+        }
+      )
       .catch((exception) => console.error(exception));
   };
 
@@ -204,6 +208,12 @@ export const JobForm = () => {
           required
         />
 
+        {showAlert && (
+          <Alert onClose={() => setShowAlert(false)}>
+            Project published successfully!
+          </Alert>
+        )}
+
         <Box display="flex" justifyContent="center" marginBottom={2} mt={2}>
           <Button
             variant="outlined"
@@ -218,11 +228,6 @@ export const JobForm = () => {
             Submit
           </Button>
         </Box>
-        {showAlert && (
-          <Alert onClose={() => setShowAlert(false)}>
-            Project published successfully!
-          </Alert>
-        )}
       </Box>
     </>
   );
