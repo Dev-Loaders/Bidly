@@ -1,8 +1,5 @@
 import Bids from "./Bids";
 
 export default function UserBids() {
-
-  return (
-    <Bids></Bids>
-  );
+  return <Bids></Bids>;
 }

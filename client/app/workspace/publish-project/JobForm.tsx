@@ -11,9 +11,15 @@ import {
   Input,
   InputLabel,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
+import Snackbar from "@material-ui/core/Snackbar";
+import React from "react";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import { SnackbarCloseReason } from "@material-ui/core";
+import { SyntheticEvent } from "react";
 
 
 type JobFormDataProps = {
@@ -24,6 +30,10 @@ type JobFormDataProps = {
   description: string;
 };
 
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export const JobForm = () => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -31,6 +41,17 @@ export const JobForm = () => {
   const [materials, setMaterials] = useState(false);
   const [description, setDescription] = useState("");
   const [cookies] = useCookies();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (
+    event: SyntheticEvent<Element, Event>,
+    reason: SnackbarCloseReason
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -63,6 +84,7 @@ export const JobForm = () => {
       materials: materials,
       description: description,
     });
+    setOpen(true);
   };
 
   const userSubject = getUserSubjectFromCookie(cookies);
@@ -96,15 +118,43 @@ export const JobForm = () => {
       .catch((exception) => console.error(exception));
   };
 
+  const handleAlertClose = (event: SyntheticEvent<Element, Event>) => {
+    setOpen(false);
+  };
+
   return (
     <>
+      <Box className="info-box">
+        <Typography
+          className="info-box__title"
+          variant="h3"
+          style={{
+            fontSize: "32px",
+            fontWeight: "400",
+            marginBlockEnd: "2%",
+            color: "#555",
+          }}
+        >
+          Publish to Bidly
+        </Typography>
+        <Typography
+          className="info-box__content"
+          variant="h5"
+          style={{ fontSize: "16px", color: "#242424" }}
+        >
+          Ready to transform your vision into reality? You are in the right
+          place. Posting your project on Bidly is the first step towards making
+          your project come to life.
+        </Typography>
+      </Box>
       <Box
         component="form"
         sx={{
           "& .MuiTextField-root": { m: 1, width: "100%", maxWidth: "800px" },
           maxWidth: { xs: "100%", md: "800px" },
           margin: "auto",
-          p: { xs: 2, md: 5 }, 
+          marginBottom: { md: "2em" },
+          p: { xs: 2, md: 5 },
         }}
         autoComplete="off"
         className="rounded shadow"
@@ -112,9 +162,6 @@ export const JobForm = () => {
         method="post"
         onSubmit={handleSubmit}
       >
-        <h2 className="mb-3 text-center">Publish a Project</h2>
-        <hr />
-
         <TextField
           id="outlined-basic"
           label="Title"
@@ -170,12 +217,7 @@ export const JobForm = () => {
           required
         />
 
-        <Box
-          display="flex"
-          justifyContent="center"
-          marginBottom={2}
-          mt={2}
-        >
+        <Box display="flex" justifyContent="center" marginBottom={2} mt={2}>
           <Button
             variant="outlined"
             color="inherit"
@@ -189,6 +231,12 @@ export const JobForm = () => {
             Submit
           </Button>
         </Box>
+
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleAlertClose} severity="success">
+            Your Project was posted successfully!
+          </Alert>
+        </Snackbar>
       </Box>
     </>
   );
