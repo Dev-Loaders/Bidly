@@ -34,7 +34,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 
         String tokenValue = oidcUser.getIdToken().getTokenValue();
-        validation.validateJwt(oidcUser);
+//        validation.validateJwt(oidcUser);
         String redirectUrl = "http://localhost:3000/workspace?token=" + URLEncoder.encode(tokenValue, StandardCharsets.UTF_8);
         createUserAccountIfItDoesNotExist(oidcUser);
         response.sendRedirect(redirectUrl);
