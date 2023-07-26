@@ -99,6 +99,7 @@ export default function BidForm({
               Submit Bid
             </Button>
           </form>
+
           {showAlert && (
             <Alert onClose={() => setShowAlert(false)}>
               Bid posted successfully!

@@ -14,7 +14,7 @@ import {
 import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 import { SyntheticEvent } from "react";
-import { Alert } from "react-bootstrap";
+import Alert from "@mui/material/Alert";
 
 type JobFormDataProps = {
   title: string;
@@ -134,12 +134,6 @@ export const JobForm = () => {
         </Typography>
       </Box>
 
-      {showAlert && (
-            <Alert onClose={() => setShowAlert(false)}>
-              Project published successfully!
-            </Alert>
-          )}
-
       <Box
         component="form"
         sx={{
@@ -224,6 +218,11 @@ export const JobForm = () => {
             Submit
           </Button>
         </Box>
+        {showAlert && (
+          <Alert onClose={() => setShowAlert(false)}>
+            Project published successfully!
+          </Alert>
+        )}
       </Box>
     </>
   );
