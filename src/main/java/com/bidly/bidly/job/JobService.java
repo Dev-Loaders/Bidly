@@ -59,7 +59,6 @@ public class JobService {
 
     private <T> void updateIfExists(Supplier<T> getter, Consumer<T> setter) {
         T value = getter.get();
-        System.out.println(value);
         if (value != null && !(value instanceof String && ((String) value).isEmpty())) {
             setter.accept(value);
         }

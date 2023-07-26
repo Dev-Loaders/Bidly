@@ -25,56 +25,38 @@ public class JwtValidation {
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String googleClientSecret;
 
+    private final ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("google")
+            .clientId(googleClientId)
+            .clientSecret(googleClientSecret)
+            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+            .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
+            .scope("openid", "profile", "email")
+            .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
+            .tokenUri("https://www.googleapis.com/oauth2/v4/token")
+            .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
+            .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
+            .userNameAttributeName(IdTokenClaimNames.SUB)
+            .clientName("Google")
+            .build();
+
     public boolean validateJwt(OidcUser oidcUser) {
-        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("google")
-                .clientId(googleClientId)
-                .clientSecret(googleClientSecret)
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
-                .scope("openid", "profile", "email")
-                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
-                .tokenUri("https://www.googleapis.com/oauth2/v4/token")
-                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
-                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
-                .clientName("Google")
-                .build();
 
         OidcIdTokenValidator validator = new OidcIdTokenValidator(clientRegistration);
         JwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
                 .build();
         String tokenValue = oidcUser.getIdToken().getTokenValue();
-        System.out.println(tokenValue);
         Jwt jwtToken = jwtDecoder.decode(tokenValue);
 
         try {
-            Jwt jwt = jwtToken;
-            validator.validate(jwt);
-            System.out.println("success");
+            validator.validate(jwtToken);
             return true;
-            // Token validation succeeded
         } catch (JwtValidationException e) {
-            // Token validation failed
             return false;
         }
     }
 
     public boolean validateJwt(String token) {
-        ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("google")
-                .clientId(googleClientId)
-                .clientSecret(googleClientSecret)
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
-                .scope("openid", "profile", "email")
-                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
-                .tokenUri("https://www.googleapis.com/oauth2/v4/token")
-                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
-                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
-                .clientName("Google")
-                .build();
 
         OidcIdTokenValidator validator = new OidcIdTokenValidator(clientRegistration);
         JwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
@@ -83,11 +65,8 @@ public class JwtValidation {
 
         try {
             validator.validate(jwtToken);
-            System.out.println("success");
             return true;
-            // Token validation succeeded
         } catch (JwtValidationException e) {
-            // Token validation failed
             return false;
         }
     }

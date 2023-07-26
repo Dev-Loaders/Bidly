@@ -21,7 +21,6 @@ public class BidlyUserRepository {
     }
 
     public BidlyUser getUserId(Long id) {
-        System.out.println(repo.findById(id).orElse(null));
         return repo.findById(id).orElse(null);
     }
 
