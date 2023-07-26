@@ -2,8 +2,12 @@ import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import React from "react";
+import { SnackbarCloseReason } from "@material-ui/core";
+import { SyntheticEvent } from "react";
 
 declare var window: any;
 
@@ -15,14 +19,27 @@ interface BidFormProps {
   jobId: string;
 }
 
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function BidForm({
   jobId,
   setNewBid,
 }: BidFormProps & { setNewBid: React.Dispatch<React.SetStateAction<number>> }) {
   const [amount, setAmount] = useState("");
   const [cookies] = useCookies();
+  const [open, setOpen] = React.useState(false);
 
-  console.log(cookies.token);
+  const handleClose = (
+    event: SyntheticEvent<Element, Event>,
+    reason: SnackbarCloseReason
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
@@ -33,6 +50,11 @@ export default function BidForm({
     postJob({
       amount: amount,
     });
+    setOpen(true);
+  };
+
+  const handleAlertClose = (event: SyntheticEvent<Element, Event>) => {
+    setOpen(false);
   };
 
   const userSubject = getUserSubjectFromCookie(cookies);
@@ -76,7 +98,6 @@ export default function BidForm({
           />
           <form method="post" onSubmit={handleSubmit}>
             {" "}
-            {/* here's the change */}
             <Box my={3}>
               <TextField
                 id="amount"
@@ -98,6 +119,12 @@ export default function BidForm({
               Submit Bid
             </Button>
           </form>
+
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleAlertClose} severity="success">
+              Your Bid was successfully added!
+            </Alert>
+          </Snackbar>
         </Box>
       </Container>
     </>
