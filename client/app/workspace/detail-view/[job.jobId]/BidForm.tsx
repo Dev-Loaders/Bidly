@@ -36,8 +36,6 @@ export default function BidForm({
   };
 
   const userSubject = getUserSubjectFromCookie(cookies);
-  console.log(userSubject);
-  console.log(cookies.token);
 
   const postJob = ({ amount }: BidFormDataProps) => {
     const formData = new FormData();
@@ -48,7 +46,7 @@ export default function BidForm({
     axios
       .post(
         "http://localhost:8080/api/users/" +
-          userSub +
+          userSubject +
           "/jobs/" +
           jobId +
           "/bids",
@@ -75,29 +73,31 @@ export default function BidForm({
           <Box
             my={1}
             style={{ width: "100%", borderBottom: "1px solid #ddd" }}
-            method="post"
-            onSubmit={handleSubmit}
           />
-          <Box my={3}>
-            <TextField
-              id="amount"
-              name="amount"
-              label="Bid Amount"
+          <form method="post" onSubmit={handleSubmit}>
+            {" "}
+            {/* here's the change */}
+            <Box my={3}>
+              <TextField
+                id="amount"
+                name="amount"
+                label="Bid Amount"
+                variant="outlined"
+                fullWidth
+                required
+                onChange={handleAmount}
+              />
+            </Box>
+            <Button
               variant="outlined"
+              color="inherit"
+              style={{ marginBottom: "4%", padding: "6px 50px" }}
+              type="submit"
               fullWidth
-              required
-              onChange={handleAmount}
-            />
-          </Box>
-          <Button
-            variant="outlined"
-            color="inherit"
-            style={{ marginBottom: "4%", padding: "6px 50px" }}
-            type="submit"
-            fullWidth
-          >
-            Submit Bid
-          </Button>
+            >
+              Submit Bid
+            </Button>
+          </form>
         </Box>
       </Container>
     </>
