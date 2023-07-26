@@ -13,8 +13,7 @@ import {
   Box,
 } from "@mui/material";
 import "./globals.css";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+
 
 export default function Home() {
   return (
@@ -34,7 +33,7 @@ export default function Home() {
             </Toolbar>
           </AppBar>
         </Box>
-        
+
         <img
           className="header__img"
           src="/bidly-images/white.jpg"
@@ -197,9 +196,7 @@ export default function Home() {
           </Grid>
         </Container>
 
-        <Box
-          className="info-box"
-        >
+        <Box className="info-box">
           <Typography
             className="info-box__title"
             variant="h3"
