@@ -35,7 +35,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         String tokenValue = oidcUser.getIdToken().getTokenValue();
         validation.validateJwt(oidcUser);
-        String redirectUrl = "https://bidly-git-store-jwt-cookie-dev-loaders.vercel.app/workspace?token=" + URLEncoder.encode(tokenValue, StandardCharsets.UTF_8);
+        String redirectUrl = "http://localhost:3000/workspace?token=" + URLEncoder.encode(tokenValue, StandardCharsets.UTF_8);
         createUserAccountIfItDoesNotExist(oidcUser);
         response.sendRedirect(redirectUrl);
     }

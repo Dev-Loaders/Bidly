@@ -1,13 +1,25 @@
 "use client"
 import { useSearchParams } from 'next/navigation';
-import DefaultWorkspace from "./DefaultWorkspace";
 import { useCookies } from "react-cookie";
+import { Box, Button, Card, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
+
+type Job = {
+  jobId: string;
+  title: string;
+  location: string;
+  imageUrl: string;
+  materials: boolean;
+  description: string;
+};
 
 export default function Workspace() {
   
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
+  const [allJobs, setAllJobs] = useState<Job[]>([]);
 
   const [cookies, setCookie] = useCookies(['token']);
   const setTokenAsCookie = (token: any) => {
@@ -18,6 +30,30 @@ export default function Workspace() {
   setTokenAsCookie(token);
   console.log(cookies.token);
 
+
+  const getJobs = () => {
+    axios
+      .get("http://localhost:8080/api/jobs", {
+        headers: {
+          Authorization: "Bearer ",
+        },
+      })
+      .then((response) => {
+        setAllJobs(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    getJobs();
+  }, []);
+
+  const handleClick = (job: Job) => {
+    const jobId = job.jobId;
+    window.location.href = `/workspace/detail-view/${jobId}`;
+  };
   
   return (
     <>

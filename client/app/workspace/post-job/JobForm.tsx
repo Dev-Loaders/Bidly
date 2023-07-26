@@ -90,7 +90,7 @@ export const JobForm = () => {
       .post("http://localhost:8080/api/users/" + userSub + "/jobs", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + cookies.token,
+          // Authorization: "Bearer " + cookies.token,
         },
       })
       .catch((exception) => console.error(exception));

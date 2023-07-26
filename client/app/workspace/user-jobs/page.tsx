@@ -24,7 +24,7 @@ export default function UserJobs() {
 
   const getUserJobs = () => {
     axios
-      .get("https://bidly.azurewebsites.net/api/users/" + userSubject + "/jobs", {
+      .get("http://localhost:8080/api/users/" + userSubject + "/jobs", {
         headers: {
           Authorization: "Bearer " + cookies.token,
         },

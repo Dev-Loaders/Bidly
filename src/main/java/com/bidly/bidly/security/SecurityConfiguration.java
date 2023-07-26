@@ -27,17 +27,17 @@ public class SecurityConfiguration {
     DefaultSecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/login").permitAll()
+                                .requestMatchers("/**").permitAll()
 //                                .requestMatchers("/api/jobs").permitAll()
 //                                .requestMatchers("/api/users/{userSubject}/jobs").permitAll()
-                                .anyRequest().authenticated()
+//                                .anyRequest().authenticated()
 
                 )
                 .cors(withDefaults())
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler)
                 )
-                .addFilterBefore(new CustomBearerTokenFilter(), AuthorizationFilter.class)
+//                .addFilterBefore(new CustomBearerTokenFilter(), AuthorizationFilter.class)
                 .csrf().disable()
                 .build();
     }

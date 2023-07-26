@@ -44,7 +44,7 @@ export default function DetailView() {
 
   useEffect(() => {
     axios
-      .get(`https://bidly.azurewebsites.net/api/jobs/${jobId}`, {
+      .get(`http://localhost:8080/api/jobs/${jobId}`, {
         headers: {
           Authorization: "Bearer " + cookies.token,
         },
