@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import "./globals.css";
 
-
 export default function Home() {
   return (
     <>
@@ -29,7 +28,14 @@ export default function Home() {
               >
                 Bidly
               </Typography>
-              <Button color="inherit">Login</Button>
+              <Button color="inherit">
+                <Link
+                  style={{ textDecoration: "none", color: "#fff" }}
+                  href={`https:bidly-app.azurewebsites.net/login`}
+                >
+                  Login
+                </Link>
+              </Button>
             </Toolbar>
           </AppBar>
         </Box>
@@ -73,7 +79,12 @@ export default function Home() {
                   color="inherit"
                   style={{ marginBlockEnd: "10%", padding: "6px 50px" }}
                 >
-                  Sign Up
+                  <Link
+                    style={{ textDecoration: "none", color: "#242424" }}
+                    href={`https:bidly-app.azurewebsites.net/login`}
+                  >
+                    Sign Up
+                  </Link>
                 </Button>
               </div>
             </Grid>

@@ -92,13 +92,13 @@ export const JobForm = () => {
     formData.append("materials", String(materials));
     formData.append("description", description);
 
-    const userSub = getUserSubjectFromCookie(cookies);
+    const userSubject = getUserSubjectFromCookie(cookies);
 
     axios
-      .post("http://localhost:8080/api/users/" + userSub + "/jobs", formData, {
+      .post("https:bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // Authorization: "Bearer " + cookies.token,
+          Authorization: "Bearer " + cookies.token,
         },
       })
       .catch((exception) => console.error(exception));

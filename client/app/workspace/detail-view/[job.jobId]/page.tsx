@@ -42,7 +42,7 @@ export default function DetailView() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/jobs/${jobId}`, {
+      .get(`https:bidly-app.azurewebsites.net/api/jobs/${jobId}`, {
         headers: {
           Authorization: "Bearer " + cookies.token,
         },
@@ -67,7 +67,7 @@ export default function DetailView() {
                 </Typography>
                 <CardMedia
                   component="img"
-                  image={`http://localhost:8080/${jobDetails?.imageUrl}`}
+                  image={`https:bidly-app.azurewebsites.net/${jobDetails?.imageUrl}`}
                 />
                 <Box mt={2}>
                   <Typography gutterBottom>
