@@ -15,9 +15,9 @@ import {
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
-import Snackbar from "@material-ui/core/Snackbar";
+import Snackbar from "@material-ui/core/snackbar";
 import React from "react";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import MuiAlert, { AlertProps } from "@material-ui/lab/alert";
 import { SnackbarCloseReason } from "@material-ui/core";
 import { SyntheticEvent } from "react";
 
