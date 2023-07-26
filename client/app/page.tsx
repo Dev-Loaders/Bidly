@@ -21,18 +21,13 @@ export default function Home() {
     <>
       <main>
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static" sx={{ backgroundColor: '#242424' }}>
+          <AppBar position="static" sx={{ backgroundColor: "#242424" }}>
             <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1, fontWeight: "600", fontFamily: "Vollkorn" }}
               >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Montserrat' }}>
                 Bidly
               </Typography>
               <Button color="inherit">Login</Button>
@@ -40,46 +35,58 @@ export default function Home() {
           </AppBar>
         </Box>
         
-        <header className="header" style={{ marginBlockEnd: '10%' }}>
-          <Image
-            className="header__img"
-            src="/bidly-images/white.jpg"
-            alt="Bright kitchen with modern design"
-          />
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              color: "#242424",
-            }}
-          >
-            <Typography variant="h1" style={{ fontSize: '45px', fontFamily: 'Montserrat' }}>
-              Bidly
-            </Typography>
-            <Typography
-              variant="h2"
-              style={{ fontSize: '35px', marginBlockEnd: '10%' }}
-            >
-              Compare prices and select the best bid for your projects
-            </Typography>
-            <Button
-              variant="outlined"
-              color="inherit"
-              style={{ marginBlockEnd: '10%' }}
-            >
-              Sign Up
-            </Button>
-          </div>
-        </header>
+        <img
+          className="header__img"
+          src="/bidly-images/white.jpg"
+          alt="Bright kitchen with modern design"
+        />
 
-        <Container maxWidth="sm" style={{ marginBlockEnd: '10%' }}>
+        <Container style={{ marginBlockEnd: "5%" }}>
           <Grid container spacing={2}>
-            <Grid item xs={6} md={6} lg={6}>
+            <Grid item xs={12}>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  color: "#242424",
+                }}
+              >
+                <Typography
+                  variant="h1"
+                  style={{
+                    fontSize: "45px",
+                    fontFamily: "Vollkorn",
+                    marginBottom: "4%",
+                  }}
+                >
+                  Bidly
+                </Typography>
+                <Typography
+                  variant="h2"
+                  style={{ fontSize: "35px", marginBlockEnd: "10%" }}
+                >
+                  Compare prices and select the best bid for your projects
+                </Typography>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  style={{ marginBlockEnd: "10%", padding: "6px 50px" }}
+                >
+                  Sign Up
+                </Button>
+              </div>
+            </Grid>
+          </Grid>
+        </Container>
+
+        <Container maxWidth="sm" style={{ marginBlockEnd: "5%" }}>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
               <Card
                 className="card"
-                style={{ border: 'none', boxShadow: 'none' }}
+                style={{ border: "none", boxShadow: "none" }}
               >
                 <CardContent>
                   <Box display="flex" alignItems="center">
@@ -92,22 +99,22 @@ export default function Home() {
                     />
                     <Typography
                       variant="h5"
-                      style={{ marginLeft: '10px', fontSize: '20px' }}
+                      style={{ marginLeft: "10px", fontSize: "20px" }}
                     >
                       Multiple Bids
                     </Typography>
                   </Box>
-                  <Typography style={{ marginLeft: '50px' }}>
+                  <Typography style={{ marginLeft: "50px" }}>
                     Choose the best bid for your project
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
 
-            <Grid item xs={6} md={6} lg={6}>
+            <Grid item xs={6}>
               <Card
                 className="card"
-                style={{ border: 'none', boxShadow: 'none' }}
+                style={{ border: "none", boxShadow: "none" }}
               >
                 <CardContent>
                   <Box display="flex" alignItems="center">
@@ -132,7 +139,7 @@ export default function Home() {
               </Card>
             </Grid>
 
-            <Grid item xs={6} md={6} lg={6}>
+            <Grid item xs={6}>
               <Card
                 className="card"
                 style={{ border: "none", boxShadow: "none" }}
@@ -148,20 +155,19 @@ export default function Home() {
                     />
                     <Typography
                       variant="h5"
-
                       style={{ marginLeft: "10px", fontSize: "20px" }}
                     >
                       Ease of use
                     </Typography>
                   </Box>
                   <Typography style={{ marginLeft: "50px" }}>
-                    Post project, review bids, project started
+                    Post project, review bids, start project
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
 
-            <Grid item xs={6} md={6} lg={6}>
+            <Grid item xs={6}>
               <Card
                 className="card"
                 style={{ border: "none", boxShadow: "none" }}
@@ -192,25 +198,25 @@ export default function Home() {
         </Container>
 
         <Box
-          style={{
-            padding: "6%",
-            paddingTop: "10%",
-            paddingBottom: "10%",
-            backgroundColor: '#f0f0f0'
-          }}
+          className="info-box"
         >
           <Typography
+            className="info-box__title"
             variant="h3"
             style={{
               fontSize: "32px",
               fontWeight: "400",
               marginBlockEnd: "4%",
-              color: '#555'
+              color: "#555",
             }}
           >
             Publishing to Bidly
           </Typography>
-          <Typography variant="h5" style={{ fontSize: "16px", color: "#242424" }}>
+          <Typography
+            className="info-box__content"
+            variant="h5"
+            style={{ fontSize: "16px", color: "#242424" }}
+          >
             What does it cost to publish a project? Publishing to Bidly is free
             of charge. We have a commission fee that is 10% for completed
             projects. For projects with no bids, you will not be charged.
@@ -218,7 +224,7 @@ export default function Home() {
         </Box>
 
         <Box style={{ marginBlockEnd: "6%" }}>
-        <img
+          <img
             className="box__img"
             src="/bidly-images/kitchen.jpg"
             alt="Bright kitchen with modern design"
@@ -227,21 +233,31 @@ export default function Home() {
 
         <footer>
           <Container maxWidth="lg">
-            <Typography variant="h6" align="center" gutterBottom style={{ fontWeight: "600", fontFamily: 'Montserrat' }}>
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              style={{ fontWeight: "600", fontFamily: "Vollkorn" }}
+            >
               Bidly
             </Typography>
-            <Typography variant="body2" color="textSecondary" align="center" style={{ marginBottom: '2%' }}>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              align="center"
+              style={{ marginBottom: "2%" }}
+            >
               Created by{" "}
               <Link
                 href={`https://www.linkedin.com/in/vwingardh/`}
-                style={{ fontWeight: "600", color: '#242424' }}
+                style={{ fontWeight: "600", color: "#242424" }}
               >
                 Vanessa
               </Link>{" "}
               &{" "}
               <Link
                 href={`https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/`}
-                style={{ fontWeight: "600", color: '#242424' }}
+                style={{ fontWeight: "600", color: "#242424" }}
               >
                 Ibrahim{" "}
               </Link>

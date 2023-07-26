@@ -2,10 +2,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BidForm from "./BidForm";
+
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
+
 import Card from "react-bootstrap/Card";
 import { useCookies } from "react-cookie";
 
 declare var window: any;
+
 
 type Job = {
   title: string;
@@ -28,7 +40,7 @@ export default function DetailView() {
   const jobId = window.location.pathname.split("/")[3];
 
   const [jobDetails, setJobDetails] = useState<Job | null>(null);
-  const [newBid, setNewBid] = useState(0);
+  const [newBid, setNewBid] = useState<number>(0);
 
   useEffect(() => {
     axios
@@ -47,38 +59,50 @@ export default function DetailView() {
 
   return (
     <>
-      <Card className="mt-5">
-        <Card.Body>
-          <Card.Title>{jobDetails?.title}</Card.Title>
-          <Card.Img
-            variant="top"
-            src={`https://bidly.azurewebsites.net/${jobDetails?.imageUrl}`}
-          />
-          <Card.Text>
-            <strong>Location:</strong> {jobDetails?.location}
-          </Card.Text>
-          <Card.Text>
-            <strong>Materials:</strong>{" "}
-            {jobDetails?.materials ? "Provided" : "Not Provided"}
-          </Card.Text>
-          <Card.Text>
-            <strong>Description:</strong> {jobDetails?.description}
-          </Card.Text>
-          <Card.Text>
-            <strong>Created:</strong> {jobDetails?.created}
-          </Card.Text>
-          <Card.Text>
-            {jobDetails?.bids?.length &&
-              jobDetails.bids.map((bid) => (
-                <div key={bid.bidId}>
-                  <strong>Bids:</strong> {bid.amount} kr
-                </div>
-              ))}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-
-      {jobDetails && <BidForm jobId={jobDetails.jobId} setNewBid={setNewBid} />}
+      <Container maxWidth="lg">
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <Card className="mt-5">
+              <CardContent>
+                <Typography variant="h5" gutterBottom>
+                  {jobDetails?.title}
+                </Typography>
+                <CardMedia
+                  component="img"
+                  image={`http://localhost:8080/${jobDetails?.imageUrl}`}
+                />
+                <Box mt={2}>
+                  <Typography gutterBottom>
+                    <strong>Location:</strong> {jobDetails?.location}
+                  </Typography>
+                  <Typography gutterBottom>
+                    <strong>Materials:</strong>{" "}
+                    {jobDetails?.materials ? "Provided" : "Not Provided"}
+                  </Typography>
+                  <Typography gutterBottom>
+                    <strong>Description:</strong> {jobDetails?.description}
+                  </Typography>
+                  <Typography gutterBottom>
+                    <strong>Created:</strong> {jobDetails?.created}
+                  </Typography>
+                  <Typography gutterBottom>
+                    <strong>Bids: </strong>
+                    {jobDetails?.bids?.length &&
+                      jobDetails.bids.map((bid) => (
+                        <div key={bid.bidId}>{bid.amount} kr</div>
+                      ))}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            {jobDetails && (
+              <BidForm jobId={jobDetails.jobId} setNewBid={setNewBid} />
+            )}
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }

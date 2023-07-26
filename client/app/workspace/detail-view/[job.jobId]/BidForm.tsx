@@ -1,7 +1,8 @@
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 
 declare var window: any;
@@ -11,10 +12,13 @@ type BidFormDataProps = {
 };
 
 interface BidFormProps {
-    jobId: string;
+  jobId: string;
 }
 
-export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid: React.Dispatch<React.SetStateAction<number>>; }) {
+export default function BidForm({
+  jobId,
+  setNewBid,
+}: BidFormProps & { setNewBid: React.Dispatch<React.SetStateAction<number>> }) {
   const [amount, setAmount] = useState("");
   const [cookies] = useCookies();
 
@@ -41,8 +45,14 @@ export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid
     formData.append("amount", amount);
     const jobId = window.location.pathname.split("/")[3];
 
-    axios.post(
-        "https://bidly.azurewebsites.net/api/users/" + userSubject + "/jobs/" + jobId + "/bids", formData,
+    axios
+      .post(
+        "http://localhost:8080/api/users/" +
+          userSub +
+          "/jobs/" +
+          jobId +
+          "/bids",
+        formData,
         {
           headers: {
             Authorization: "Bearer " + cookies.token,
@@ -57,33 +67,39 @@ export default function BidForm({ jobId, setNewBid }: BidFormProps & { setNewBid
 
   return (
     <>
-      <Form
-        className="p-5 rounded shadow"
-        style={{ backgroundColor: "#f8f9fa" }}
-        method="post"
-        onSubmit={handleSubmit}
-      >
-        <h2 className="mb-3 text-center">Bid on Job</h2>
-        <hr />
-        <Form.Group className="mb-4">
-          <Form.Label htmlFor="amount">Bid Amount</Form.Label>
-          <Form.Control
-            onChange={handleAmount}
-            type="text"
-            name="amount"
-            placeholder="Enter an amount"
-            required
+      <Container maxWidth="sm">
+        <Box mt={4} mb={2} p={4} boxShadow={3} bgcolor="#fff">
+          <Typography variant="h5" gutterBottom align="center">
+            Bid on Project
+          </Typography>
+          <Box
+            my={1}
+            style={{ width: "100%", borderBottom: "1px solid #ddd" }}
+            method="post"
+            onSubmit={handleSubmit}
           />
-        </Form.Group>
-
-        <Button
-          variant="primary"
-          type="submit"
-          className="w-100"
-        >
-          Submit
-        </Button>
-      </Form>
+          <Box my={3}>
+            <TextField
+              id="amount"
+              name="amount"
+              label="Bid Amount"
+              variant="outlined"
+              fullWidth
+              required
+              onChange={handleAmount}
+            />
+          </Box>
+          <Button
+            variant="outlined"
+            color="inherit"
+            style={{ marginBottom: "4%", padding: "6px 50px" }}
+            type="submit"
+            fullWidth
+          >
+            Submit Bid
+          </Button>
+        </Box>
+      </Container>
     </>
   );
 }

@@ -71,11 +71,11 @@ public class BidController {
         return ResponseEntity.created(location).body(bid);
     }
 
-    @PutMapping("users/{userSubject}/jobs/{jobId}/bids/{bidId}")
-    public ResponseEntity<Bid> acceptBid(@PathVariable String userSubject,
-                                         @PathVariable String jobId,
-                                         @PathVariable String bidId) {
-
-        return ResponseEntity.accepted().body(service.acceptBid(jobId, bidId));
-    }
+//    @PutMapping("users/{userSubject}/jobs/{jobId}/bids/{bidId}")
+//    public ResponseEntity<Bid> acceptBid(@PathVariable String userSubject,
+//                                         @PathVariable String jobId,
+//                                         @PathVariable String bidId) {
+//
+//        return ResponseEntity.accepted().body(service.acceptBid(jobId, bidId));
+//    }
 }

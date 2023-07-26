@@ -16,8 +16,6 @@ import { useCookies } from "react-cookie";
 import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 
 
-
-
 type JobFormDataProps = {
   title: string;
   location: string;
@@ -86,18 +84,15 @@ export const JobForm = () => {
     formData.append("materials", String(materials));
     formData.append("description", description);
 
-   
+    const userSub = getUserSubjectFromCookie(cookies);
+
     axios
-      .post(
-        "https://bidly.azurewebsites.net/api/users/" + userSubject + "/jobs",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + cookies.token,
-          },
-        }
-      )
+      .post("http://localhost:8080/api/users/" + userSub + "/jobs", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + cookies.token,
+        },
+      })
       .catch((exception) => console.error(exception));
   };
 
@@ -106,11 +101,14 @@ export const JobForm = () => {
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1, width: "100%" },
+          "& .MuiTextField-root": { m: 1, width: "100%", maxWidth: "800px" },
+          maxWidth: { xs: "100%", md: "800px" },
+          margin: "auto",
+          p: { xs: 2, md: 5 }, 
         }}
         autoComplete="off"
-        className="p-5 rounded shadow"
-        style={{ backgroundColor: "#f8f9fa" }}
+        className="rounded shadow"
+        style={{ backgroundColor: "#fff", marginBlockStart: "2%" }}
         method="post"
         onSubmit={handleSubmit}
       >
@@ -172,7 +170,12 @@ export const JobForm = () => {
           required
         />
 
-        <Box display="flex" justifyContent="center" marginBottom={2}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          marginBottom={2}
+          mt={2}
+        >
           <Button
             variant="outlined"
             color="inherit"

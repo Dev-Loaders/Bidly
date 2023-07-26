@@ -23,6 +23,7 @@ export default function RootLayout({
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <title>Bidly</title>
+        <link rel="icon" type="image/x-icon" href="/bidly-images/favicon.png" />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
