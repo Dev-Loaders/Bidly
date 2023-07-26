@@ -49,7 +49,7 @@ export default function WorkspaceLayout({
             <Nav.Link
               className="me-4"
               style={{ color: "#fff" }}
-              href={`http://localhost:8080/login?logout`}
+              href={`https:bidly-app.azurewebsites.net/login?logout`}
             >
               Logout
             </Nav.Link>

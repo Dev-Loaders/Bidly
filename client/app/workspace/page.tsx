@@ -41,9 +41,9 @@ export default function Workspace() {
 
   const getJobs = () => {
     axios
-      .get("http://localhost:8080/api/jobs", {
+      .get("https:bidly-app.azurewebsites.net/api/jobs", {
         headers: {
-          Authorization: "Bearer ",
+          Authorization: "Bearer " + cookies.token,
         },
       })
       .then((response) => {
