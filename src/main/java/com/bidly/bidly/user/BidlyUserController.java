@@ -45,7 +45,6 @@ public class BidlyUserController {
 
     @PostMapping("/{userSubject}/jobs")
     public ResponseEntity<Job> createJobPostForUser(@PathVariable String userSubject,
-//                                                  @AuthenticationPrincipal OidcUser oidcUser,
                                                   @RequestParam(value = "image", required = false) MultipartFile file,
                                                   @RequestParam("title") String title,
                                                   @RequestParam("description") String description,
