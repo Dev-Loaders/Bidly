@@ -130,7 +130,7 @@ export const JobForm = () => {
         <Typography
           className="info-box__content"
           variant="h5"
-          style={{ fontSize: "16px", color: "#242424" }}
+          style={{ fontSize: "16px", color: "#242424", margin: '0 auto' }}
         >
           Ready to transform your vision into reality? You are in the right
           place. Posting your project on Bidly is the first step towards making
