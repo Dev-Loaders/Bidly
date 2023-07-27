@@ -11,15 +11,16 @@ export default function Footer() {
           gutterBottom
           style={{ fontWeight: "600", fontFamily: "Vollkorn" }}
         >
-          Bidly
+          <Link href={`/`} style={{ textDecoration: "none", color: "#242424" }}>
+            Bidly
+          </Link>
         </Typography>
         <Typography
           variant="body2"
-          color="textSecondary"
           align="center"
           style={{ marginBottom: "2%" }}
         >
-          Created by{" "}
+          Created with &#128420; by{" "}
           <Link
             href={`https://www.linkedin.com/in/vwingardh/`}
             style={{ fontWeight: "600", color: "#242424" }}
@@ -31,10 +32,8 @@ export default function Footer() {
             href={`https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/`}
             style={{ fontWeight: "600", color: "#242424" }}
           >
-            Ibrahim{" "}
+            Ibrahim
           </Link>
-          {new Date().getFullYear()}
-          {"."}
         </Typography>
       </Container>
     </footer>
