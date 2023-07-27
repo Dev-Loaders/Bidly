@@ -64,7 +64,7 @@ export default function UserBids() {
             fontSize: "32px",
             fontWeight: "400",
             marginBlockEnd: "2%",
-            color: "#555",
+            color: "#242424",
           }}
         >
           Your Bids on Bidly

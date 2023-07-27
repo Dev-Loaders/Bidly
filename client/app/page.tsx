@@ -195,7 +195,7 @@ export default function Home() {
               fontSize: "32px",
               fontWeight: "400",
               marginBlockEnd: "4%",
-              color: "#555",
+              color: "#242424",
             }}
           >
             Publishing to Bidly

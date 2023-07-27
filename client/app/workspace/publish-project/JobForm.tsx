@@ -122,7 +122,7 @@ export const JobForm = () => {
             fontSize: "32px",
             fontWeight: "400",
             marginBlockEnd: "2%",
-            color: "#555",
+            color: "#242424",
           }}
         >
           Publish to Bidly
