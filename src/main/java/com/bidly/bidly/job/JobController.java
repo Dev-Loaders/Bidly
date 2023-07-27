@@ -53,7 +53,7 @@ public class JobController {
 
 
         try {
-            String fileUrl = azureBlobService.uploadMultipartFileToBlob(file, file.getOriginalFilename() + UUID.randomUUID());
+            String fileUrl = azureBlobService.uploadMultipartFileToBlob(file);
             Job updatedJob = new Job(title, description, location, fileUrl, Boolean.parseBoolean(materialsStr));
             Job job = service.updateJob(jobId, updatedJob);
             if (job == null) {

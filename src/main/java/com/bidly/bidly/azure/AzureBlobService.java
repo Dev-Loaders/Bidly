@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 @Service
 public class AzureBlobService {
@@ -21,7 +22,7 @@ public class AzureBlobService {
     @Value("${azure.storage.accountKey}")
     private String accountKey;
 
-    public String uploadMultipartFileToBlob(MultipartFile file, String fileName) throws IOException {
+    public String uploadMultipartFileToBlob(MultipartFile file) throws IOException {
 
         if (file.isEmpty()) {
             return "https://bidlyimages.blob.core.windows.net/images/default.png";
@@ -32,7 +33,7 @@ public class AzureBlobService {
                 .connectionString(connectionString)
                 .buildClient();
         BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient("images");
-        BlobClient blobClient = containerClient.getBlobClient(fileName);
+        BlobClient blobClient = containerClient.getBlobClient( UUID.randomUUID() + file.getOriginalFilename());
         try (InputStream is = file.getInputStream()) {
             blobClient.upload(is, file.getSize(), true);
         }
