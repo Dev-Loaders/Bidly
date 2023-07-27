@@ -94,9 +94,11 @@ export const JobForm = () => {
 
     const userSubject = getUserSubjectFromCookie(cookies);
 
+    axios.defaults.baseURL = "https://bidly-app.azurewebsites.net";
+
     axios
       .post(
-        "https://bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs",
+        "/api/users/" + userSubject + "/jobs",
         formData,
         {
           headers: {
