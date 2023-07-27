@@ -31,7 +31,7 @@ export default function Home() {
               <Button color="inherit">
                 <Link
                   style={{ textDecoration: "none", color: "#fff" }}
-                  href={`https://bidly.azurewebsites.net/login`}
+                  href={`https://bidly-app.azurewebsites.net/login`}
                 >
                   Login
                 </Link>
@@ -81,7 +81,7 @@ export default function Home() {
                 >
                   <Link
                     style={{ textDecoration: "none", color: "#242424" }}
-                    href={`https://bidly.azurewebsites.net/login`}
+                    href={`https://bidly-app.azurewebsites.net/login`}
                   >
                     Sign Up
                   </Link>

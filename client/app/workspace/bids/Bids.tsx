@@ -37,7 +37,7 @@ export default function UserBids() {
 
   const getUserBids = () => {
     axios
-      .get("https://bidly.azurewebsites.net/api/users/" + userSubject + "/bids", {
+      .get("https://bidly-app.azurewebsites.net/api/users/" + userSubject + "/bids", {
         headers: {
           Authorization: "Bearer " + cookies.token,
         },
