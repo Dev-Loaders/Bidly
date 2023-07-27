@@ -24,7 +24,6 @@
 //
 //    @Test
 //    void serviceTest() {
-//        System.out.println(jobService.getAllJobs());
 //        BidlyUser userDB = service.getUserByJwtId(user.getJwtId());
 //        Assertions.assertNotNull(userDB);
 //        assertEquals(user.getFullName(), userDB.getFullName());

@@ -121,7 +121,7 @@ export default function Workspace() {
                         height: "300px",
                         objectFit: "cover",
                       }}
-                      image={`http://localhost:8080/${job.imageUrl}`}
+                      image={`${job.imageUrl}`}
                     />
                     <CardContent>
                       <Typography variant="h5" component="div">

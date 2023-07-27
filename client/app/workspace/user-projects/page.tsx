@@ -31,7 +31,7 @@ export default function UserJobs() {
   useEffect(() => {
     const getUserJobs = () => {
       axios
-        .get("https:bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs", {
+        .get("https://bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs", {
           headers: {
             Authorization: "Bearer " + cookies.token,
           },
@@ -108,7 +108,7 @@ export default function UserJobs() {
                           borderTopLeftRadius: "5px",
                           borderTopRightRadius: "5px",
                         }}
-                        image={`http://localhost:8080/${job.imageUrl}`}
+                        image={`${job.imageUrl}`}
                       />
                       <CardContent>
                         <Typography variant="h5" component="div">

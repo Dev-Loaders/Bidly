@@ -96,7 +96,7 @@ export const JobForm = () => {
 
     axios
       .post(
-        "https:bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs",
+        "https://bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs",
         formData,
         {
           headers: {

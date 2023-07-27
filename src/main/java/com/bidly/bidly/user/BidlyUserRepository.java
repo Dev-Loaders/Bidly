@@ -20,11 +20,6 @@ public class BidlyUserRepository {
         this.repo = repo;
     }
 
-    public BidlyUser getUserId(Long id) {
-        System.out.println(repo.findById(id).orElse(null));
-        return repo.findById(id).orElse(null);
-    }
-
     public BidlyUser getUserByJwtId(String userSubject) {
         return repo.findByJwtIdEquals(userSubject).orElse(null);
     }

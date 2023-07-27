@@ -18,9 +18,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration {
 
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final CustomBearerTokenFilter customBearerTokenFilter;
     @Autowired
-    public SecurityConfiguration(CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler){
+    public SecurityConfiguration(CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler,
+                                 CustomBearerTokenFilter customBearerTokenFilter){
         this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
+        this.customBearerTokenFilter = customBearerTokenFilter;
     }
 
     @Bean
@@ -28,16 +31,14 @@ public class SecurityConfiguration {
         return http.authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/**").permitAll()
-                                .requestMatchers("/api/jobs").permitAll()
-                                .requestMatchers("/api/users/{userSubject}/jobs").permitAll()
-//                                .anyRequest().authenticated()
+                                .anyRequest().authenticated()
 
                 )
                 .cors(withDefaults())
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(customAuthenticationSuccessHandler)
                 )
-//                .addFilterBefore(new CustomBearerTokenFilter(), AuthorizationFilter.class)
+                .addFilterBefore(customBearerTokenFilter, AuthorizationFilter.class)
                 .csrf().disable()
                 .build();
     }

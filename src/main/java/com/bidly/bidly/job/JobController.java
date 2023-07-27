@@ -1,5 +1,6 @@
 package com.bidly.bidly.job;
 
+import com.bidly.bidly.azure.AzureBlobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,16 +9,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
-import static com.bidly.bidly.util.HelperMethods.getFileUrl;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/jobs")
 @CrossOrigin(origins = "*")
 public class JobController {
     private final JobService service;
+    private final AzureBlobService azureBlobService;
 
-    public JobController(JobService service) {
+    public JobController(JobService service, AzureBlobService azureBlobService) {
         this.service = service;
+        this.azureBlobService = azureBlobService;
     }
 
     @GetMapping
@@ -47,8 +50,10 @@ public class JobController {
                                          @RequestParam("description") String description,
                                          @RequestParam("location") String location,
                                          @RequestParam("materials") String materialsStr) {
+
+
         try {
-            String fileUrl = getFileUrl(file);
+            String fileUrl = azureBlobService.uploadMultipartFileToBlob(file, file.getOriginalFilename() + UUID.randomUUID());
             Job updatedJob = new Job(title, description, location, fileUrl, Boolean.parseBoolean(materialsStr));
             Job job = service.updateJob(jobId, updatedJob);
             if (job == null) {

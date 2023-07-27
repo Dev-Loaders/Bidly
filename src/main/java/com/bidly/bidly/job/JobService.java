@@ -21,7 +21,7 @@ public class JobService {
     }
 
     public List<Job> getAllJobs() {
-        List jobs = new ArrayList<>();
+        List<Job> jobs = new ArrayList<>();
         jobRepo.getAllJobs().forEach(jobs::add);
         return jobs;
     }
@@ -42,7 +42,6 @@ public class JobService {
         updateIfExists(updatedJob::getLocation, originalJob::setLocation);
         updateIfExists(updatedJob::getImageUrl, originalJob::setImageUrl);
         updateIfExists(updatedJob::isMaterials, originalJob::setMaterials);
-//        originalJob.setMaterials(updatedJob.isMaterials());
 
         return jobRepo.updateJob(originalJob);
     }
@@ -59,7 +58,6 @@ public class JobService {
 
     private <T> void updateIfExists(Supplier<T> getter, Consumer<T> setter) {
         T value = getter.get();
-        System.out.println(value);
         if (value != null && !(value instanceof String && ((String) value).isEmpty())) {
             setter.accept(value);
         }
