@@ -31,7 +31,7 @@ export default function UserJobs() {
   useEffect(() => {
     const getUserJobs = () => {
       axios
-        .get("https:bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs", {
+        .get("https://bidly-app.azurewebsites.net/api/users/" + userSubject + "/jobs", {
           headers: {
             Authorization: "Bearer " + cookies.token,
           },
