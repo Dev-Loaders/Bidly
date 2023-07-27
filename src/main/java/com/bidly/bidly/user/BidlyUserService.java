@@ -41,7 +41,7 @@ public class BidlyUserService {
                                            String location, String materialsStr) throws IOException {
 
 //        if (!oidcUser.getSubject().equals(userSubject)) {
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This action is forbidden.");
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This action is forbidden.");
 //        }
 
         boolean materials = Boolean.parseBoolean(materialsStr);

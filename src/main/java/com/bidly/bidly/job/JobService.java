@@ -21,7 +21,7 @@ public class JobService {
     }
 
     public List<Job> getAllJobs() {
-        List jobs = new ArrayList<>();
+        List<Job> jobs = new ArrayList<>();
         jobRepo.getAllJobs().forEach(jobs::add);
         return jobs;
     }
@@ -42,7 +42,6 @@ public class JobService {
         updateIfExists(updatedJob::getLocation, originalJob::setLocation);
         updateIfExists(updatedJob::getImageUrl, originalJob::setImageUrl);
         updateIfExists(updatedJob::isMaterials, originalJob::setMaterials);
-//        originalJob.setMaterials(updatedJob.isMaterials());
 
         return jobRepo.updateJob(originalJob);
     }

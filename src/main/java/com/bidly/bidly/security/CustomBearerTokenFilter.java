@@ -4,12 +4,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.ietf.jgss.Oid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.jwt.JwtValidationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 
 @Component
@@ -31,14 +28,16 @@ public class CustomBearerTokenFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
 
-            if (validation.validateJwt(token)) {
-                filterChain.doFilter(request, response);
-                return;
+            try {
+                validation.validateJwt(token);
+            } catch (JwtValidationException e) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Unauthorized");
             }
-        }
 
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write("Unauthorized");
+            filterChain.doFilter(request, response);
+
+        }
     }
 
 }
