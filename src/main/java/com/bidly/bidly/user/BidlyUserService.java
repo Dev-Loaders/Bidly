@@ -40,10 +40,6 @@ public class BidlyUserService {
     public Pair<URI, Job> addJobPostToUser(String userSubject, MultipartFile file, String title, String description,
                                            String location, String materialsStr) throws IOException {
 
-//        if (!oidcUser.getSubject().equals(userSubject)) {
-//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This action is forbidden.");
-//        }
-
         boolean materials = Boolean.parseBoolean(materialsStr);
         String azureFileUrl = azureBlobService.uploadMultipartFileToBlob(file);
         Job job = jobRepo.createJob(azureFileUrl, title, description, location, materials);
@@ -53,7 +49,6 @@ public class BidlyUserService {
                 .buildAndExpand(job.getJobId())
                 .toUri();
         return Pair.of(locationUri, job);
-
     }
 
 //    public List<Job> getCompletedUserJobs(String userSubject) {
