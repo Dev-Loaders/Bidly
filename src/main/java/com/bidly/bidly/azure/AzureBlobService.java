@@ -24,7 +24,7 @@ public class AzureBlobService {
 
     public String uploadMultipartFileToBlob(MultipartFile file) throws IOException {
 
-        if (file.isEmpty()) {
+        if (file == null || file.isEmpty()) {
             return "https://bidlyimages.blob.core.windows.net/images/default.png";
         }
         String connectionString = String.format("DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s;EndpointSuffix=core.windows.net",
