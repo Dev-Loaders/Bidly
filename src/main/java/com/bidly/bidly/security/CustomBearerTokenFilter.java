@@ -12,7 +12,7 @@ import java.io.IOException;
 @Component
 public class CustomBearerTokenFilter extends OncePerRequestFilter {
 
-    JwtValidation validation;
+    private final JwtValidation validation;
 
     CustomBearerTokenFilter(JwtValidation validation) {
         this.validation = validation;
