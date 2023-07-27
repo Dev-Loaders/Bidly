@@ -2,8 +2,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  AppBar,
-  Toolbar,
   Typography,
   Button,
   Container,
@@ -13,32 +11,14 @@ import {
   Box,
 } from "@mui/material";
 import "./globals.css";
+import HomeNav from "./HomeNav";
+import Footer from "./Footer";
 
 export default function Home() {
   return (
     <>
       <main>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static" sx={{ backgroundColor: "#242424" }}>
-            <Toolbar>
-              <Typography
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1, fontWeight: "600", fontFamily: "Vollkorn" }}
-              >
-                Bidly
-              </Typography>
-              <Button color="inherit">
-                <Link
-                  style={{ textDecoration: "none", color: "#fff" }}
-                  href={`https://bidly-app.azurewebsites.net/login`}
-                >
-                  Login
-                </Link>
-              </Button>
-            </Toolbar>
-          </AppBar>
-        </Box>
+        <HomeNav></HomeNav>
 
         <img
           className="header__img"
@@ -239,41 +219,7 @@ export default function Home() {
           />
         </Box>
 
-        <footer>
-          <Container maxWidth="lg">
-            <Typography
-              variant="h6"
-              align="center"
-              gutterBottom
-              style={{ fontWeight: "600", fontFamily: "Vollkorn" }}
-            >
-              Bidly
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              align="center"
-              style={{ marginBottom: "2%" }}
-            >
-              Created by{" "}
-              <Link
-                href={`https://www.linkedin.com/in/vwingardh/`}
-                style={{ fontWeight: "600", color: "#242424" }}
-              >
-                Vanessa
-              </Link>{" "}
-              &{" "}
-              <Link
-                href={`https://www.linkedin.com/in/ibrahim-iqbal-34a5b617a/`}
-                style={{ fontWeight: "600", color: "#242424" }}
-              >
-                Ibrahim{" "}
-              </Link>
-              {new Date().getFullYear()}
-              {"."}
-            </Typography>
-          </Container>
-        </footer>
+        <Footer></Footer>
       </main>
     </>
   );
