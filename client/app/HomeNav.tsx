@@ -9,9 +9,11 @@ export default function HomeNav() {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, fontWeight: "600", fontFamily: "Vollkorn" }}
+            sx={{ flexGrow: 1, fontWeight: "600", fontFamily: "Vollkorn", fontSize: '23px' }}
           >
-            Bidly
+            <Link href={`/`} style={{ textDecoration: "none", color: "#fff" }}>
+              Bidly
+            </Link>
           </Typography>
 
           <Typography>
