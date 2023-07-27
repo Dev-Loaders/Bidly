@@ -1,20 +1,19 @@
 import jwtDecode from "jwt-decode";
 
 type decodedToken = {
-    sub: string;
+  sub: string;
 };
 
 type jwtCookie = {
-    [x: string]: any;
+  [x: string]: any;
 };
 
-export const getUserSubjectFromCookie = (cookies : jwtCookie) => {
+export const getUserSubjectFromCookie = (cookies: jwtCookie) => {
   const tokenValue = cookies.token;
-  if (!tokenValue){
-     return null;
+  if (!tokenValue) {
+    return null;
   }
 
-  console.log(tokenValue);
   const decodedToken: decodedToken = jwtDecode(tokenValue);
   return decodedToken.sub;
 };

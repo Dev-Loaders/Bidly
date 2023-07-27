@@ -13,11 +13,9 @@ import {
   Typography,
 } from "@mui/material";
 
-import Card from "react-bootstrap/Card";
 import { useCookies } from "react-cookie";
 
 declare var window: any;
-
 
 type Job = {
   title: string;
@@ -44,7 +42,7 @@ export default function DetailView() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/jobs/${jobId}`, {
+      .get(`https:bidly-app.azurewebsites.net/api/jobs/${jobId}`, {
         headers: {
           Authorization: "Bearer " + cookies.token,
         },
@@ -55,7 +53,7 @@ export default function DetailView() {
       .catch((error) => {
         console.error(error);
       });
-  }, [jobId, newBid]);
+  }, [cookies.token, jobId, newBid]);
 
   return (
     <>
@@ -69,22 +67,27 @@ export default function DetailView() {
                 </Typography>
                 <CardMedia
                   component="img"
-                  image={`http://localhost:8080/${jobDetails?.imageUrl}`}
+                  image={`https:bidly-app.azurewebsites.net/${jobDetails?.imageUrl}`}
                 />
                 <Box mt={2}>
                   <Typography gutterBottom>
                     <strong>Location:</strong> {jobDetails?.location}
                   </Typography>
+
                   <Typography gutterBottom>
                     <strong>Materials:</strong>{" "}
                     {jobDetails?.materials ? "Provided" : "Not Provided"}
                   </Typography>
+
                   <Typography gutterBottom>
                     <strong>Description:</strong> {jobDetails?.description}
                   </Typography>
+
                   <Typography gutterBottom>
-                    <strong>Created:</strong> {jobDetails?.created}
+                    <strong>Created:</strong>{" "}
+                    {jobDetails?.created?.substring(0, 10)}
                   </Typography>
+
                   <Typography gutterBottom>
                     <strong>Bids: </strong>
                     {jobDetails?.bids?.length &&

@@ -2,8 +2,9 @@ import { getUserSubjectFromCookie } from "@/app/TokenGetter";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+import React from "react";
+import Alert from "@mui/material/Alert";
 
 declare var window: any;
 
@@ -21,8 +22,7 @@ export default function BidForm({
 }: BidFormProps & { setNewBid: React.Dispatch<React.SetStateAction<number>> }) {
   const [amount, setAmount] = useState("");
   const [cookies] = useCookies();
-
-  console.log(cookies.token);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
@@ -33,11 +33,10 @@ export default function BidForm({
     postJob({
       amount: amount,
     });
+    setShowAlert(true);
   };
 
   const userSubject = getUserSubjectFromCookie(cookies);
-  console.log(userSubject);
-  console.log(cookies.token);
 
   const postJob = ({ amount }: BidFormDataProps) => {
     const formData = new FormData();
@@ -47,8 +46,8 @@ export default function BidForm({
 
     axios
       .post(
-        "http://localhost:8080/api/users/" +
-          userSub +
+        "https:bidly-app.azurewebsites.net/api/users/" +
+          userSubject +
           "/jobs/" +
           jobId +
           "/bids",
@@ -72,32 +71,39 @@ export default function BidForm({
           <Typography variant="h5" gutterBottom align="center">
             Bid on Project
           </Typography>
+
           <Box
             my={1}
             style={{ width: "100%", borderBottom: "1px solid #ddd" }}
-            method="post"
-            onSubmit={handleSubmit}
           />
-          <Box my={3}>
-            <TextField
-              id="amount"
-              name="amount"
-              label="Bid Amount"
+          <form method="post" onSubmit={handleSubmit}>
+            {" "}
+            <Box my={3}>
+              <TextField
+                id="amount"
+                name="amount"
+                label="Bid Amount"
+                variant="outlined"
+                fullWidth
+                required
+                onChange={handleAmount}
+              />
+            </Box>
+            {showAlert && (
+              <Alert onClose={() => setShowAlert(false)} style={{ marginBottom: '3%' }}>
+                Bid posted successfully!
+              </Alert>
+            )}
+            <Button
               variant="outlined"
+              color="inherit"
+              style={{ marginBottom: "4%", padding: "6px 50px" }}
+              type="submit"
               fullWidth
-              required
-              onChange={handleAmount}
-            />
-          </Box>
-          <Button
-            variant="outlined"
-            color="inherit"
-            style={{ marginBottom: "4%", padding: "6px 50px" }}
-            type="submit"
-            fullWidth
-          >
-            Submit Bid
-          </Button>
+            >
+              Submit Bid
+            </Button>
+          </form>
         </Box>
       </Container>
     </>

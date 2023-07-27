@@ -1,10 +1,18 @@
-"use client"
-import { useSearchParams } from 'next/navigation';
+"use client";
+import { useSearchParams } from "next/navigation";
 import { useCookies } from "react-cookie";
-import { Box, Button, Card, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Link,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 type Job = {
   jobId: string;
@@ -16,26 +24,26 @@ type Job = {
 };
 
 export default function Workspace() {
-  
   const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  const token = searchParams.get("token");
   const [allJobs, setAllJobs] = useState<Job[]>([]);
 
-  const [cookies, setCookie] = useCookies(['token']);
+  const [cookies, setCookie] = useCookies(["token"]);
   const setTokenAsCookie = (token: any) => {
     if (token) {
-    setCookie('token', token, { path: '/', expires: new Date(Date.now() + 3600000)});
+      setCookie("token", token, {
+        path: "/",
+        expires: new Date(Date.now() + 3600000),
+      });
     }
   };
   setTokenAsCookie(token);
-  console.log(cookies.token);
-
 
   const getJobs = () => {
     axios
-      .get("http://localhost:8080/api/jobs", {
+      .get("https://bidly-app.azurewebsites.net/api/jobs", {
         headers: {
-          Authorization: "Bearer ",
+          Authorization: "Bearer " + cookies.token,
         },
       })
       .then((response) => {
@@ -54,7 +62,7 @@ export default function Workspace() {
     const jobId = job.jobId;
     window.location.href = `/workspace/detail-view/${jobId}`;
   };
-  
+
   return (
     <>
       <Box className="info-box">
@@ -73,7 +81,7 @@ export default function Workspace() {
         <Typography
           className="info-box__content"
           variant="h5"
-          style={{ fontSize: "16px", color: "#242424" }}
+          style={{ fontSize: "16px", color: "#242424", margin: '0 auto' }}
         >
           Each project listed here is a chance to showcase your expertise, help
           your neighbors, and grow your business all at once. Explore the posts
@@ -108,7 +116,11 @@ export default function Workspace() {
                     <CardMedia
                       component="img"
                       alt="Job"
-                      height="300"
+                      style={{
+                        width: "100%",
+                        height: "300px",
+                        objectFit: "cover",
+                      }}
                       image={`http://localhost:8080/${job.imageUrl}`}
                     />
                     <CardContent>
@@ -117,7 +129,7 @@ export default function Workspace() {
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {job.description.charAt(0).toUpperCase() +
-                          job.description.slice(1, 50)}
+                          job.description.slice(1, 40)}
                         {job.description.length > 100 ? "..." : ""}
                       </Typography>
                     </CardContent>
