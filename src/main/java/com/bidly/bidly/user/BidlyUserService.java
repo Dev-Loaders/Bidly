@@ -45,7 +45,7 @@ public class BidlyUserService {
 //        }
 
         boolean materials = Boolean.parseBoolean(materialsStr);
-        String azureFileUrl = azureBlobService.uploadMultipartFileToBlob(file, file.getOriginalFilename() + UUID.randomUUID());
+        String azureFileUrl = azureBlobService.uploadMultipartFileToBlob(file);
         Job job = jobRepo.createJob(azureFileUrl, title, description, location, materials);
         userRepo.updateUser(job, userSubject);
         URI locationUri = ServletUriComponentsBuilder.fromCurrentServletMapping()
