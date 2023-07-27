@@ -35,6 +35,19 @@ export default function Footer() {
             Ibrahim
           </Link>
         </Typography>
+        <Typography
+          variant="body2"
+          align="center"
+          style={{ marginBottom: "2%" }}
+        >
+          Source code hosted on{" "}
+          <Link
+            href={`https://github.com/Dev-Loaders/Bidly`}
+            style={{ fontWeight: "600", color: "#242424" }}
+          >
+            GitHub
+          </Link>
+        </Typography>
       </Container>
     </footer>
   );
