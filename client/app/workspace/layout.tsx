@@ -20,6 +20,7 @@ export default function WorkspaceLayout({
               fontFamily: "Vollkorn",
               fontWeight: "600",
               marginLeft: "30px",
+              fontSize: "23px",
             }}
           >
             Bidly
@@ -35,17 +36,30 @@ export default function WorkspaceLayout({
             <Nav.Link style={{ color: "#fff" }} href={`/workspace`}>
               All Projects
             </Nav.Link>
-            <Nav.Link style={{ color: "#fff" }} href={`/workspace/publish-project`}>
+            <Nav.Link
+              style={{ color: "#fff" }}
+              href={`/workspace/publish-project`}
+            >
               Publish Project
             </Nav.Link>
-            <Nav.Link style={{ color: "#fff" }} href={`/workspace/user-projects`}>
+            <Nav.Link
+              style={{ color: "#fff" }}
+              href={`/workspace/user-projects`}
+            >
               Your Projects
             </Nav.Link>
             <Nav.Link style={{ color: "#fff" }} href={`/workspace/bids`}>
               Your Bids
             </Nav.Link>
+            <Nav.Link
+              className="d-lg-none"
+              style={{ color: "#fff" }}
+              href={`https://bidly-app.azurewebsites.net/login?logout`}
+            >
+              Logout
+            </Nav.Link>
           </Nav>
-          <Nav className="ml-auto">
+          <Nav className="ml-auto d-none d-lg-block">
             <Nav.Link
               className="me-4"
               style={{ color: "#fff" }}
