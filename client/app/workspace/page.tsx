@@ -41,7 +41,7 @@ export default function Workspace() {
 
   const getJobs = () => {
     axios
-      .get("https://bidly-app.azurewebsites.net/api/jobs", {
+      .get("https://bidly.azurewebsites.net/api/jobs", {
         headers: {
           Authorization: "Bearer " + cookies.token,
         },
@@ -121,7 +121,7 @@ export default function Workspace() {
                         height: "300px",
                         objectFit: "cover",
                       }}
-                      image={`http://localhost:8080/${job.imageUrl}`}
+                      image={`${job.imageUrl}`}
                     />
                     <CardContent>
                       <Typography variant="h5" component="div">

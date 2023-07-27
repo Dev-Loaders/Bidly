@@ -46,7 +46,7 @@ export default function BidForm({
 
     axios
       .post(
-        "https:bidly-app.azurewebsites.net/api/users/" +
+        "https://bidly.azurewebsites.net/api/users/" +
           userSubject +
           "/jobs/" +
           jobId +
