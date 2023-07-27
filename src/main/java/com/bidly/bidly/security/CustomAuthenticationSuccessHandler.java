@@ -38,7 +38,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         } catch (JwtValidationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
-        String redirectUrl = "https://https://bidly-ha8y46573-dev-loaders.vercel.app//workspace?token=" + URLEncoder.encode(tokenValue, StandardCharsets.UTF_8);
+        String redirectUrl = "https://bidly-git-merged-branches-dev-loaders.vercel.app/workspace?token=" + URLEncoder.encode(tokenValue, StandardCharsets.UTF_8);
         createUserAccountIfItDoesNotExist(oidcUser);
         response.sendRedirect(redirectUrl);
     }
