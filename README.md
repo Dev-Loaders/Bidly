@@ -3,7 +3,7 @@ Bidly is an innovative platform that connects homeowners directly with local tra
 This project was brought to life by [Vanessa Wingårdh](https://github.com/vwingardh) and [Ibrahim Iqbal](https://github.com/dIB59) during a two-week project at SALT.
 
 ## Preview
-<img src="https://github.com/Dev-Loaders/Bidly/assets/101557392/b1057956-6ced-43ff-8808-81496eb27642" width="700px" height="600px">
+<img src="https://github.com/Dev-Loaders/Bidly/assets/101557392/773f8f72-6b18-4b96-af45-5c6f69f15c61" width="700px" height="600px">
 
 ## Overview
 Traditionally, when homeowners needed to install something as simple as recessed lights, they would have to engage with a commercial company. This often resulted in higher costs and less personalized service. We thought, "What if there was a way to connect with a local electrician for a quote?" Enter Bidly.
